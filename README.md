@@ -19,18 +19,18 @@ Let’s dive deeper into each one, starting with the requirements, and then pres
 What do we need out of an API to execute an agent?
 
 - Support the two paradigms for launching a run
-  - fire and forget
-  - waiting on a reply (blocking or polling)
+  - Fire and forget, ie. launch a run in the background, but don’t wait for it to finish
+  - Waiting on a reply (blocking or polling), ie. launch a run and wait/stream its output
 - Support CRUD for agent executions
-  - list and get runs
-  - cancel and delete runs
+  - List and get runs
+  - Cancel and delete runs
 - Flexible ways to consume output
-  - streaming output (can reconnect on connection drop)
-  - final state
-  - token streaming
+  - Get the final state
+  - Multiple types of streaming output, eg. token-by-token, intermediate steps, etc.
+  - Able to reconnect to output stream if disconnected
 - Handling edge cases
-  - Retry on failure
-  - Bursty traffic is queued up
+  - Failures should be handled gracefully, and retried if desired
+  - Bursty traffic should be queued up
 
 Base Endpoints:
 
