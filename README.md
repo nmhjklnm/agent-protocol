@@ -32,6 +32,21 @@ What do we need out of an API to execute an agent?
   - Retry on failure
   - Bursty traffic is queued up
 
+Base Endpoints:
+
+- [`GET /threads/{thread_id}/runs`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/GET/threads/%7Bthread_id%7D/runs) - List runs.
+- [`POST /threads/{thread_id}/runs`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/threads/%7Bthread_id%7D/runs) - Create a run.
+- [`GET /threads/{thread_id}/runs/{run_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/GET/threads/%7Bthread_id%7D/runs/%7Brun_id%7D) - Get a run and its status.
+- [`POST /threads/{thread_id}/runs/{run_id}/cancel`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/threads/%7Bthread_id%7D/runs/%7Brun_id%7D/cancel) - Cancel a run. If the run hasn’t started, cancel it immediately, if it’s currently running then cancel it as soon as possible.
+- [`DELETE /threads/{thread_id}/runs/{run_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/DELETE/threads/%7Bthread_id%7D/runs/%7Brun_id%7D) - Delete a finished run. A pending run needs to be cancelled first, see previous endpoint.
+- [`GET /threads/{thread_id}/runs/{run_id}/wait`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/GET/threads/%7Bthread_id%7D/runs/%7Brun_id%7D/wait) - Wait for a run to finish, return the final output. If the run already finished, returns its final output immediately.
+- [`GET /threads/{thread_id}/runs/{run_id}/stream`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/GET/threads/%7Bthread_id%7D/runs/%7Brun_id%7D/stream) - Join the output stream of an existing run. Only output produced after this endpoint is called will be streamed.
+
+Convenience Endpoints:
+
+- [`POST /threads/{thread_id}/runs/wait`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/threads/%7Bthread_id%7D/runs/wait) - Create a run, and wait for its final output.
+- [`POST /threads/{thread_id}/runs/stream`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/threads/%7Bthread_id%7D/runs/stream) - Create a run, and stream output as produced.
+
 ## Threads: multi-turn interactions
 
 What APIs do you need to enable multi-turn interactions?
@@ -67,7 +82,7 @@ What do you need out of a memory API for agents?
 - Customizable memory scopes
   - Storing memory against the user, thread, assistant, company, etc
   - Accessing memory from different scopes in the same run
-    -
+- …
 
 ## Roadmap
 
