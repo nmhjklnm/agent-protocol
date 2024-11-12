@@ -52,16 +52,16 @@ Convenience Endpoints:
 What APIs do you need to enable multi-turn interactions?
 
 - Persistent state
-  - get and update state
-  - append-only log of states
-  - optimized storage
-- Support for concurrent inputs from user
-  - Implement chatbots with more natural UX
-  - Choose from 4 modes to handle this
+  - Get and update state
+  - Track history of past states of a thread, modelled as an append-only log of states
+  - Optimize storage by storing only diffs between states
+- Concurrency controls
+  - Ensure that only one run per thread is active at a time
+  - Customizable handling of concurrent runs (interrupt, enqueue, interrupt or rollback)
 - CRUD endpoints for threads
-  - list threads by users
-  - list threads that need attention (interrupted)
-  - copy or delete threads
+  - List threads by user, or other metadata
+  - List threads by status (idle, interrupted, errored, finished)
+  - Copy or delete threads
 
 Endpoints:
 
@@ -82,7 +82,20 @@ What do you need out of a memory API for agents?
 - Customizable memory scopes
   - Storing memory against the user, thread, assistant, company, etc
   - Accessing memory from different scopes in the same run
-- …
+- Flexible storage
+  - Support simple text memories, as well as structured data
+  - CRUD operations for memories (create, read, update, delete)
+- Search and retrieval
+  - Get a single memory by namespace and key
+  - List memories filtered by namespace, contents, sorted by time, etc
+
+Endpoints:
+
+- [`PUT /store/items`](https://langchain-ai.github.io/agent-protocol/api.html#tag/store/PUT/store/items) - Create or update a memory item, at a given namespace and key.
+- [`DELETE /store/items`](https://langchain-ai.github.io/agent-protocol/api.html#tag/store/DELETE/store/items) - Delete a memory item, at a given namespace and key.
+- [`GET /store/items`](https://langchain-ai.github.io/agent-protocol/api.html#tag/store/GET/store/items) - Get a memory item, at a given namespace and key.
+- [`POST /store/items/search`](https://langchain-ai.github.io/agent-protocol/api.html#tag/store/POST/store/items/search) - Search memory items.
+- [`POST /store/namespaces`](https://langchain-ai.github.io/agent-protocol/api.html#tag/store/POST/store/namespaces) - List namespaces.
 
 ## Roadmap
 
