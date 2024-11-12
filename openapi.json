@@ -947,13 +947,13 @@
         }
       }
     },
-    "/threads/{thread_id}/runs/{run_id}/join": {
+    "/threads/{thread_id}/runs/{run_id}/wait": {
       "get": {
         "tags": [
           "Runs"
         ],
-        "summary": "Join Run",
-        "description": "Wait for a run to finish.",
+        "summary": "Wait for Run output",
+        "description": "Wait for a run to finish, return the final output. If the run already finished, returns its final output immediately.",
         "operationId": "join_run_http_threads__thread_id__runs__run_id__join_get",
         "parameters": [
           {
@@ -1018,8 +1018,8 @@
         "tags": [
           "Runs"
         ],
-        "summary": "Join Run Stream",
-        "description": "Join a run stream. This endpoint streams output in real-time from a run similar to the /threads/__THREAD_ID__/runs/stream endpoint. Only output produced after this endpoint is called will be streamed.",
+        "summary": "Stream output from Run",
+        "description": "Join the output stream of an existing run. This endpoint streams output in real-time from a run similar to the /threads/__THREAD_ID__/runs/stream endpoint. Only output produced after this endpoint is called will be streamed.",
         "operationId": "stream_run_http_threads__thread_id__runs__run_id__join_get",
         "parameters": [
           {
