@@ -2,9 +2,9 @@
 
 Agent Protocol is our attempt at codifying the framework-agnostic APIs that are needed to serve LLM agents in production. This documents explains the purpose of the protocol and makes the case for each of the endpoints in the spec. We finish by listing some roadmap items for the future.
 
-[LangGraph Platform](https://www.langchain.com/pricing-langgraph-platform) implements a superset of this protocol, but we very much welcome other implementations from the community.
-
 See the full OpenAPI docs [here](https://langchain-ai.github.io/agent-protocol/api.html) and the JSON spec [here](https://langchain-ai.github.io/agent-protocol/openapi.json).
+
+[LangGraph Platform](https://www.langchain.com/pricing-langgraph-platform) implements a superset of this protocol, but we very much welcome other implementations from the community.
 
 ## Why Agent Protocol
 
