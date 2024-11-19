@@ -1,6 +1,6 @@
 # Agent Protocol
 
-Agent Protocol is our attempt at codifying the framework-agnostic APIs that are needed to serve LLM agents in production. This documents explains the purpose of the protocol and makes the case for each of the endpoints in the spec. We finish by listing some roadmap items for the future.
+Agent Protocol is our attempt at codifying the framework-agnostic APIs that are needed to serve LLM agents in production. This document explains the purpose of the protocol and makes the case for each of the endpoints in the spec. We finish by listing some roadmap items for the future.
 
 See the full OpenAPI docs [here](https://langchain-ai.github.io/agent-protocol/api.html) and the JSON spec [here](https://langchain-ai.github.io/agent-protocol/openapi.json).
 
