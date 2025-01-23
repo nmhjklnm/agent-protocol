@@ -1449,7 +1449,6 @@
         "required": [
           "run_id",
           "thread_id",
-          "assistant_id",
           "created_at",
           "updated_at",
           "status",
@@ -1653,9 +1652,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "assistant_id"
-        ],
+        "required": [],
         "title": "RunCreateStateful",
         "description": "Payload for creating a run."
       },
