@@ -7,7 +7,7 @@
   "tags": [
     {
       "name": "Threads",
-      "description": "A thread contains the accumulated outputs of a group of runs."
+      "description": "A thread contains the accumulated outputs of a group of runs. It is is a container to maintain the state of an agent across multiple runs. It also acts as a registry for the runs.\n\nA thread keeps track of agent states at every step so that continuity of the context is preserved. Moreover, such a book-keeping enables us some granular controls like debugging, interrupting or replaying a run/invocation.\n\nA thread state is a data context defined by the developer and can be anything (e.g. a `typeddict`) and it gets passed through from one invocation to another so that business logic is instrumented by data.\n\nA thread keeps track of the whole state history. At every step, it also applies a checkpoint, which is primarily a `uuid`, so that it is easier to refer to a chunk of the history.\n\nOne can easily query the last state, a specific state (by checkpoint id), the whole state history, or, a part of the history (from a checkpoint).\n\nSee `Thread`, `ThreadState` and `Checkpoint` models below for more info."
     },
     {
       "name": "Runs",
