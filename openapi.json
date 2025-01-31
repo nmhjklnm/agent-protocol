@@ -1527,42 +1527,6 @@
             "title": "Webhook",
             "description": "Webhook to call after LangGraph API call is done."
           },
-          "interrupt_before": {
-            "anyOf": [
-              {
-                "type": "string",
-                "enum": [
-                  "*"
-                ]
-              },
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
-            "title": "Interrupt Before",
-            "description": "Nodes to interrupt immediately before they get executed."
-          },
-          "interrupt_after": {
-            "anyOf": [
-              {
-                "type": "string",
-                "enum": [
-                  "*"
-                ]
-              },
-              {
-                "items": {
-                  "type": "string"
-                },
-                "type": "array"
-              }
-            ],
-            "title": "Interrupt After",
-            "description": "Nodes to interrupt immediately after they get executed."
-          },
           "stream_mode": {
             "anyOf": [
               {
