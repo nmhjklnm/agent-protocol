@@ -1814,42 +1814,6 @@
             "type": "array",
             "title": "Next"
           },
-          "tasks": {
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "title": "Task Id"
-                },
-                "name": {
-                  "type": "string",
-                  "title": "Node Name"
-                },
-                "error": {
-                  "type": "string",
-                  "title": "Error"
-                },
-                "interrupts": {
-                  "type": "array",
-                  "items": {}
-                },
-                "checkpoint": {
-                  "$ref": "#/components/schemas/CheckpointConfig",
-                  "title": "Checkpoint"
-                },
-                "state": {
-                  "$ref": "#/components/schemas/ThreadState"
-                }
-              },
-              "required": [
-                "id",
-                "name"
-              ]
-            },
-            "type": "array",
-            "title": "Tasks"
-          },
           "checkpoint": {
             "$ref": "#/components/schemas/CheckpointConfig",
             "title": "Checkpoint"
