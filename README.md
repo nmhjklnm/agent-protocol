@@ -77,6 +77,14 @@ Endpoints:
 - [`DELETE /threads/{thread_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/threads/DELETE/threads/%7Bthread_id%7D) - Delete a thread.
 - [`PATCH /threads/{thread_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/threads/PATCH/threads/%7Bthread_id%7D) - Update the metadata for a thread.
 
+## Stateless Runs: one-shot interactions
+
+In some cases, you may want to create a thread and run in one request, and have the thread be deleted after the run concludes. This is useful for ephemeral or stateless interactions, where you don’t need to keep track of the thread’s state.
+
+- [`POST /runs`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs) - Create an ephemeral thread and run in one request. The thread will be deleted after the run concludes. This is likely to be useful only when the agent has side effects, as you won’t be able to access the thread’s state after the run finishes.
+- [`POST /runs/wait`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/wait) - Create an ephemeral thread and run, and wait for its final output, which is returned in the response.
+- [`POST /runs/stream`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/stream) - Create an ephemeral thread and run, and stream output as produced.
+
 ## Store: Long-term memory
 
 What do you need out of a memory API for agents?

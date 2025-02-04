@@ -11,7 +11,11 @@
     },
     {
       "name": "Runs",
-      "description": "A run is an invocation of a graph / assistant on a thread. It updates the state of the thread."
+      "description": "A run is an invocation of an agent on a thread. It updates the state of the thread."
+    },
+    {
+      "name": "Stateless Runs",
+      "description": "A run is an invocation of an agent, with no state or memory persistence."
     },
     {
       "name": "Store",
@@ -1169,6 +1173,189 @@
         }
       }
     },
+    "/runs": {
+      "post": {
+        "tags": [
+          "Stateless Runs"
+        ],
+        "summary": "Create Background Run",
+        "description": "Create a run in a new thread, return the run ID immediately. Don't wait for the final run output.",
+        "operationId": "run_stateless_runs_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunCreateStateless"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs/stream": {
+      "post": {
+        "tags": [
+          "Stateless Runs"
+        ],
+        "summary": "Create Run, Stream Output",
+        "description": "Create a run in a new thread, stream the output.",
+        "operationId": "stream_run_stateless_runs_stream_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunCreateStateless"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string",
+                  "description": "The server will send a stream of events in SSE format.\n\n**Example event**:\n\nid: 1\n\nevent: message\n\ndata: {}"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/runs/wait": {
+      "post": {
+        "tags": [
+          "Stateless Runs"
+        ],
+        "summary": "Create Run, Wait for Output",
+        "description": "Create a run in a new thread. Wait for the final output and then return it.",
+        "operationId": "wait_run_stateless_runs_wait_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunCreateStateless"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/store/items": {
       "put": {
         "tags": [
@@ -1618,6 +1805,208 @@
         "type": "object",
         "required": [],
         "title": "RunCreateStateful",
+        "description": "Payload for creating a run."
+      },
+      "RunCreateStateless": {
+        "properties": {
+          "assistant_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid",
+                "title": "Assistant Id"
+              },
+              {
+                "type": "string",
+                "title": "Graph Id"
+              }
+            ],
+            "description": "The assistant ID or graph name to run. If using graph name, will default to first assistant created from that graph."
+          },
+          "input": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Input",
+            "description": "The input to the graph."
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata",
+            "description": "Metadata to assign to the run."
+          },
+          "config": {
+            "properties": {
+              "tags": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array",
+                "title": "Tags"
+              },
+              "recursion_limit": {
+                "type": "integer",
+                "title": "Recursion Limit"
+              },
+              "configurable": {
+                "type": "object",
+                "title": "Configurable"
+              }
+            },
+            "type": "object",
+            "title": "Config",
+            "description": "The configuration for the assistant."
+          },
+          "webhook": {
+            "type": "string",
+            "maxLength": 65536,
+            "minLength": 1,
+            "format": "uri",
+            "title": "Webhook",
+            "description": "Webhook to call after LangGraph API call is done."
+          },
+          "interrupt_before": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "*"
+                ]
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ],
+            "title": "Interrupt Before",
+            "description": "Nodes to interrupt immediately before they get executed."
+          },
+          "interrupt_after": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "*"
+                ]
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ],
+            "title": "Interrupt After",
+            "description": "Nodes to interrupt immediately after they get executed."
+          },
+          "stream_mode": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "values",
+                    "messages",
+                    "messages-tuple",
+                    "updates",
+                    "events",
+                    "debug",
+                    "custom"
+                  ]
+                },
+                "type": "array"
+              },
+              {
+                "type": "string",
+                "enum": [
+                  "values",
+                  "messages",
+                  "messages-tuple",
+                  "updates",
+                  "events",
+                  "debug",
+                  "custom"
+                ]
+              }
+            ],
+            "title": "Stream Mode",
+            "description": "The stream mode(s) to use.",
+            "default": [
+              "values"
+            ]
+          },
+          "on_completion": {
+            "type": "string",
+            "enum": [
+              "delete",
+              "keep"
+            ],
+            "title": "On Completion",
+            "description": "Whether to delete or keep the thread created for a stateless run. Must be one of 'delete' or 'keep'.",
+            "default": "delete"
+          },
+          "on_disconnect": {
+            "type": "string",
+            "enum": [
+              "cancel",
+              "continue"
+            ],
+            "title": "On Disconnect",
+            "description": "The disconnect mode to use. Must be one of 'cancel' or 'continue'.",
+            "default": "cancel"
+          },
+          "feedback_keys": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Feedback Keys",
+            "description": "Feedback keys to assign to run."
+          },
+          "multitask_strategy": {
+            "type": "string",
+            "enum": [
+              "reject",
+              "rollback",
+              "interrupt",
+              "enqueue"
+            ],
+            "title": "Multitask Strategy",
+            "description": "Multitask strategy to use. Must be one of 'reject', 'interrupt', 'rollback', or 'enqueue'.",
+            "default": "reject"
+          },
+          "if_not_exists": {
+            "type": "string",
+            "enum": [
+              "create",
+              "reject"
+            ],
+            "title": "If Not Exists",
+            "description": "How to handle missing thread. Must be either 'reject' (raise error if missing), or 'create' (create new thread).",
+            "default": "reject"
+          },
+          "after_seconds": {
+            "type": "integer",
+            "title": "After Seconds",
+            "description": "The number of seconds to wait before starting the run. Use to schedule future runs."
+          }
+        },
+        "type": "object",
+        "required": [],
+        "title": "RunCreateStateless",
         "description": "Payload for creating a run."
       },
       "ThreadSearchRequest": {
