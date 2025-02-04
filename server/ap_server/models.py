@@ -143,6 +143,81 @@ class RunCreateStateful(BaseModel):
     )
 
 
+class InterruptBefore(Enum):
+    field_ = "*"
+
+
+class InterruptAfter(Enum):
+    field_ = "*"
+
+
+class OnCompletion(Enum):
+    delete = "delete"
+    keep = "keep"
+
+
+class RunCreateStateless(BaseModel):
+    assistant_id: Optional[Union[UUID, str]] = Field(
+        None,
+        description="The assistant ID or graph name to run. If using graph name, will default to first assistant created from that graph.",
+    )
+    input: Optional[Union[List[Dict[str, Any]], Dict[str, Any]]] = Field(
+        None, description="The input to the graph.", title="Input"
+    )
+    metadata: Optional[Dict[str, Any]] = Field(
+        None, description="Metadata to assign to the run.", title="Metadata"
+    )
+    config: Optional[Config] = Field(
+        None, description="The configuration for the assistant.", title="Config"
+    )
+    webhook: Optional[AnyUrl] = Field(
+        None,
+        description="Webhook to call after LangGraph API call is done.",
+        title="Webhook",
+    )
+    interrupt_before: Optional[Union[InterruptBefore, List[str]]] = Field(
+        None,
+        description="Nodes to interrupt immediately before they get executed.",
+        title="Interrupt Before",
+    )
+    interrupt_after: Optional[Union[InterruptAfter, List[str]]] = Field(
+        None,
+        description="Nodes to interrupt immediately after they get executed.",
+        title="Interrupt After",
+    )
+    stream_mode: Optional[Union[List[StreamModeEnum], StreamMode]] = Field(
+        ["values"], description="The stream mode(s) to use.", title="Stream Mode"
+    )
+    on_completion: Optional[OnCompletion] = Field(
+        "delete",
+        description="Whether to delete or keep the thread created for a stateless run. Must be one of 'delete' or 'keep'.",
+        title="On Completion",
+    )
+    on_disconnect: Optional[OnDisconnect] = Field(
+        "cancel",
+        description="The disconnect mode to use. Must be one of 'cancel' or 'continue'.",
+        title="On Disconnect",
+    )
+    feedback_keys: Optional[List[str]] = Field(
+        None, description="Feedback keys to assign to run.", title="Feedback Keys"
+    )
+    multitask_strategy: Optional[MultitaskStrategy] = Field(
+        "reject",
+        description="Multitask strategy to use. Must be one of 'reject', 'interrupt', 'rollback', or 'enqueue'.",
+        title="Multitask Strategy",
+    )
+    if_not_exists: Optional[IfNotExists] = Field(
+        "reject",
+        description="How to handle missing thread. Must be either 'reject' (raise error if missing), or 'create' (create new thread).",
+        title="If Not Exists",
+    )
+    after_seconds: Optional[int] = Field(
+        None,
+        description="The number of seconds to wait before starting the run. Use to schedule future runs.",
+        title="After Seconds",
+    )
+
+
 class Status1(Enum):
     idle = "idle"
     busy = "busy"
