@@ -6,6 +6,14 @@ See the full OpenAPI docs [here](https://langchain-ai.github.io/agent-protocol/a
 
 [LangGraph Platform](https://www.langchain.com/pricing-langgraph-platform) implements a superset of this protocol, but we very much welcome other implementations from the community.
 
+## Resources
+
+- [Agent Protocol OpenAPI Docs](https://langchain-ai.github.io/agent-protocol/api.html)
+- [Agent Protocol JSON Spec](https://langchain-ai.github.io/agent-protocol/openapi.json)
+- [Agent Protocol Python Server Stubs](./server/) - a Python server, using Pydantic V2 and FastAPI, auto-generated from the OpenAPI spec
+- [LangGraph.js API](https://github.com/langchain-ai/langgraphjs-api/tree/main/libs/langgraph-api) - an open-source implementation of this protocol, for LangGraph.js agents, using in-memory storage
+- [LangGraph Platform](https://www.langchain.com/pricing-langgraph-platform) - a commercial platform that implements a superset of this protocol for deploying any LLM agent in production
+
 ## Why Agent Protocol
 
 What is the right API to serve an LLM application in production? We believe it’s centered around 3 important concepts:
@@ -109,6 +117,7 @@ Endpoints:
 
 ## Roadmap
 
+- Add detailed specification for each stream mode (currently this is left open to the implementer)
 - Add Store endpoint to perform a vector search over memory entries
 - Add param for `POST /threads/{thread_id}/runs/{run_id}/stream` to replay events since `event-id` before streaming new events
 - Add param to `POST /threads/{thread_id}/runs ` to optionally allow concurrent runs on the same thread (current spec makes this forbidden)
