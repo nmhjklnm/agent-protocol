@@ -1664,13 +1664,19 @@
           "input": {
             "anyOf": [
               {
-                "items": {
-                  "type": "object"
-                },
+                "type": "object"
+              },
+              {
                 "type": "array"
               },
               {
-                "type": "object"
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
               },
               {
                 "type": "null"
@@ -1814,13 +1820,19 @@
           "input": {
             "anyOf": [
               {
-                "items": {
-                  "type": "object"
-                },
+                "type": "object"
+              },
+              {
                 "type": "array"
               },
               {
-                "type": "object"
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
               },
               {
                 "type": "null"
