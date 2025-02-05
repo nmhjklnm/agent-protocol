@@ -115,6 +115,133 @@ Endpoints:
 - [`POST /store/items/search`](https://langchain-ai.github.io/agent-protocol/api.html#tag/store/POST/store/items/search) - Search memory items.
 - [`POST /store/namespaces`](https://langchain-ai.github.io/agent-protocol/api.html#tag/store/POST/store/namespaces) - List namespaces.
 
+## Agent Protocol in Action
+
+Below are a few illustrative “user journeys” in [Hurl](https://hurl.dev) format, each showing a common sequence of API calls against your Agent Protocol service (listening at localhost:8000, no auth required).
+
+They’re organized so that you can paste each journey into its own .hurl file (or combine them), then run them with the “hurl” command. This should give you a good sense of how the protocol can be used in practice.
+
+### Journey 1: Create Thread → Get Thread → Create Run → Wait for Output
+
+```hurl
+# 1. Create a brand new thread
+POST http://localhost:8000/threads
+Content-Type: application/json
+
+{
+  "thread_id": "229c1834-bc04-4d90-8fd6-77f6b9ef1462",
+  "metadata": {
+    "purpose": "support-chat"
+  }
+}
+
+HTTP/1.1 200
+[Asserts]
+jsonpath "$.thread_id" == "229c1834-bc04-4d90-8fd6-77f6b9ef1462"
+
+
+# 2. Retrieve the thread we just created
+GET http://localhost:8000/threads/229c1834-bc04-4d90-8fd6-77f6b9ef1462
+
+HTTP/1.1 200
+[Asserts]
+jsonpath "$.status" == "idle"
+
+
+# 3. Create a run in the existing thread (background run).
+# Capture the run_id for the next step.
+POST http://localhost:8000/threads/229c1834-bc04-4d90-8fd6-77f6b9ef1462/runs
+Content-Type: application/json
+
+{
+  "input": {
+    "message": "Hi there, what's the weather?"
+  },
+  "metadata": {
+    "requestType": "weatherQuery"
+  }
+}
+
+HTTP/1.1 200
+[Captures]
+run_id: jsonpath "$.run_id"
+[Asserts]
+jsonpath "$.status" == "pending"
+
+
+# 4. Wait for final run output
+GET http://localhost:8000/threads/229c1834-bc04-4d90-8fd6-77f6b9ef1462/runs/{{run_id}}/wait
+
+HTTP/1.1 200
+[Asserts]
+# For example, check that the run status is success or error,
+# depending on your actual system's response:
+jsonpath "$.status" == "success"
+```
+
+### Journey 2: Ephemeral “Stateless” Run (Create + Wait)
+
+```hurl
+# Launch a one-shot run with a brand new ephemeral thread,
+# and wait for the final output right away.
+POST http://localhost:8000/runs/wait
+Content-Type: application/json
+
+{
+  "input": {
+    "prompt": "What's the fastest route to the airport?"
+  },
+  "metadata": {
+    "useCase": "travelPlan"
+  },
+  "config": {
+    "tags": ["ephemeral", "demo"]
+  }
+}
+
+HTTP/1.1 200
+```
+
+### Journey 3: Using the Store (Add, Retrieve, and Delete an Item)
+
+```hurl
+# 1. Put (store or update) an item in the store
+PUT http://localhost:8000/store/items
+Content-Type: application/json
+
+{
+  "namespace": ["user_profiles"],
+  "key": "profile_jane_doe",
+  "value": {
+    "displayName": "Jane Doe",
+    "role": "customer"
+  }
+}
+
+HTTP/1.1 204
+
+
+# 2. Retrieve it by namespace/key
+GET http://localhost:8000/store/items?key=profile_jane_doe&namespace=user_profiles
+
+HTTP/1.1 200
+[Asserts]
+jsonpath "$.value.displayName" == "Jane Doe"
+jsonpath "$.value.role" == "customer"
+
+
+# 3. Delete the item
+DELETE http://localhost:8000/store/items
+Content-Type: application/json
+
+{
+  "namespace": ["user_profiles"],
+  "key": "profile_jane_doe"
+}
+
+HTTP/1.1 204
+```
+
 ## Roadmap
 
 - Add detailed specification for each stream mode (currently this is left open to the implementer)
