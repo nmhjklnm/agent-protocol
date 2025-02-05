@@ -181,6 +181,8 @@ HTTP/1.1 200
 jsonpath "$.status" == "success"
 ```
 
+You can replace the last step with `GET /threads/{thread_id}/runs/{run_id}/stream` to stream the output as it’s produced, or with `GET /threads/{thread_id}` to poll status/output without waiting.
+
 ### Journey 2: Ephemeral “Stateless” Run (Create + Wait)
 
 This journey demonstrates a one-shot run, where you create a thread and run in one request, and wait for the final output. This is useful for stateless interactions, where you want to start fresh each time. Good use cases include extraction or research agents.
