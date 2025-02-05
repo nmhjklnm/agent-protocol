@@ -123,6 +123,8 @@ They’re organized so that you can paste each journey into its own .hurl file (
 
 ### Journey 1: Create Thread → Get Thread → Create Run → Wait for Output
 
+This journey demonstrates the typical sequence of creating a thread, launching a run, and waiting for the final output. You can then repeat the two last steps to launch more runs in the same thread. This is the most common pattern for multi-turn interactions, such as a chatbot conversation.
+
 ```hurl
 # 1. Create a brand new thread
 POST http://localhost:8000/threads
@@ -181,6 +183,8 @@ jsonpath "$.status" == "success"
 
 ### Journey 2: Ephemeral “Stateless” Run (Create + Wait)
 
+This journey demonstrates a one-shot run, where you create a thread and run in one request, and wait for the final output. This is useful for stateless interactions, where you want to start fresh each time. Good use cases include extraction or research agents.
+
 ```hurl
 # Launch a one-shot run with a brand new ephemeral thread,
 # and wait for the final output right away.
@@ -203,6 +207,8 @@ HTTP/1.1 200
 ```
 
 ### Journey 3: Using the Store (Add, Retrieve, and Delete an Item)
+
+This journey demonstrates how to use the Store API to add, retrieve, and delete an item. This is useful for storing long-term memory, such as user profiles, preferences, or other structured data, which can be accessed btoh inside and outside the agent.
 
 ```hurl
 # 1. Put (store or update) an item in the store
