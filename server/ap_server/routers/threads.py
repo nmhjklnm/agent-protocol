@@ -99,7 +99,7 @@ def patch_thread_threads__thread_id__patch(
 @router.post(
     "/threads/{thread_id}/copy",
     response_model=Thread,
-    responses={"409": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
+    responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Threads"],
 )
 def copy_thread_post_threads__thread_id__copy_post(
@@ -114,7 +114,7 @@ def copy_thread_post_threads__thread_id__copy_post(
 @router.get(
     "/threads/{thread_id}/history",
     response_model=ThreadsThreadIdHistoryGetResponse,
-    responses={"422": {"model": ErrorResponse}},
+    responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Threads"],
 )
 def get_thread_history_threads__thread_id__history_get(
@@ -129,7 +129,7 @@ def get_thread_history_threads__thread_id__history_get(
 @router.get(
     "/threads/{thread_id}/state",
     response_model=ThreadState,
-    responses={"422": {"model": ErrorResponse}},
+    responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Threads"],
 )
 def get_latest_thread_state_threads__thread_id__state_get(
@@ -144,7 +144,7 @@ def get_latest_thread_state_threads__thread_id__state_get(
 @router.post(
     "/threads/{thread_id}/state",
     response_model=ThreadStateUpdateResponse,
-    responses={"422": {"model": ErrorResponse}},
+    responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Threads"],
 )
 def update_thread_state_threads__thread_id__state_post(
