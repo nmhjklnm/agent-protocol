@@ -115,6 +115,16 @@ Endpoints:
 - [`POST /store/items/search`](https://langchain-ai.github.io/agent-protocol/api.html#tag/store/POST/store/items/search) - Search memory items.
 - [`POST /store/namespaces`](https://langchain-ai.github.io/agent-protocol/api.html#tag/store/POST/store/namespaces) - List namespaces.
 
+## Agents: Introspection
+
+Before you make use of an agent, it's sometimes useful to know what it can do, what inputs it accepts, what it returns, etc. This is where the introspection endpoints come in.
+
+Endpoints:
+
+- [`POST /agents/search`](https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/POST/agents/search) - List all agents, optionally filtered by metadata or name.
+- [`GET /agents/{agent_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/%7Bagent_id%7D) - Get basic information about an agent, including its name, description, metadata.
+- [`GET /agents/{agent_id}/schemas`](https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/%7Bagent_id%7D/schemas) - Get the input, output, state and config schemas for an agent. All schemas are represented in JSON Schema format.
+
 ## Agent Protocol in Action
 
 Below are a few illustrative “user journeys” in [Hurl](https://hurl.dev) format, each showing a common sequence of API calls against your Agent Protocol service (listening at localhost:8000, no auth required).
