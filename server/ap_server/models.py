@@ -11,7 +11,7 @@ from pydantic import AnyUrl, AwareDatetime, BaseModel, Field, RootModel, conint
 
 
 class Agent(BaseModel):
-    agent_id: UUID = Field(..., description="The ID of the agent.", title="Agent Id")
+    agent_id: str = Field(..., description="The ID of the agent.", title="Agent Id")
     name: str = Field(..., description="The name of the agent", title="Agent Name")
     description: Optional[str] = Field(
         None, description="The description of the agent.", title="Description"

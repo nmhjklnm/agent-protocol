@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from fastapi import APIRouter
 
-from ..models import Agent, AgentSchemas, AgentsGetResponse, ErrorResponse, UUID, Union
+from ..models import Agent, AgentSchemas, AgentsGetResponse, ErrorResponse, Union
 
 router = APIRouter(tags=["Agents"])
 
@@ -29,7 +29,7 @@ def list_agents_get_agents() -> Union[AgentsGetResponse, ErrorResponse]:
     responses={"404": {"model": ErrorResponse}},
     tags=["Agents"],
 )
-def get_agent_agents__agent_id__get(agent_id: UUID) -> Union[Agent, ErrorResponse]:
+def get_agent_agents__agent_id__get(agent_id: str) -> Union[Agent, ErrorResponse]:
     """
     Get Agent
     """
@@ -43,7 +43,7 @@ def get_agent_agents__agent_id__get(agent_id: UUID) -> Union[Agent, ErrorRespons
     tags=["Agents"],
 )
 def get_agent_schemas_agents__agent_id__schemas_get(
-    agent_id: UUID,
+    agent_id: str,
 ) -> Union[AgentSchemas, ErrorResponse]:
     """
     Get Agent Schemas

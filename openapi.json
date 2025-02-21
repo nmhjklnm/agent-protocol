@@ -87,7 +87,6 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
               "title": "Agent ID",
               "description": "The ID of the agent."
             },
@@ -133,7 +132,6 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid",
               "title": "Agent Id",
               "description": "The ID of the agent."
             },
@@ -1753,7 +1751,6 @@
         "properties": {
           "agent_id": {
             "type": "string",
-            "format": "uuid",
             "title": "Agent Id",
             "description": "The ID of the agent."
           },
