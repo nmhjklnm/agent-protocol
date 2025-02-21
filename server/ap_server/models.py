@@ -10,6 +10,41 @@ from uuid import UUID
 from pydantic import AnyUrl, AwareDatetime, BaseModel, Field, RootModel, conint
 
 
+class Agent(BaseModel):
+    agent_id: str = Field(..., description="The ID of the agent.", title="Agent Id")
+    name: str = Field(..., description="The name of the agent", title="Agent Name")
+    description: Optional[str] = Field(
+        None, description="The description of the agent.", title="Description"
+    )
+    metadata: Optional[Dict[str, Any]] = Field(
+        None, description="The agent metadata.", title="Metadata"
+    )
+
+
+class AgentSchemas(BaseModel):
+    agent_id: str = Field(..., description="The ID of the agent.", title="Agent Id")
+    input_schema: Dict[str, Any] = Field(
+        ...,
+        description="The schema for the agent input. In JSON Schema format.",
+        title="Input Schema",
+    )
+    output_schema: Dict[str, Any] = Field(
+        ...,
+        description="The schema for the agent output. In JSON Schema format.",
+        title="Output Schema",
+    )
+    state_schema: Optional[Dict[str, Any]] = Field(
+        None,
+        description="The schema for the agent's internal state. In JSON Schema format.",
+        title="State Schema",
+    )
+    config_schema: Optional[Dict[str, Any]] = Field(
+        None,
+        description="The schema for the agent config. In JSON Schema format.",
+        title="Config Schema",
+    )
+
+
 class Status(Enum):
     pending = "pending"
     error = "error"
@@ -28,10 +63,8 @@ class MultitaskStrategy(Enum):
 class Run(BaseModel):
     run_id: UUID = Field(..., description="The ID of the run.", title="Run Id")
     thread_id: UUID = Field(..., description="The ID of the thread.", title="Thread Id")
-    assistant_id: Optional[UUID] = Field(
-        None,
-        description="The assistant that was used for this run.",
-        title="Assistant Id",
+    agent_id: Optional[str] = Field(
+        None, description="The agent that was used for this run.", title="Agent Id"
     )
     created_at: AwareDatetime = Field(
         ..., description="The time the run was created.", title="Created At"
@@ -88,9 +121,10 @@ class IfNotExists(Enum):
 
 
 class RunCreateStateful(BaseModel):
-    assistant_id: Optional[Union[UUID, str]] = Field(
+    agent_id: Optional[str] = Field(
         None,
-        description="The assistant ID or graph name to run. If using graph name, will default to first assistant created from that graph.",
+        description="The agent ID to run. If not provided will use the default agent for this service.",
+        title="Agent Id",
     )
     input: Optional[Union[Dict[str, Any], List, str, float, bool]] = Field(
         None, description="The input to the graph.", title="Input"
@@ -99,7 +133,7 @@ class RunCreateStateful(BaseModel):
         None, description="Metadata to assign to the run.", title="Metadata"
     )
     config: Optional[Config] = Field(
-        None, description="The configuration for the assistant.", title="Config"
+        None, description="The configuration for the agent.", title="Config"
     )
     webhook: Optional[AnyUrl] = Field(
         None, description="Webhook to call after run finishes.", title="Webhook"
@@ -140,9 +174,10 @@ class OnCompletion(Enum):
 
 
 class RunCreateStateless(BaseModel):
-    assistant_id: Optional[Union[UUID, str]] = Field(
+    agent_id: Optional[str] = Field(
         None,
-        description="The assistant ID or graph name to run. If using graph name, will default to first assistant created from that graph.",
+        description="The agent ID to run. If not provided will use the default agent for this service.",
+        title="Agent Id",
     )
     input: Optional[Union[Dict[str, Any], List, str, float, bool]] = Field(
         None, description="The input to the graph.", title="Input"
@@ -151,7 +186,7 @@ class RunCreateStateless(BaseModel):
         None, description="Metadata to assign to the run.", title="Metadata"
     )
     config: Optional[Config] = Field(
-        None, description="The configuration for the assistant.", title="Config"
+        None, description="The configuration for the agent.", title="Config"
     )
     webhook: Optional[AnyUrl] = Field(
         None, description="Webhook to call after run finishes.", title="Webhook"
@@ -385,6 +420,23 @@ class ErrorResponse(RootModel[str]):
     root: str = Field(
         ..., description="Error message returned from the server", title="ErrorResponse"
     )
+
+
+class AgentsSearchPostRequest(BaseModel):
+    name: Optional[str] = Field(None, description="Name of the agent to search.")
+    metadata: Optional[Dict[str, Any]] = Field(
+        None, description="Metadata of the agent to search."
+    )
+    limit: Optional[conint(ge=1, le=1000)] = Field(
+        10, description="Maximum number to return.", title="Limit"
+    )
+    offset: Optional[conint(ge=0)] = Field(
+        0, description="Offset to start from.", title="Offset"
+    )
+
+
+class AgentsSearchPostResponse(RootModel[List[Agent]]):
+    root: List[Agent] = Field(..., title="Response List Agents")
 
 
 class ThreadsSearchPostResponse(RootModel[List[Thread]]):

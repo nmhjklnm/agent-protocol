@@ -6,6 +6,10 @@
   },
   "tags": [
     {
+      "name": "Agents",
+      "description": "An agent is an LLM-powered actor that can be invoked on a thread."
+    },
+    {
       "name": "Threads",
       "description": "A thread contains the accumulated outputs of a group of runs. It is a container to maintain the state of an agent across multiple runs. It also acts as a registry for the runs.\n\nA thread keeps track of agent states at every step so that continuity of the context is preserved. Moreover, such a book-keeping enables us some granular controls like debugging, interrupting or replaying a run/invocation.\n\nA thread state is a data context defined by the developer and can be anything (e.g. a `typeddict`) and it gets passed through from one invocation to another so that business logic is instrumented by data.\n\nA thread keeps track of the whole state history. At every step, it also applies a checkpoint, which is primarily a `uuid`, so that it is easier to refer to a chunk of the history.\n\nOne can easily query the last state, a specific state (by checkpoint id), the whole state history, or, a part of the history (from a checkpoint).\n\nSee `Thread`, `ThreadState` and `Checkpoint` models below for more info."
     },
@@ -23,6 +27,187 @@
     }
   ],
   "paths": {
+    "/agents/search": {
+      "post": {
+        "tags": [
+          "Agents"
+        ],
+        "summary": "List Agents",
+        "description": "List Agents available in this service.",
+        "operationId": "search_agents_post_agents_search",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the agent to search."
+                  },
+                  "metadata": {
+                    "type": "object",
+                    "description": "Metadata of the agent to search."
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "title": "Limit",
+                    "description": "Maximum number to return.",
+                    "default": 10,
+                    "minimum": 1,
+                    "maximum": 1000
+                  },
+                  "offset": {
+                    "type": "integer",
+                    "title": "Offset",
+                    "description": "Offset to start from.",
+                    "default": 0,
+                    "minimum": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Agent"
+                  },
+                  "type": "array",
+                  "title": "Response List Agents"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agents/{agent_id}": {
+      "get": {
+        "tags": [
+          "Agents"
+        ],
+        "summary": "Get Agent",
+        "description": "Get an agent by ID.",
+        "operationId": "get_agent_agents__agent_id__get",
+        "parameters": [
+          {
+            "description": "The ID of the agent.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Agent ID",
+              "description": "The ID of the agent."
+            },
+            "name": "agent_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Agent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/agents/{agent_id}/schemas": {
+      "get": {
+        "tags": [
+          "Agents"
+        ],
+        "summary": "Get Agent Schemas",
+        "description": "Get an agent's schemas by ID.",
+        "operationId": "get_agent_schemas_agents__agent_id__schemas_get",
+        "parameters": [
+          {
+            "description": "The ID of the agent.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Agent Id",
+              "description": "The ID of the agent."
+            },
+            "name": "agent_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgentSchemas"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/threads": {
       "post": {
         "tags": [
@@ -1597,6 +1782,73 @@
   },
   "components": {
     "schemas": {
+      "Agent": {
+        "properties": {
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id",
+            "description": "The ID of the agent."
+          },
+          "name": {
+            "type": "string",
+            "title": "Agent Name",
+            "description": "The name of the agent"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "description": "The description of the agent."
+          },
+          "metadata": {
+            "type": "object",
+            "title": "Metadata",
+            "description": "The agent metadata."
+          }
+        },
+        "type": "object",
+        "required": [
+          "agent_id",
+          "name"
+        ],
+        "title": "Agent"
+      },
+      "AgentSchemas": {
+        "properties": {
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id",
+            "description": "The ID of the agent."
+          },
+          "input_schema": {
+            "type": "object",
+            "title": "Input Schema",
+            "description": "The schema for the agent input. In JSON Schema format."
+          },
+          "output_schema": {
+            "type": "object",
+            "title": "Output Schema",
+            "description": "The schema for the agent output. In JSON Schema format."
+          },
+          "state_schema": {
+            "type": "object",
+            "title": "State Schema",
+            "description": "The schema for the agent's internal state. In JSON Schema format."
+          },
+          "config_schema": {
+            "type": "object",
+            "title": "Config Schema",
+            "description": "The schema for the agent config. In JSON Schema format."
+          }
+        },
+        "type": "object",
+        "required": [
+          "agent_id",
+          "input_schema",
+          "output_schema"
+        ],
+        "title": "AgentSchemas",
+        "description": "Defines the structure and properties of an agent."
+      },
       "Run": {
         "properties": {
           "run_id": {
@@ -1611,11 +1863,10 @@
             "title": "Thread Id",
             "description": "The ID of the thread."
           },
-          "assistant_id": {
+          "agent_id": {
             "type": "string",
-            "format": "uuid",
-            "title": "Assistant Id",
-            "description": "The assistant that was used for this run."
+            "title": "Agent Id",
+            "description": "The agent that was used for this run."
           },
           "created_at": {
             "type": "string",
@@ -1677,19 +1928,10 @@
       },
       "RunCreateStateful": {
         "properties": {
-          "assistant_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "uuid",
-                "title": "Assistant Id"
-              },
-              {
-                "type": "string",
-                "title": "Graph Id"
-              }
-            ],
-            "description": "The assistant ID or graph name to run. If using graph name, will default to first assistant created from that graph."
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id",
+            "description": "The agent ID to run. If not provided will use the default agent for this service."
           },
           "input": {
             "anyOf": [
@@ -1740,7 +1982,7 @@
             },
             "type": "object",
             "title": "Config",
-            "description": "The configuration for the assistant."
+            "description": "The configuration for the agent."
           },
           "webhook": {
             "type": "string",
@@ -1833,19 +2075,10 @@
       },
       "RunCreateStateless": {
         "properties": {
-          "assistant_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "uuid",
-                "title": "Assistant Id"
-              },
-              {
-                "type": "string",
-                "title": "Graph Id"
-              }
-            ],
-            "description": "The assistant ID or graph name to run. If using graph name, will default to first assistant created from that graph."
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id",
+            "description": "The agent ID to run. If not provided will use the default agent for this service."
           },
           "input": {
             "anyOf": [
@@ -1896,7 +2129,7 @@
             },
             "type": "object",
             "title": "Config",
-            "description": "The configuration for the assistant."
+            "description": "The configuration for the agent."
           },
           "webhook": {
             "type": "string",
