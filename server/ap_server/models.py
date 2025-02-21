@@ -63,10 +63,8 @@ class MultitaskStrategy(Enum):
 class Run(BaseModel):
     run_id: UUID = Field(..., description="The ID of the run.", title="Run Id")
     thread_id: UUID = Field(..., description="The ID of the thread.", title="Thread Id")
-    assistant_id: Optional[UUID] = Field(
-        None,
-        description="The assistant that was used for this run.",
-        title="Assistant Id",
+    agent_id: Optional[str] = Field(
+        None, description="The agent that was used for this run.", title="Agent Id"
     )
     created_at: AwareDatetime = Field(
         ..., description="The time the run was created.", title="Created At"
@@ -123,9 +121,10 @@ class IfNotExists(Enum):
 
 
 class RunCreateStateful(BaseModel):
-    assistant_id: Optional[Union[UUID, str]] = Field(
+    agent_id: Optional[str] = Field(
         None,
-        description="The assistant ID or graph name to run. If using graph name, will default to first assistant created from that graph.",
+        description="The agent ID to run. If not provided will use the default agent for this service.",
+        title="Agent Id",
     )
     input: Optional[Union[Dict[str, Any], List, str, float, bool]] = Field(
         None, description="The input to the graph.", title="Input"
@@ -134,7 +133,7 @@ class RunCreateStateful(BaseModel):
         None, description="Metadata to assign to the run.", title="Metadata"
     )
     config: Optional[Config] = Field(
-        None, description="The configuration for the assistant.", title="Config"
+        None, description="The configuration for the agent.", title="Config"
     )
     webhook: Optional[AnyUrl] = Field(
         None, description="Webhook to call after run finishes.", title="Webhook"
@@ -175,9 +174,10 @@ class OnCompletion(Enum):
 
 
 class RunCreateStateless(BaseModel):
-    assistant_id: Optional[Union[UUID, str]] = Field(
+    agent_id: Optional[str] = Field(
         None,
-        description="The assistant ID or graph name to run. If using graph name, will default to first assistant created from that graph.",
+        description="The agent ID to run. If not provided will use the default agent for this service.",
+        title="Agent Id",
     )
     input: Optional[Union[Dict[str, Any], List, str, float, bool]] = Field(
         None, description="The input to the graph.", title="Input"
@@ -186,7 +186,7 @@ class RunCreateStateless(BaseModel):
         None, description="Metadata to assign to the run.", title="Metadata"
     )
     config: Optional[Config] = Field(
-        None, description="The configuration for the assistant.", title="Config"
+        None, description="The configuration for the agent.", title="Config"
     )
     webhook: Optional[AnyUrl] = Field(
         None, description="Webhook to call after run finishes.", title="Webhook"

@@ -1828,11 +1828,10 @@
             "title": "Thread Id",
             "description": "The ID of the thread."
           },
-          "assistant_id": {
+          "agent_id": {
             "type": "string",
-            "format": "uuid",
-            "title": "Assistant Id",
-            "description": "The assistant that was used for this run."
+            "title": "Agent Id",
+            "description": "The agent that was used for this run."
           },
           "created_at": {
             "type": "string",
@@ -1894,19 +1893,10 @@
       },
       "RunCreateStateful": {
         "properties": {
-          "assistant_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "uuid",
-                "title": "Assistant Id"
-              },
-              {
-                "type": "string",
-                "title": "Graph Id"
-              }
-            ],
-            "description": "The assistant ID or graph name to run. If using graph name, will default to first assistant created from that graph."
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id",
+            "description": "The agent ID to run. If not provided will use the default agent for this service."
           },
           "input": {
             "anyOf": [
@@ -1957,7 +1947,7 @@
             },
             "type": "object",
             "title": "Config",
-            "description": "The configuration for the assistant."
+            "description": "The configuration for the agent."
           },
           "webhook": {
             "type": "string",
@@ -2050,19 +2040,10 @@
       },
       "RunCreateStateless": {
         "properties": {
-          "assistant_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "uuid",
-                "title": "Assistant Id"
-              },
-              {
-                "type": "string",
-                "title": "Graph Id"
-              }
-            ],
-            "description": "The assistant ID or graph name to run. If using graph name, will default to first assistant created from that graph."
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id",
+            "description": "The agent ID to run. If not provided will use the default agent for this service."
           },
           "input": {
             "anyOf": [
@@ -2113,7 +2094,7 @@
             },
             "type": "object",
             "title": "Config",
-            "description": "The configuration for the assistant."
+            "description": "The configuration for the agent."
           },
           "webhook": {
             "type": "string",
