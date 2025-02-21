@@ -10,6 +10,41 @@ from uuid import UUID
 from pydantic import AnyUrl, AwareDatetime, BaseModel, Field, RootModel, conint
 
 
+class Agent(BaseModel):
+    agent_id: UUID = Field(..., description="The ID of the agent.", title="Agent Id")
+    name: str = Field(..., description="The name of the agent", title="Agent Name")
+    description: Optional[str] = Field(
+        None, description="The description of the agent.", title="Description"
+    )
+    metadata: Optional[Dict[str, Any]] = Field(
+        None, description="The agent metadata.", title="Metadata"
+    )
+
+
+class AgentSchemas(BaseModel):
+    agent_id: str = Field(..., description="The ID of the agent.", title="Agent Id")
+    input_schema: Dict[str, Any] = Field(
+        ...,
+        description="The schema for the agent input. In JSON Schema format.",
+        title="Input Schema",
+    )
+    output_schema: Dict[str, Any] = Field(
+        ...,
+        description="The schema for the agent output. In JSON Schema format.",
+        title="Output Schema",
+    )
+    state_schema: Optional[Dict[str, Any]] = Field(
+        None,
+        description="The schema for the agent's internal state. In JSON Schema format.",
+        title="State Schema",
+    )
+    config_schema: Optional[Dict[str, Any]] = Field(
+        None,
+        description="The schema for the agent config. In JSON Schema format.",
+        title="Config Schema",
+    )
+
+
 class Status(Enum):
     pending = "pending"
     error = "error"
@@ -385,6 +420,10 @@ class ErrorResponse(RootModel[str]):
     root: str = Field(
         ..., description="Error message returned from the server", title="ErrorResponse"
     )
+
+
+class AgentsGetResponse(RootModel[List[Agent]]):
+    root: List[Agent] = Field(..., title="Response List Agents")
 
 
 class ThreadsSearchPostResponse(RootModel[List[Thread]]):
