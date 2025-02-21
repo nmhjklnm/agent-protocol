@@ -27,14 +27,49 @@
     }
   ],
   "paths": {
-    "/agents": {
-      "get": {
+    "/agents/search": {
+      "post": {
         "tags": [
           "Agents"
         ],
         "summary": "List Agents",
         "description": "List Agents available in this service.",
-        "operationId": "list_agents_get_agents",
+        "operationId": "search_agents_post_agents_search",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Name of the agent to search."
+                  },
+                  "metadata": {
+                    "type": "object",
+                    "description": "Metadata of the agent to search."
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "title": "Limit",
+                    "description": "Maximum number to return.",
+                    "default": 10,
+                    "minimum": 1,
+                    "maximum": 1000
+                  },
+                  "offset": {
+                    "type": "integer",
+                    "title": "Offset",
+                    "description": "Offset to start from.",
+                    "default": 0,
+                    "minimum": 0
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success",

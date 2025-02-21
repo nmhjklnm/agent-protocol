@@ -5,18 +5,27 @@ from __future__ import annotations
 
 from fastapi import APIRouter
 
-from ..models import Agent, AgentSchemas, AgentsGetResponse, ErrorResponse, Union
+from ..models import (
+    Agent,
+    AgentSchemas,
+    AgentsSearchPostRequest,
+    AgentsSearchPostResponse,
+    ErrorResponse,
+    Union,
+)
 
 router = APIRouter(tags=["Agents"])
 
 
-@router.get(
-    "/agents",
-    response_model=AgentsGetResponse,
+@router.post(
+    "/agents/search",
+    response_model=AgentsSearchPostResponse,
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Agents"],
 )
-def list_agents_get_agents() -> Union[AgentsGetResponse, ErrorResponse]:
+def search_agents_post_agents_search(
+    body: AgentsSearchPostRequest,
+) -> Union[AgentsSearchPostResponse, ErrorResponse]:
     """
     List Agents
     """

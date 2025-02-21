@@ -422,7 +422,20 @@ class ErrorResponse(RootModel[str]):
     )
 
 
-class AgentsGetResponse(RootModel[List[Agent]]):
+class AgentsSearchPostRequest(BaseModel):
+    name: Optional[str] = Field(None, description="Name of the agent to search.")
+    metadata: Optional[Dict[str, Any]] = Field(
+        None, description="Metadata of the agent to search."
+    )
+    limit: Optional[conint(ge=1, le=1000)] = Field(
+        10, description="Maximum number to return.", title="Limit"
+    )
+    offset: Optional[conint(ge=0)] = Field(
+        0, description="Offset to start from.", title="Offset"
+    )
+
+
+class AgentsSearchPostResponse(RootModel[List[Agent]]):
     root: List[Agent] = Field(..., title="Response List Agents")
 
 
