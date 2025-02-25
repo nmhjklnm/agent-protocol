@@ -4,10 +4,18 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Literal, Optional, Union
 from uuid import UUID
 
-from pydantic import AnyUrl, AwareDatetime, BaseModel, Field, RootModel, conint
+from pydantic import (
+    AnyUrl,
+    AwareDatetime,
+    BaseModel,
+    ConfigDict,
+    Field,
+    RootModel,
+    conint,
+)
 
 
 class Agent(BaseModel):
@@ -241,34 +249,6 @@ class ThreadSearchRequest(BaseModel):
     )
 
 
-class Thread(BaseModel):
-    thread_id: UUID = Field(..., description="The ID of the thread.", title="Thread Id")
-    created_at: AwareDatetime = Field(
-        ..., description="The time the thread was created.", title="Created At"
-    )
-    updated_at: AwareDatetime = Field(
-        ..., description="The last time the thread was updated.", title="Updated At"
-    )
-    metadata: Dict[str, Any] = Field(
-        ..., description="The thread metadata.", title="Metadata"
-    )
-    status: Status1 = Field(
-        ..., description="The status of the thread.", title="Status"
-    )
-    values: Optional[Dict[str, Any]] = Field(
-        None, description="The current state of the thread.", title="Values"
-    )
-
-
-class ThreadState(BaseModel):
-    checkpoint_id: UUID = Field(
-        ..., description="The ID of the checkpoint.", title="Checkpoint Id"
-    )
-    values: Dict[str, Any] = Field(
-        ..., description="The current state of the thread.", title="Values"
-    )
-
-
 class IfExists(Enum):
     raise_ = "raise"
     do_nothing = "do_nothing"
@@ -287,17 +267,6 @@ class ThreadCreate(BaseModel):
         "raise",
         description="How to handle duplicate creation. Must be either 'raise' (raise error if duplicate), or 'do_nothing' (return existing thread).",
         title="If Exists",
-    )
-
-
-class ThreadPatch(BaseModel):
-    metadata: Optional[Dict[str, Any]] = Field(
-        None,
-        description="Metadata to merge with existing thread metadata.",
-        title="Metadata",
-    )
-    values: Optional[Dict[str, Any]] = Field(
-        None, description="Values to merge with existing thread values.", title="Values"
     )
 
 
@@ -399,6 +368,34 @@ class Item(BaseModel):
     )
 
 
+class Content(BaseModel):
+    text: str
+    type: Literal["text"]
+    metadata: Optional[Dict[str, Any]] = None
+
+
+class Content1(BaseModel):
+    model_config = ConfigDict(
+        extra="allow",
+    )
+    type: str
+    metadata: Optional[Dict[str, Any]] = None
+
+
+class Message(BaseModel):
+    model_config = ConfigDict(
+        extra="allow",
+    )
+    role: str = Field(..., description="The role of the message.", title="Role")
+    content: Union[str, List[Union[Content, Content1]]] = Field(
+        ..., description="The content of the message.", title="Content"
+    )
+    id: Optional[str] = Field(None, description="The ID of the message.", title="Id")
+    metadata: Optional[Dict[str, Any]] = Field(
+        None, description="The metadata of the message.", title="Metadata"
+    )
+
+
 class SearchItemsResponse(BaseModel):
     items: List[Item]
 
@@ -430,14 +427,6 @@ class AgentsSearchPostResponse(RootModel[List[Agent]]):
     root: List[Agent] = Field(..., title="Response List Agents")
 
 
-class ThreadsSearchPostResponse(RootModel[List[Thread]]):
-    root: List[Thread] = Field(..., title="Response Search Threads Threads Search Post")
-
-
-class ThreadsThreadIdHistoryGetResponse(RootModel[List[ThreadState]]):
-    root: List[ThreadState]
-
-
 class ThreadsThreadIdRunsGetResponse(RootModel[List[Run]]):
     root: List[Run]
 
@@ -449,3 +438,65 @@ class Action(Enum):
 
 class Namespace(RootModel[List[str]]):
     root: List[str]
+
+
+class Thread(BaseModel):
+    thread_id: UUID = Field(..., description="The ID of the thread.", title="Thread Id")
+    created_at: AwareDatetime = Field(
+        ..., description="The time the thread was created.", title="Created At"
+    )
+    updated_at: AwareDatetime = Field(
+        ..., description="The last time the thread was updated.", title="Updated At"
+    )
+    metadata: Dict[str, Any] = Field(
+        ..., description="The thread metadata.", title="Metadata"
+    )
+    status: Status1 = Field(
+        ..., description="The status of the thread.", title="Status"
+    )
+    values: Optional[Dict[str, Any]] = Field(
+        None, description="The current state of the thread.", title="Values"
+    )
+    messages: Optional[List[Message]] = Field(
+        None,
+        description="The current Messages of the thread. If messages are contained in Thread.values, implementations should remove them from values when returning messages. When this key isn't present it means the thread/agent doesn't support messages.",
+        title="Messages",
+    )
+
+
+class ThreadState(BaseModel):
+    checkpoint_id: UUID = Field(
+        ..., description="The ID of the checkpoint.", title="Checkpoint Id"
+    )
+    values: Dict[str, Any] = Field(
+        ..., description="The current state of the thread.", title="Values"
+    )
+    messages: Optional[List[Message]] = Field(
+        None,
+        description="The current Messages of the thread. If messages are contained in Thread.values, implementations should remove them from values when returning messages. When this key isn't present it means the thread/agent doesn't support messages.",
+        title="Messages",
+    )
+
+
+class ThreadPatch(BaseModel):
+    metadata: Optional[Dict[str, Any]] = Field(
+        None,
+        description="Metadata to merge with existing thread metadata.",
+        title="Metadata",
+    )
+    values: Optional[Dict[str, Any]] = Field(
+        None, description="Values to merge with existing thread values.", title="Values"
+    )
+    messages: Optional[List[Message]] = Field(
+        None,
+        description="The current Messages of the thread. If messages are contained in Thread.values, implementations should remove them from values when returning messages. When this key isn't present it means the thread/agent doesn't support messages.",
+        title="Messages",
+    )
+
+
+class ThreadsSearchPostResponse(RootModel[List[Thread]]):
+    root: List[Thread] = Field(..., title="Response Search Threads Threads Search Post")
+
+
+class ThreadsThreadIdHistoryGetResponse(RootModel[List[ThreadState]]):
+    root: List[ThreadState]
