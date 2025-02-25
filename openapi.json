@@ -2190,12 +2190,6 @@
       },
       "ThreadState": {
         "properties": {
-          "thread_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Thread Id",
-            "description": "The ID of the thread."
-          },
           "checkpoint_id": {
             "type": "string",
             "format": "uuid",

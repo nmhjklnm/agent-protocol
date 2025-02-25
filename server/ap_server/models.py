@@ -261,7 +261,6 @@ class Thread(BaseModel):
 
 
 class ThreadState(BaseModel):
-    thread_id: UUID = Field(..., description="The ID of the thread.", title="Thread Id")
     checkpoint_id: UUID = Field(
         ..., description="The ID of the checkpoint.", title="Checkpoint Id"
     )
