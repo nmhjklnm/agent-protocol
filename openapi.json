@@ -2208,6 +2208,14 @@
             "type": "object",
             "title": "Values",
             "description": "The current state of the thread."
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Message"
+            },
+            "title": "Messages",
+            "description": "The current Messages of the thread. If messages are contained in Thread.values, implementations should remove them from values when returning messages. When this key isn't present it means the thread/agent doesn't support messages."
           }
         },
         "type": "object",
@@ -2257,6 +2265,14 @@
             "type": "object",
             "title": "Values",
             "description": "Values to merge with existing thread values."
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Message"
+            },
+            "title": "Messages",
+            "description": "The current Messages of the thread. If messages are contained in Thread.values, implementations should remove them from values when returning messages. When this key isn't present it means the thread/agent doesn't support messages."
           }
         },
         "type": "object",
