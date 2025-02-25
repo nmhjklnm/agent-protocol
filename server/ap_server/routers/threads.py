@@ -13,9 +13,6 @@ from ..models import (
     ThreadCreate,
     ThreadPatch,
     ThreadSearchRequest,
-    ThreadState,
-    ThreadStateUpdate,
-    ThreadStateUpdateResponse,
     ThreadsSearchPostResponse,
     ThreadsThreadIdHistoryGetResponse,
     UUID,
@@ -122,35 +119,5 @@ def get_thread_history_threads__thread_id__history_get(
 ) -> Union[ThreadsThreadIdHistoryGetResponse, ErrorResponse]:
     """
     Get Thread History
-    """
-    pass
-
-
-@router.get(
-    "/threads/{thread_id}/state",
-    response_model=ThreadState,
-    responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
-    tags=["Threads"],
-)
-def get_latest_thread_state_threads__thread_id__state_get(
-    thread_id: UUID,
-) -> Union[ThreadState, ErrorResponse]:
-    """
-    Get Thread State
-    """
-    pass
-
-
-@router.post(
-    "/threads/{thread_id}/state",
-    response_model=ThreadStateUpdateResponse,
-    responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
-    tags=["Threads"],
-)
-def update_thread_state_threads__thread_id__state_post(
-    thread_id: UUID, body: ThreadStateUpdate = ...
-) -> Union[ThreadStateUpdateResponse, ErrorResponse]:
-    """
-    Update Thread State
     """
     pass
