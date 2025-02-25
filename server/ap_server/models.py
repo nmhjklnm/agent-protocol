@@ -260,6 +260,15 @@ class Thread(BaseModel):
     )
 
 
+class ThreadState(BaseModel):
+    checkpoint_id: UUID = Field(
+        ..., description="The ID of the checkpoint.", title="Checkpoint Id"
+    )
+    values: Dict[str, Any] = Field(
+        ..., description="The current state of the thread.", title="Values"
+    )
+
+
 class IfExists(Enum):
     raise_ = "raise"
     do_nothing = "do_nothing"
@@ -287,26 +296,8 @@ class ThreadPatch(BaseModel):
         description="Metadata to merge with existing thread metadata.",
         title="Metadata",
     )
-
-
-class ThreadStateUpdateResponse(BaseModel):
-    checkpoint: Optional[Dict[str, Any]] = Field(None, title="Checkpoint")
-
-
-class CheckpointConfig(BaseModel):
-    thread_id: Optional[str] = Field(
-        None,
-        description="Unique identifier for the thread associated with this checkpoint.",
-    )
-    checkpoint_ns: Optional[str] = Field(
-        None,
-        description="Namespace for the checkpoint, used for organization and retrieval.",
-    )
-    checkpoint_id: Optional[str] = Field(
-        None, description="Optional unique identifier for the checkpoint itself."
-    )
-    checkpoint_map: Optional[Dict[str, Any]] = Field(
-        None, description="Optional dictionary containing checkpoint-specific data."
+    values: Optional[Dict[str, Any]] = Field(
+        None, description="Values to merge with existing thread values.", title="Values"
     )
 
 
@@ -443,6 +434,10 @@ class ThreadsSearchPostResponse(RootModel[List[Thread]]):
     root: List[Thread] = Field(..., title="Response Search Threads Threads Search Post")
 
 
+class ThreadsThreadIdHistoryGetResponse(RootModel[List[ThreadState]]):
+    root: List[ThreadState]
+
+
 class ThreadsThreadIdRunsGetResponse(RootModel[List[Run]]):
     root: List[Run]
 
@@ -454,27 +449,3 @@ class Action(Enum):
 
 class Namespace(RootModel[List[str]]):
     root: List[str]
-
-
-class ThreadState(BaseModel):
-    values: Union[List[Dict[str, Any]], Dict[str, Any]] = Field(..., title="Values")
-    next: List[str] = Field(..., title="Next")
-    checkpoint: CheckpointConfig = Field(..., title="Checkpoint")
-    metadata: Dict[str, Any] = Field(..., title="Metadata")
-    created_at: str = Field(..., title="Created At")
-    parent_checkpoint: Optional[Dict[str, Any]] = Field(None, title="Parent Checkpoint")
-
-
-class ThreadStateUpdate(BaseModel):
-    values: Optional[Dict[str, Any]] = Field(
-        None, description="The values to update the state with.", title="Values"
-    )
-    checkpoint: Optional[CheckpointConfig] = Field(
-        None, description="The checkpoint to update the state of.", title="Checkpoint"
-    )
-
-
-class ThreadsThreadIdHistoryGetResponse(RootModel[List[ThreadState]]):
-    root: List[ThreadState] = Field(
-        ..., title="Response Get Thread History Threads  Thread Id  History Get"
-    )
