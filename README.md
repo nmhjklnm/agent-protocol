@@ -123,6 +123,10 @@ Endpoints:
 - [`GET /agents/{agent_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/%7Bagent_id%7D) - Get basic information about an agent, including its name, description, metadata.
 - [`GET /agents/{agent_id}/schemas`](https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/%7Bagent_id%7D/schemas) - Get the input, output, state and config schemas for an agent. All schemas are represented in JSON Schema format.
 
+## Messages
+
+Messages have emerged as a core primitive in dealing with LLMs, and as such we have first-class support for messages in Agent Protocol. This is in addition to completely customizable input/output schemas for agents. We define a Message spec, which is a subset of the message formats supported by major LLM providers, such as OpenAI and Anthropic. In all endpoints that expose thread values, there is also a separate `messages` field, which agents can optionally implement.
+
 ## Agent Protocol in Action
 
 Below are a few illustrative “user journeys” in [Hurl](https://hurl.dev) format, each showing a common sequence of API calls against your Agent Protocol service (listening at localhost:8000, no auth required).
