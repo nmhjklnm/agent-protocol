@@ -250,6 +250,9 @@ class ThreadSearchRequest(BaseModel):
 
 
 class ThreadCheckpoint(BaseModel):
+    model_config = ConfigDict(
+        extra="allow",
+    )
     checkpoint_id: UUID = Field(
         ..., description="The ID of the checkpoint.", title="Checkpoint Id"
     )

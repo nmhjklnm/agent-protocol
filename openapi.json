@@ -2206,6 +2206,7 @@
           }
         },
         "type": "object",
+        "additionalProperties": true,
         "required": [
           "checkpoint_id"
         ],
