@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Agent Protocol",
-    "version": "0.1.4"
+    "version": "0.1.5"
   },
   "tags": [
     {
@@ -2196,13 +2196,28 @@
         ],
         "title": "Thread"
       },
-      "ThreadState": {
+      "ThreadCheckpoint": {
         "properties": {
           "checkpoint_id": {
             "type": "string",
             "format": "uuid",
             "title": "Checkpoint Id",
             "description": "The ID of the checkpoint."
+          }
+        },
+        "type": "object",
+        "required": [
+          "checkpoint_id"
+        ],
+        "title": "ThreadCheckpoint",
+        "description": "Structured identifier for a thread checkpoint, ie. an entry in the thread's history."
+      },
+      "ThreadState": {
+        "properties": {
+          "checkpoint": {
+            "$ref": "#/components/schemas/ThreadCheckpoint",
+            "title": "Checkpoint",
+            "description": "The identifier for this checkpoint."
           },
           "values": {
             "type": "object",
@@ -2215,13 +2230,12 @@
               "$ref": "#/components/schemas/Message"
             },
             "title": "Messages",
-            "description": "The current Messages of the thread. If messages are contained in Thread.values, implementations should remove them from values when returning messages. When this key isn't present it means the thread/agent doesn't support messages."
+            "description": "The current messages of the thread. If messages are contained in Thread.values, implementations should remove them from values when returning messages. When this key isn't present it means the thread/agent doesn't support messages."
           }
         },
         "type": "object",
         "required": [
-          "thread_id",
-          "checkpoint_id",
+          "checkpoint",
           "values"
         ],
         "title": "ThreadState"
@@ -2256,6 +2270,11 @@
       },
       "ThreadPatch": {
         "properties": {
+          "checkpoint": {
+            "$ref": "#/components/schemas/ThreadCheckpoint",
+            "title": "Checkpoint",
+            "description": "The identifier of the checkpoint to branch from. Ignored for metadata-only patches. If not provided, defaults to the latest checkpoint."
+          },
           "metadata": {
             "type": "object",
             "title": "Metadata",
