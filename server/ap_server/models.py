@@ -485,6 +485,9 @@ class ThreadState(BaseModel):
         description="The current messages of the thread. If messages are contained in Thread.values, implementations should remove them from values when returning messages. When this key isn't present it means the thread/agent doesn't support messages.",
         title="Messages",
     )
+    metadata: Optional[Dict[str, Any]] = Field(
+        None, description="The checkpoint metadata.", title="Metadata"
+    )
 
 
 class ThreadPatch(BaseModel):
