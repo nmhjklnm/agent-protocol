@@ -249,6 +249,15 @@ class ThreadSearchRequest(BaseModel):
     )
 
 
+class ThreadCheckpoint(BaseModel):
+    model_config = ConfigDict(
+        extra="allow",
+    )
+    checkpoint_id: UUID = Field(
+        ..., description="The ID of the checkpoint.", title="Checkpoint Id"
+    )
+
+
 class IfExists(Enum):
     raise_ = "raise"
     do_nothing = "do_nothing"
@@ -465,20 +474,28 @@ class Thread(BaseModel):
 
 
 class ThreadState(BaseModel):
-    checkpoint_id: UUID = Field(
-        ..., description="The ID of the checkpoint.", title="Checkpoint Id"
+    checkpoint: ThreadCheckpoint = Field(
+        ..., description="The identifier for this checkpoint.", title="Checkpoint"
     )
     values: Dict[str, Any] = Field(
         ..., description="The current state of the thread.", title="Values"
     )
     messages: Optional[List[Message]] = Field(
         None,
-        description="The current Messages of the thread. If messages are contained in Thread.values, implementations should remove them from values when returning messages. When this key isn't present it means the thread/agent doesn't support messages.",
+        description="The current messages of the thread. If messages are contained in Thread.values, implementations should remove them from values when returning messages. When this key isn't present it means the thread/agent doesn't support messages.",
         title="Messages",
+    )
+    metadata: Optional[Dict[str, Any]] = Field(
+        None, description="The checkpoint metadata.", title="Metadata"
     )
 
 
 class ThreadPatch(BaseModel):
+    checkpoint: Optional[ThreadCheckpoint] = Field(
+        None,
+        description="The identifier of the checkpoint to branch from. Ignored for metadata-only patches. If not provided, defaults to the latest checkpoint.",
+        title="Checkpoint",
+    )
     metadata: Optional[Dict[str, Any]] = Field(
         None,
         description="Metadata to merge with existing thread metadata.",
