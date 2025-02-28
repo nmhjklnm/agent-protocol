@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Agent Protocol",
-    "version": "0.1.5"
+    "version": "0.1.6"
   },
   "tags": [
     {
@@ -517,13 +517,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
+          "204": {
+            "description": "Success"
           },
           "404": {
             "description": "Not Found",
@@ -1014,13 +1009,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
+          "204": {
+            "description": "Success"
           },
           "404": {
             "description": "Not Found",
@@ -1236,13 +1226,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
+          "204": {
+            "description": "Success"
           },
           "404": {
             "description": "Not Found",
@@ -1503,6 +1488,16 @@
           "204": {
             "description": "Success"
           },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
           "422": {
             "description": "Validation Error",
             "content": {
@@ -1555,6 +1550,16 @@
           },
           "400": {
             "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "schema": {

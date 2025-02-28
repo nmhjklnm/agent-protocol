@@ -27,6 +27,7 @@ router = APIRouter(tags=["Store"])
 @router.put(
     "/store/items",
     response_model=None,
+    status_code=204,
     responses={"422": {"model": ErrorResponse}},
     tags=["Store"],
 )
@@ -40,7 +41,8 @@ def put_item(body: StorePutRequest) -> Optional[ErrorResponse]:
 @router.delete(
     "/store/items",
     response_model=None,
-    responses={"422": {"model": ErrorResponse}},
+    status_code=204,
+    responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Store"],
 )
 def delete_item(body: StoreDeleteRequest) -> Optional[ErrorResponse]:
@@ -53,7 +55,11 @@ def delete_item(body: StoreDeleteRequest) -> Optional[ErrorResponse]:
 @router.get(
     "/store/items",
     response_model=Item,
-    responses={"400": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
+    responses={
+        "400": {"model": ErrorResponse},
+        "404": {"model": ErrorResponse},
+        "422": {"model": ErrorResponse},
+    },
     tags=["Store"],
 )
 def get_item(
