@@ -489,7 +489,9 @@ class ThreadState(BaseModel):
 
 
 class ThreadPatch(BaseModel):
-    status: Optional[ThreadStatus] = None
+    status: Optional[ThreadStatus] = Field(
+        None, description="The status of the thread."
+    )
     checkpoint: Optional[ThreadCheckpoint] = Field(
         None,
         description="The identifier of the checkpoint to branch from. Ignored for metadata-only patches. If not provided, defaults to the latest checkpoint.",

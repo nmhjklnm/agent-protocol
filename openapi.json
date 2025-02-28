@@ -2278,7 +2278,8 @@
       "ThreadPatch": {
         "properties": {
           "status": {
-            "$ref": "#/components/schemas/ThreadStatus"
+            "$ref": "#/components/schemas/ThreadStatus",
+            "description": "The status of the thread."
           },
           "checkpoint": {
             "$ref": "#/components/schemas/ThreadCheckpoint",
