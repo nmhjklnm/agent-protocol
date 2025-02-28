@@ -6,7 +6,6 @@ from __future__ import annotations
 from fastapi import APIRouter
 
 from ..models import (
-    Any,
     ErrorResponse,
     Optional,
     Thread,
@@ -65,13 +64,14 @@ def get_thread_threads__thread_id__get(thread_id: UUID) -> Union[Thread, ErrorRe
 
 @router.delete(
     "/threads/{thread_id}",
-    response_model=Any,
+    response_model=None,
+    status_code=204,
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Threads"],
 )
 def delete_thread_threads__thread_id__delete(
     thread_id: UUID,
-) -> Union[Any, ErrorResponse]:
+) -> Optional[ErrorResponse]:
     """
     Delete Thread
     """

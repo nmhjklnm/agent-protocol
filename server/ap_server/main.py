@@ -9,7 +9,7 @@ from .routers import agents, runs, stateless_runs, store, threads
 
 app = FastAPI(
     title="Agent Protocol",
-    version="0.1.5",
+    version="0.1.51",
 )
 
 app.include_router(agents.router)

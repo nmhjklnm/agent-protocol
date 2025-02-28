@@ -109,13 +109,14 @@ def get_run_http_threads__thread_id__runs__run_id__get(
 
 @router.delete(
     "/threads/{thread_id}/runs/{run_id}",
-    response_model=Any,
+    response_model=None,
+    status_code=204,
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Runs"],
 )
 def delete_run_threads__thread_id__runs__run_id__delete(
     thread_id: UUID, run_id: UUID = ...
-) -> Union[Any, ErrorResponse]:
+) -> Optional[ErrorResponse]:
     """
     Delete Run
     """
@@ -124,7 +125,8 @@ def delete_run_threads__thread_id__runs__run_id__delete(
 
 @router.post(
     "/threads/{thread_id}/runs/{run_id}/cancel",
-    response_model=Any,
+    response_model=None,
+    status_code=204,
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Runs"],
 )
@@ -133,7 +135,7 @@ def cancel_run_http_threads__thread_id__runs__run_id__cancel_post(
     run_id: UUID = ...,
     wait: Optional[bool] = False,
     action: Optional[Action] = "interrupt",
-) -> Union[Any, ErrorResponse]:
+) -> Optional[ErrorResponse]:
     """
     Cancel Run
     """
