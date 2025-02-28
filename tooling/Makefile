@@ -6,6 +6,7 @@ gen-server:
 	sed -i '' 's|Action1|Action|g' ../server/ap_server/routers/*.py
 	sed -i '' 's|from fastapi import APIRouter|from typing import Annotated\n\nfrom fastapi import APIRouter, Query|g' ../server/ap_server/routers/store.py
 	sed -i '' 's|namespace: Optional\[Namespace\] = None|namespace: Annotated\[list\[str\] \| None, Query\(\)\] = None|g' ../server/ap_server/routers/store.py
+	sed -i '' 's|response_model=None,|response_model=None, status_code=204,|g' ../server/ap_server/routers/*.py
 	poetry run ruff format ../server/ap_server
 	touch ../server/ap_server/__init__.py
 	touch ../server/ap_server/routers/__init__.py
