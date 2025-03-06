@@ -449,6 +449,16 @@ class Namespace(RootModel[List[str]]):
     root: List[str]
 
 
+class RunWaitResponse(BaseModel):
+    run: Optional[Run] = Field(None, description="The run information.", title="Run")
+    values: Optional[Dict[str, Any]] = Field(
+        None, description="The values returned by the run.", title="Values"
+    )
+    messages: Optional[List[Message]] = Field(
+        None, description="The messages returned by the run.", title="Messages"
+    )
+
+
 class Thread(BaseModel):
     thread_id: UUID = Field(..., description="The ID of the thread.", title="Thread Id")
     created_at: AwareDatetime = Field(
