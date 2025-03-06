@@ -1074,7 +1074,9 @@
             "description": "Success",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/RunWait"
+                }
               }
             }
           },
@@ -1398,7 +1400,9 @@
             "description": "Success",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/RunWait"
+                }
               }
             }
           },
@@ -1956,6 +1960,29 @@
         "required": [],
         "title": "RunCreateStateful",
         "description": "Payload for creating a run."
+      },
+      "RunWait": {
+        "type": "object",
+        "properties": {
+          "run": {
+            "$ref": "#/components/schemas/Run",
+            "title": "Run",
+            "description": "The run information."
+          },
+          "values": {
+            "type": "object",
+            "title": "Values",
+            "description": "The values returned by the run."
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Message"
+            },
+            "title": "Messages",
+            "description": "The messages returned by the run."
+          }
+        }
       },
       "RunCreateStateless": {
         "properties": {

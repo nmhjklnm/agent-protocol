@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from fastapi import APIRouter
 
-from ..models import Any, ErrorResponse, RunCreateStateless, Union
+from ..models import Any, ErrorResponse, RunCreateStateless, RunWait, Union
 
 router = APIRouter(tags=["Stateless Runs"])
 
@@ -48,7 +48,7 @@ def stream_run_stateless_runs_stream_post(
 
 @router.post(
     "/runs/wait",
-    response_model=Any,
+    response_model=RunWait,
     responses={
         "404": {"model": ErrorResponse},
         "409": {"model": ErrorResponse},
@@ -58,7 +58,7 @@ def stream_run_stateless_runs_stream_post(
 )
 def wait_run_stateless_runs_wait_post(
     body: RunCreateStateless,
-) -> Union[Any, ErrorResponse]:
+) -> Union[RunWait, ErrorResponse]:
     """
     Create Run, Wait for Output
     """
