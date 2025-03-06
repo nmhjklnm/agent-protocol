@@ -12,7 +12,7 @@ from ..models import (
     Optional,
     Run,
     RunCreateStateful,
-    RunWait,
+    RunWaitResponse,
     ThreadsThreadIdRunsGetResponse,
     UUID,
     Union,
@@ -160,13 +160,13 @@ def stream_run_http_threads__thread_id__runs__run_id__join_get(
 
 @router.get(
     "/threads/{thread_id}/runs/{run_id}/wait",
-    response_model=RunWait,
+    response_model=RunWaitResponse,
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Runs"],
 )
 def join_run_http_threads__thread_id__runs__run_id__join_get(
     thread_id: UUID, run_id: UUID = ...
-) -> Union[RunWait, ErrorResponse]:
+) -> Union[RunWaitResponse, ErrorResponse]:
     """
     Wait for Run output
     """

@@ -449,7 +449,7 @@ class Namespace(RootModel[List[str]]):
     root: List[str]
 
 
-class RunWait(BaseModel):
+class RunWaitResponse(BaseModel):
     run: Optional[Run] = Field(None, description="The run information.", title="Run")
     values: Optional[Dict[str, Any]] = Field(
         None, description="The values returned by the run.", title="Values"

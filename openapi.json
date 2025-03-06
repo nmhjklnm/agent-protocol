@@ -1075,7 +1075,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RunWait"
+                  "$ref": "#/components/schemas/RunWaitResponse"
                 }
               }
             }
@@ -1401,7 +1401,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RunWait"
+                  "$ref": "#/components/schemas/RunWaitResponse"
                 }
               }
             }
@@ -1961,7 +1961,7 @@
         "title": "RunCreateStateful",
         "description": "Payload for creating a run."
       },
-      "RunWait": {
+      "RunWaitResponse": {
         "type": "object",
         "properties": {
           "run": {
