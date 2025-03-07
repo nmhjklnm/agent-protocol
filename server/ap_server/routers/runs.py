@@ -76,7 +76,7 @@ def stream_run_threads__thread_id__runs_stream_post(
 
 @router.post(
     "/threads/{thread_id}/runs/wait",
-    response_model=Any,
+    response_model=RunWaitResponse,
     responses={
         "404": {"model": ErrorResponse},
         "409": {"model": ErrorResponse},
@@ -86,7 +86,7 @@ def stream_run_threads__thread_id__runs_stream_post(
 )
 def wait_run_threads__thread_id__runs_wait_post(
     thread_id: UUID, body: RunCreateStateful = ...
-) -> Union[Any, ErrorResponse]:
+) -> Union[RunWaitResponse, ErrorResponse]:
     """
     Create Run, Wait for Output
     """
