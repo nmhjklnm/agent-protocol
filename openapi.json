@@ -1783,7 +1783,9 @@
             "description": "The last time the run was updated."
           },
           "status": {
-            "$ref": "#/components/schemas/RunStatus"
+            "$ref": "#/components/schemas/RunStatus",
+            "title": "Run Status",
+            "description": "The status of the run."
           },
           "metadata": {
             "type": "object",
@@ -2144,6 +2146,7 @@
           },
           "status": {
             "$ref": "#/components/schemas/ThreadStatus",
+            "title": "Thread Status",
             "description": "Thread status to filter on."
           },
           "limit": {
@@ -2192,7 +2195,9 @@
             "description": "The thread metadata."
           },
           "status": {
-            "$ref": "#/components/schemas/ThreadStatus"
+            "$ref": "#/components/schemas/ThreadStatus",
+            "title": "Thread Status",
+            "description": "The status of the thread."
           },
           "values": {
             "type": "object",
@@ -2305,7 +2310,7 @@
           "error"
         ],
         "title": "Status",
-        "description": "The status of the thread."
+        "description": "The status of the thread. One of 'idle', 'busy', 'interrupted', 'error'."
       },
       "ThreadPatch": {
         "properties": {

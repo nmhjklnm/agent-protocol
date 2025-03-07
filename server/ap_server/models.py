@@ -80,7 +80,9 @@ class Run(BaseModel):
     updated_at: AwareDatetime = Field(
         ..., description="The last time the run was updated.", title="Updated At"
     )
-    status: RunStatus
+    status: RunStatus = Field(
+        ..., description="The status of the run.", title="Run Status"
+    )
     metadata: Dict[str, Any] = Field(
         ..., description="The run metadata.", title="Metadata"
     )
@@ -445,7 +447,7 @@ class ThreadSearchRequest(BaseModel):
         None, description="State values to filter on.", title="Values"
     )
     status: Optional[ThreadStatus] = Field(
-        None, description="Thread status to filter on."
+        None, description="Thread status to filter on.", title="Thread Status"
     )
     limit: Optional[conint(ge=1, le=1000)] = Field(
         10, description="Maximum number to return.", title="Limit"
@@ -466,7 +468,9 @@ class Thread(BaseModel):
     metadata: Dict[str, Any] = Field(
         ..., description="The thread metadata.", title="Metadata"
     )
-    status: ThreadStatus
+    status: ThreadStatus = Field(
+        ..., description="The status of the thread.", title="Thread Status"
+    )
     values: Optional[Dict[str, Any]] = Field(
         None, description="The current state of the thread.", title="Values"
     )
