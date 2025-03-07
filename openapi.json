@@ -1739,6 +1739,18 @@
         "title": "AgentSchemas",
         "description": "Defines the structure and properties of an agent."
       },
+      "RunStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "error",
+          "success",
+          "timeout",
+          "interrupted"
+        ],
+        "title": "Status",
+        "description": "The status of the run. One of 'pending', 'error', 'success', 'timeout', 'interrupted'."
+      },
       "Run": {
         "properties": {
           "run_id": {
@@ -1771,16 +1783,7 @@
             "description": "The last time the run was updated."
           },
           "status": {
-            "type": "string",
-            "enum": [
-              "pending",
-              "error",
-              "success",
-              "timeout",
-              "interrupted"
-            ],
-            "title": "Status",
-            "description": "The status of the run. One of 'pending', 'error', 'success', 'timeout', 'interrupted'."
+            "$ref": "#/components/schemas/RunStatus"
           },
           "metadata": {
             "type": "object",
@@ -2306,10 +2309,6 @@
       },
       "ThreadPatch": {
         "properties": {
-          "status": {
-            "$ref": "#/components/schemas/ThreadStatus",
-            "description": "The status of the thread."
-          },
           "checkpoint": {
             "$ref": "#/components/schemas/ThreadCheckpoint",
             "title": "Checkpoint",
