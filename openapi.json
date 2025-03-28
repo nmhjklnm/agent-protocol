@@ -1693,12 +1693,26 @@
             "type": "object",
             "title": "Metadata",
             "description": "The agent metadata."
+          },
+          "capabilities": {
+            "type": "object",
+            "title": "Agent Capabilities",
+            "description": "Describes which protocol features the agent supports. In addition to the standard capabilities (prefixed with ap.), implementations can declare custom capabilities, named in reverse domain notation (eg. com.example.some.capability).",
+            "properties": {
+              "ap.io.messages": {
+                "type": "boolean",
+                "title": "Messages",
+                "description": "Whether the agent supports Messages as input/output/state. If true, the agent uses the `messages` key in threads/runs endpoints."
+              }
+            },
+            "additionalProperties": true
           }
         },
         "type": "object",
         "required": [
           "agent_id",
-          "name"
+          "name",
+          "capabilities"
         ],
         "title": "Agent"
       },
@@ -1850,7 +1864,15 @@
               }
             ],
             "title": "Input",
-            "description": "The input to the graph."
+            "description": "The input to the agent."
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Message"
+            },
+            "title": "Messages",
+            "description": "The messages to pass as input to the agent."
           },
           "metadata": {
             "type": "object",
@@ -2020,7 +2042,15 @@
               }
             ],
             "title": "Input",
-            "description": "The input to the graph."
+            "description": "The input to the agent."
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Message"
+            },
+            "title": "Messages",
+            "description": "The messages to pass an input to the agent."
           },
           "metadata": {
             "type": "object",
