@@ -24,7 +24,15 @@ What is the right API to serve an LLM application in production? We believe it�
 
 Let’s dive deeper into each one, starting with the requirements, and then presenting the Protocol endpoints that meet these requirements.
 
-## Runs: Atomic agent executions
+## Stateless Runs: one-shot interactions
+
+In some cases, you may want to create a thread and run in one request, and have the thread be deleted after the run concludes. This is useful for ephemeral or stateless interactions, where you don’t need to keep track of the thread’s state.
+
+- [`POST /runs`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs) - Create an ephemeral thread and run in one request. The thread will be deleted after the run concludes. This is likely to be useful only when the agent has side effects, as you won’t be able to access the thread’s state after the run finishes.
+- [`POST /runs/wait`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/wait) - Create an ephemeral thread and run, and wait for its final output, which is returned in the response.
+- [`POST /runs/stream`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/stream) - Create an ephemeral thread and run, and stream output as produced.
+
+## Background Runs: Atomic agent executions
 
 What do we need out of an API to execute an agent?
 
@@ -52,11 +60,6 @@ Base Endpoints:
 - [`GET /threads/{thread_id}/runs/{run_id}/wait`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/GET/threads/%7Bthread_id%7D/runs/%7Brun_id%7D/wait) - Wait for a run to finish, return the final output. If the run already finished, returns its final output immediately.
 - [`GET /threads/{thread_id}/runs/{run_id}/stream`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/GET/threads/%7Bthread_id%7D/runs/%7Brun_id%7D/stream) - Join the output stream of an existing run. Only output produced after this endpoint is called will be streamed.
 
-Convenience Endpoints:
-
-- [`POST /threads/{thread_id}/runs/wait`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/threads/%7Bthread_id%7D/runs/wait) - Create a run, and wait for its final output.
-- [`POST /threads/{thread_id}/runs/stream`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/threads/%7Bthread_id%7D/runs/stream) - Create a run, and stream output as produced.
-
 ## Threads: multi-turn interactions
 
 What APIs do you need to enable multi-turn interactions?
@@ -82,14 +85,6 @@ Endpoints:
 - [`POST /threads/{thread_id}/copy`](https://langchain-ai.github.io/agent-protocol/api.html#tag/threads/POST/threads/%7Bthread_id%7D/copy) - Create an independent copy of a thread.
 - [`DELETE /threads/{thread_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/threads/DELETE/threads/%7Bthread_id%7D) - Delete a thread.
 - [`PATCH /threads/{thread_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/threads/PATCH/threads/%7Bthread_id%7D) - Update a thread's values or metadata. Updating values creates a new revision in the thread's history.
-
-## Stateless Runs: one-shot interactions
-
-In some cases, you may want to create a thread and run in one request, and have the thread be deleted after the run concludes. This is useful for ephemeral or stateless interactions, where you don’t need to keep track of the thread’s state.
-
-- [`POST /runs`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs) - Create an ephemeral thread and run in one request. The thread will be deleted after the run concludes. This is likely to be useful only when the agent has side effects, as you won’t be able to access the thread’s state after the run finishes.
-- [`POST /runs/wait`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/wait) - Create an ephemeral thread and run, and wait for its final output, which is returned in the response.
-- [`POST /runs/stream`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/stream) - Create an ephemeral thread and run, and stream output as produced.
 
 ## Store: Long-term memory
 

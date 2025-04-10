@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from fastapi import APIRouter
 
-from ..models import Any, ErrorResponse, RunCreateStateless, RunWaitResponse, Union
+from ..models import Any, ErrorResponse, RunCreate, RunWaitResponse, Union
 
 router = APIRouter(tags=["Stateless Runs"])
 
@@ -20,7 +20,7 @@ router = APIRouter(tags=["Stateless Runs"])
     },
     tags=["Stateless Runs"],
 )
-def run_stateless_runs_post(body: RunCreateStateless) -> Union[Any, ErrorResponse]:
+def run_stateless_runs_post(body: RunCreate) -> Union[Any, ErrorResponse]:
     """
     Create Background Run
     """
@@ -37,9 +37,7 @@ def run_stateless_runs_post(body: RunCreateStateless) -> Union[Any, ErrorRespons
     },
     tags=["Stateless Runs"],
 )
-def stream_run_stateless_runs_stream_post(
-    body: RunCreateStateless,
-) -> Union[str, ErrorResponse]:
+def stream_run_stateless_runs_stream_post(body: RunCreate) -> Union[str, ErrorResponse]:
     """
     Create Run, Stream Output
     """
@@ -57,7 +55,7 @@ def stream_run_stateless_runs_stream_post(
     tags=["Stateless Runs"],
 )
 def wait_run_stateless_runs_wait_post(
-    body: RunCreateStateless,
+    body: RunCreate,
 ) -> Union[RunWaitResponse, ErrorResponse]:
     """
     Create Run, Wait for Output
