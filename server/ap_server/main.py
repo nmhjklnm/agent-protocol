@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from fastapi import FastAPI
 
-from .routers import agents, runs, stateless_runs, store, threads
+from .routers import agents, background_runs, runs, store, threads
 
 app = FastAPI(
     title="Agent Protocol",
@@ -13,8 +13,8 @@ app = FastAPI(
 )
 
 app.include_router(agents.router)
+app.include_router(background_runs.router)
 app.include_router(runs.router)
-app.include_router(stateless_runs.router)
 app.include_router(store.router)
 app.include_router(threads.router)
 

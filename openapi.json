@@ -6,20 +6,20 @@
   },
   "tags": [
     {
-      "name": "Agents",
-      "description": "An agent is an LLM-powered actor that can be invoked on a thread."
+      "name": "Runs",
+      "description": "A run is an invocation of an agent, optionally, on a thread. If applied to a thread, it updates the state of the thread. Otherwise, it has not state or memory persistence."
     },
     {
       "name": "Threads",
       "description": "A thread contains the accumulated outputs of a group of runs. It is a container to maintain the state of an agent across multiple runs. It also acts as a registry for the runs.\n\nA thread keeps track of agent states at every step so that continuity of the context is preserved. Moreover, such a book-keeping enables us some granular controls like debugging, interrupting or replaying a run/invocation.\n\nA thread state is a data context defined by the developer and can be anything (e.g. a `typeddict`) and it gets passed through from one invocation to another so that business logic is instrumented by data.\n\nA thread keeps track of the whole state history. At every step, it also applies a checkpoint, which is primarily a `uuid`, so that it is easier to refer to a chunk of the history.\n\nOne can easily query the last state, a specific state (by checkpoint id), the whole state history, or, a part of the history (from a checkpoint).\n\nSee `Thread`, `ThreadState` and `Checkpoint` models below for more info."
     },
     {
-      "name": "Runs",
-      "description": "A run is an invocation of an agent on a thread. It updates the state of the thread."
+      "name": "Agents",
+      "description": "An agent is an LLM-powered actor that can be invoked on a thread."
     },
     {
-      "name": "Stateless Runs",
-      "description": "A run is an invocation of an agent, with no state or memory persistence."
+      "name": "Background Runs",
+      "description": "Background runs are runs which do not run synchronously during the request that created them. They can be managed, cancelled, streamed and waited with these endpoints."
     },
     {
       "name": "Store",
@@ -610,7 +610,7 @@
     "/threads/{thread_id}/runs": {
       "get": {
         "tags": [
-          "Runs"
+          "Background Runs"
         ],
         "summary": "List Runs",
         "description": "List runs for a thread.",
@@ -689,7 +689,7 @@
     "/threads/{thread_id}/runs/{run_id}": {
       "get": {
         "tags": [
-          "Runs"
+          "Background Runs"
         ],
         "summary": "Get Run",
         "description": "Get a run by ID.",
@@ -755,7 +755,7 @@
       },
       "delete": {
         "tags": [
-          "Runs"
+          "Background Runs"
         ],
         "summary": "Delete Run",
         "description": "Delete a run by ID.",
@@ -816,7 +816,7 @@
     "/threads/{thread_id}/runs/{run_id}/wait": {
       "get": {
         "tags": [
-          "Runs"
+          "Background Runs"
         ],
         "summary": "Wait for Run output",
         "description": "Wait for a run to finish, return the final output. If the run already finished, returns its final output immediately.",
@@ -884,7 +884,7 @@
     "/threads/{thread_id}/runs/{run_id}/stream": {
       "get": {
         "tags": [
-          "Runs"
+          "Background Runs"
         ],
         "summary": "Stream output from Run",
         "description": "Join the output stream of an existing run. This endpoint streams output in real-time from a run similar to the /threads/__THREAD_ID__/runs/stream endpoint. Only output produced after this endpoint is called will be streamed.",
@@ -950,7 +950,7 @@
     "/threads/{thread_id}/runs/{run_id}/cancel": {
       "post": {
         "tags": [
-          "Runs"
+          "Background Runs"
         ],
         "summary": "Cancel Run",
         "operationId": "cancel_run_http_threads__thread_id__runs__run_id__cancel_post",
@@ -1035,7 +1035,7 @@
     "/runs": {
       "post": {
         "tags": [
-          "Stateless Runs"
+          "Background Runs"
         ],
         "summary": "Create Background Run",
         "description": "Create a run in a new thread, return the run ID immediately. Don't wait for the final run output.",
@@ -1095,7 +1095,7 @@
     "/runs/stream": {
       "post": {
         "tags": [
-          "Stateless Runs"
+          "Runs"
         ],
         "summary": "Create Run, Stream Output",
         "description": "Create a run in a new thread, stream the output.",
@@ -1158,7 +1158,7 @@
     "/runs/wait": {
       "post": {
         "tags": [
-          "Stateless Runs"
+          "Runs"
         ],
         "summary": "Create Run, Wait for Output",
         "description": "Create a run in a new thread. Wait for the final output and then return it.",
