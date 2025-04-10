@@ -418,7 +418,12 @@ class RunWaitResponse(BaseModel):
     )
 
 
-class RunCreateStateless(BaseModel):
+class RunCreate(BaseModel):
+    thread_id: Optional[UUID] = Field(
+        None,
+        description="The ID of the thread to run. If not provided, will create a stateless run.",
+        title="Thread Id",
+    )
     agent_id: Optional[str] = Field(
         None,
         description="The agent ID to run. If not provided will use the default agent for this service.",
@@ -445,8 +450,8 @@ class RunCreateStateless(BaseModel):
         ["values"], description="The stream mode(s) to use.", title="Stream Mode"
     )
     on_completion: Optional[OnCompletion] = Field(
-        "delete",
-        description="Whether to delete or keep the thread created for a stateless run. Must be one of 'delete' or 'keep'.",
+        None,
+        description="Whether to delete or keep the thread when run completes. Must be one of 'delete' or 'keep'. Defaults to 'delete' when thread_id not provided, otherwise 'keep'.",
         title="On Completion",
     )
     on_disconnect: Optional[OnDisconnect] = Field(
@@ -454,15 +459,10 @@ class RunCreateStateless(BaseModel):
         description="The disconnect mode to use. Must be one of 'cancel' or 'continue'.",
         title="On Disconnect",
     )
-    multitask_strategy: Optional[MultitaskStrategy] = Field(
+    if_not_exists: Optional[IfNotExists] = Field(
         "reject",
-        description="Multitask strategy to use. Must be one of 'reject', 'interrupt', 'rollback', or 'enqueue'.",
-        title="Multitask Strategy",
-    )
-    after_seconds: Optional[int] = Field(
-        None,
-        description="The number of seconds to wait before starting the run. Use to schedule future runs.",
-        title="After Seconds",
+        description="How to handle missing thread. Must be either 'reject' (raise error if missing), or 'create' (create new thread).",
+        title="If Not Exists",
     )
 
 

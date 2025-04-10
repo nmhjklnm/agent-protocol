@@ -684,230 +684,6 @@
             }
           }
         }
-      },
-      "post": {
-        "tags": [
-          "Runs"
-        ],
-        "summary": "Create Background Run",
-        "description": "Create a run in existing thread, return the run ID immediately. Don't wait for the final run output.",
-        "operationId": "create_run_threads__thread_id__runs_post",
-        "parameters": [
-          {
-            "description": "The ID of the thread.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Thread Id",
-              "description": "The ID of the thread."
-            },
-            "name": "thread_id",
-            "in": "path"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RunCreateStateful"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Run"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/threads/{thread_id}/runs/stream": {
-      "post": {
-        "tags": [
-          "Runs"
-        ],
-        "summary": "Create Run, Stream Output",
-        "description": "Create a run in existing thread. Stream the output.",
-        "operationId": "stream_run_threads__thread_id__runs_stream_post",
-        "parameters": [
-          {
-            "description": "The ID of the thread.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Thread Id",
-              "description": "The ID of the thread."
-            },
-            "name": "thread_id",
-            "in": "path"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RunCreateStateful"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/threads/{thread_id}/runs/wait": {
-      "post": {
-        "tags": [
-          "Runs"
-        ],
-        "summary": "Create Run, Wait for Output",
-        "description": "Create a run in existing thread. Wait for the final output and then return it.",
-        "operationId": "wait_run_threads__thread_id__runs_wait_post",
-        "parameters": [
-          {
-            "description": "The ID of the thread.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Thread Id",
-              "description": "The ID of the thread."
-            },
-            "name": "thread_id",
-            "in": "path"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RunCreateStateful"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RunWaitResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
       }
     },
     "/threads/{thread_id}/runs/{run_id}": {
@@ -1268,7 +1044,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RunCreateStateless"
+                "$ref": "#/components/schemas/RunCreate"
               }
             }
           },
@@ -1328,7 +1104,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RunCreateStateless"
+                "$ref": "#/components/schemas/RunCreate"
               }
             }
           },
@@ -1391,7 +1167,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RunCreateStateless"
+                "$ref": "#/components/schemas/RunCreate"
               }
             }
           },
@@ -2013,8 +1789,14 @@
           }
         }
       },
-      "RunCreateStateless": {
+      "RunCreate": {
         "properties": {
+          "thread_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Thread Id",
+            "description": "The ID of the thread to run. If not provided, will create a stateless run."
+          },
           "agent_id": {
             "type": "string",
             "title": "Agent Id",
@@ -2126,8 +1908,7 @@
               "keep"
             ],
             "title": "On Completion",
-            "description": "Whether to delete or keep the thread created for a stateless run. Must be one of 'delete' or 'keep'.",
-            "default": "delete"
+            "description": "Whether to delete or keep the thread when run completes. Must be one of 'delete' or 'keep'. Defaults to 'delete' when thread_id not provided, otherwise 'keep'."
           },
           "on_disconnect": {
             "type": "string",
@@ -2139,27 +1920,20 @@
             "description": "The disconnect mode to use. Must be one of 'cancel' or 'continue'.",
             "default": "cancel"
           },
-          "multitask_strategy": {
+          "if_not_exists": {
             "type": "string",
             "enum": [
-              "reject",
-              "rollback",
-              "interrupt",
-              "enqueue"
+              "create",
+              "reject"
             ],
-            "title": "Multitask Strategy",
-            "description": "Multitask strategy to use. Must be one of 'reject', 'interrupt', 'rollback', or 'enqueue'.",
+            "title": "If Not Exists",
+            "description": "How to handle missing thread. Must be either 'reject' (raise error if missing), or 'create' (create new thread).",
             "default": "reject"
-          },
-          "after_seconds": {
-            "type": "integer",
-            "title": "After Seconds",
-            "description": "The number of seconds to wait before starting the run. Use to schedule future runs."
           }
         },
         "type": "object",
         "required": [],
-        "title": "RunCreateStateless",
+        "title": "RunCreate",
         "description": "Payload for creating a run."
       },
       "ThreadSearchRequest": {

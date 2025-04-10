@@ -11,7 +11,6 @@ from ..models import (
     ErrorResponse,
     Optional,
     Run,
-    RunCreateStateful,
     RunWaitResponse,
     ThreadsThreadIdRunsGetResponse,
     UUID,
@@ -32,63 +31,6 @@ def list_runs_http_threads__thread_id__runs_get(
 ) -> Union[ThreadsThreadIdRunsGetResponse, ErrorResponse]:
     """
     List Runs
-    """
-    pass
-
-
-@router.post(
-    "/threads/{thread_id}/runs",
-    response_model=Run,
-    responses={
-        "404": {"model": ErrorResponse},
-        "409": {"model": ErrorResponse},
-        "422": {"model": ErrorResponse},
-    },
-    tags=["Runs"],
-)
-def create_run_threads__thread_id__runs_post(
-    thread_id: UUID, body: RunCreateStateful = ...
-) -> Union[Run, ErrorResponse]:
-    """
-    Create Background Run
-    """
-    pass
-
-
-@router.post(
-    "/threads/{thread_id}/runs/stream",
-    response_model=Any,
-    responses={
-        "404": {"model": ErrorResponse},
-        "409": {"model": ErrorResponse},
-        "422": {"model": ErrorResponse},
-    },
-    tags=["Runs"],
-)
-def stream_run_threads__thread_id__runs_stream_post(
-    thread_id: UUID, body: RunCreateStateful = ...
-) -> Union[Any, ErrorResponse]:
-    """
-    Create Run, Stream Output
-    """
-    pass
-
-
-@router.post(
-    "/threads/{thread_id}/runs/wait",
-    response_model=RunWaitResponse,
-    responses={
-        "404": {"model": ErrorResponse},
-        "409": {"model": ErrorResponse},
-        "422": {"model": ErrorResponse},
-    },
-    tags=["Runs"],
-)
-def wait_run_threads__thread_id__runs_wait_post(
-    thread_id: UUID, body: RunCreateStateful = ...
-) -> Union[RunWaitResponse, ErrorResponse]:
-    """
-    Create Run, Wait for Output
     """
     pass
 
