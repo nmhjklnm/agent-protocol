@@ -133,6 +133,11 @@ class StreamMode(Enum):
     custom = "custom"
 
 
+class OnCompletion(Enum):
+    delete = "delete"
+    keep = "keep"
+
+
 class OnDisconnect(Enum):
     cancel = "cancel"
     continue_ = "continue"
@@ -141,11 +146,6 @@ class OnDisconnect(Enum):
 class IfNotExists(Enum):
     create = "create"
     reject = "reject"
-
-
-class OnCompletion(Enum):
-    delete = "delete"
-    keep = "keep"
 
 
 class ThreadCheckpoint(BaseModel):
@@ -353,59 +353,6 @@ class Action(Enum):
 
 class Namespace(RootModel[List[str]]):
     root: List[str]
-
-
-class RunCreateStateful(BaseModel):
-    agent_id: Optional[str] = Field(
-        None,
-        description="The agent ID to run. If not provided will use the default agent for this service.",
-        title="Agent Id",
-    )
-    input: Optional[Union[Dict[str, Any], List, str, float, bool]] = Field(
-        None, description="The input to the agent.", title="Input"
-    )
-    messages: Optional[List[Message]] = Field(
-        None,
-        description="The messages to pass as input to the agent.",
-        title="Messages",
-    )
-    metadata: Optional[Dict[str, Any]] = Field(
-        None, description="Metadata to assign to the run.", title="Metadata"
-    )
-    config: Optional[Config] = Field(
-        None, description="The configuration for the agent.", title="Config"
-    )
-    webhook: Optional[AnyUrl] = Field(
-        None, description="Webhook to call after run finishes.", title="Webhook"
-    )
-    stream_mode: Optional[Union[List[StreamModeEnum], StreamMode]] = Field(
-        ["values"], description="The stream mode(s) to use.", title="Stream Mode"
-    )
-    stream_subgraphs: Optional[bool] = Field(
-        False,
-        description="Whether to stream output from subgraphs.",
-        title="Stream Subgraphs",
-    )
-    on_disconnect: Optional[OnDisconnect] = Field(
-        "cancel",
-        description="The disconnect mode to use. Must be one of 'cancel' or 'continue'.",
-        title="On Disconnect",
-    )
-    multitask_strategy: Optional[MultitaskStrategy] = Field(
-        "reject",
-        description="Multitask strategy to use. Must be one of 'reject', 'interrupt', 'rollback', or 'enqueue'.",
-        title="Multitask Strategy",
-    )
-    if_not_exists: Optional[IfNotExists] = Field(
-        "reject",
-        description="How to handle missing thread. Must be either 'reject' (raise error if missing), or 'create' (create new thread).",
-        title="If Not Exists",
-    )
-    after_seconds: Optional[int] = Field(
-        None,
-        description="The number of seconds to wait before starting the run. Use to schedule future runs.",
-        title="After Seconds",
-    )
 
 
 class RunWaitResponse(BaseModel):
