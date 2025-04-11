@@ -686,7 +686,7 @@
         }
       }
     },
-    "/threads/{thread_id}/runs/{run_id}": {
+    "/runs/{run_id}": {
       "get": {
         "tags": [
           "Background Runs"
@@ -813,7 +813,7 @@
         }
       }
     },
-    "/threads/{thread_id}/runs/{run_id}/wait": {
+    "/runs/{run_id}/wait": {
       "get": {
         "tags": [
           "Background Runs"
@@ -881,7 +881,7 @@
         }
       }
     },
-    "/threads/{thread_id}/runs/{run_id}/stream": {
+    "/runs/{run_id}/stream": {
       "get": {
         "tags": [
           "Background Runs"
@@ -947,7 +947,7 @@
         }
       }
     },
-    "/threads/{thread_id}/runs/{run_id}/cancel": {
+    "/runs/{run_id}/cancel": {
       "post": {
         "tags": [
           "Background Runs"
