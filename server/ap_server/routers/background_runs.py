@@ -39,22 +39,7 @@ def run_stateless_runs_post(body: RunCreate) -> Union[Any, ErrorResponse]:
 
 
 @router.get(
-    "/threads/{thread_id}/runs",
-    response_model=ThreadsThreadIdRunsGetResponse,
-    responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
-    tags=["Background Runs"],
-)
-def list_runs_http_threads__thread_id__runs_get(
-    thread_id: UUID, limit: Optional[int] = 10, offset: Optional[int] = 0
-) -> Union[ThreadsThreadIdRunsGetResponse, ErrorResponse]:
-    """
-    List Runs
-    """
-    pass
-
-
-@router.get(
-    "/threads/{thread_id}/runs/{run_id}",
+    "/runs/{run_id}",
     response_model=Run,
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Background Runs"],
@@ -69,7 +54,7 @@ def get_run_http_threads__thread_id__runs__run_id__get(
 
 
 @router.delete(
-    "/threads/{thread_id}/runs/{run_id}",
+    "/runs/{run_id}",
     response_model=None,
     status_code=204,
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
@@ -85,7 +70,7 @@ def delete_run_threads__thread_id__runs__run_id__delete(
 
 
 @router.post(
-    "/threads/{thread_id}/runs/{run_id}/cancel",
+    "/runs/{run_id}/cancel",
     response_model=None,
     status_code=204,
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
@@ -104,7 +89,7 @@ def cancel_run_http_threads__thread_id__runs__run_id__cancel_post(
 
 
 @router.get(
-    "/threads/{thread_id}/runs/{run_id}/stream",
+    "/runs/{run_id}/stream",
     response_model=Any,
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Background Runs"],
@@ -119,7 +104,7 @@ def stream_run_http_threads__thread_id__runs__run_id__join_get(
 
 
 @router.get(
-    "/threads/{thread_id}/runs/{run_id}/wait",
+    "/runs/{run_id}/wait",
     response_model=RunWaitResponse,
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Background Runs"],
@@ -129,5 +114,20 @@ def join_run_http_threads__thread_id__runs__run_id__join_get(
 ) -> Union[RunWaitResponse, ErrorResponse]:
     """
     Wait for Run output
+    """
+    pass
+
+
+@router.get(
+    "/threads/{thread_id}/runs",
+    response_model=ThreadsThreadIdRunsGetResponse,
+    responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
+    tags=["Background Runs"],
+)
+def list_runs_http_threads__thread_id__runs_get(
+    thread_id: UUID, limit: Optional[int] = 10, offset: Optional[int] = 0
+) -> Union[ThreadsThreadIdRunsGetResponse, ErrorResponse]:
+    """
+    List Runs
     """
     pass
