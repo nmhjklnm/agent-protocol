@@ -88,13 +88,13 @@ What do we need out of an API to execute an agent?
 
 Base Endpoints:
 
-- [`GET /threads/{thread_id}/runs`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/GET/threads/%7Bthread_id%7D/runs) - List runs for a thread.
-- [`POST /runs`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/threads/%7Bthread_id%7D/runs) - Create a run.
-- [`GET /runs/{run_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/GET/threads/%7Bthread_id%7D/runs/%7Brun_id%7D) - Get a run and its status.
-- [`POST /runs/{run_id}/cancel`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/threads/%7Bthread_id%7D/runs/%7Brun_id%7D/cancel) - Cancel a run. If the run hasn’t started, cancel it immediately, if it’s currently running then cancel it as soon as possible.
-- [`DELETE /runs/{run_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/DELETE/threads/%7Bthread_id%7D/runs/%7Brun_id%7D) - Delete a finished run. A pending run needs to be cancelled first, see previous endpoint.
-- [`GET /runs/{run_id}/wait`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/GET/threads/%7Bthread_id%7D/runs/%7Brun_id%7D/wait) - Wait for a run to finish, return the final output. If the run already finished, returns its final output immediately.
-- [`GET /runs/{run_id}/stream`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/GET/threads/%7Bthread_id%7D/runs/%7Brun_id%7D/stream) - Join the output stream of an existing run. Only output produced after this endpoint is called will be streamed.
+- [`GET /threads/{thread_id}/runs`](https://langchain-ai.github.io/agent-protocol/api.html#tag/background-runs/GET/threads/{thread_id}/runs) - List runs for a thread.
+- [`POST /runs`](https://langchain-ai.github.io/agent-protocol/api.html#tag/background-runs/POST/runs) - Create a background run.
+- [`GET /runs/{run_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/background-runs/GET/runs/{run_id}) - Get a run and its status.
+- [`POST /runs/{run_id}/cancel`](https://langchain-ai.github.io/agent-protocol/api.html#tag/background-runs/POST/runs/{run_id}/cancel) - Cancel a run. If the run hasn’t started, cancel it immediately, if it’s currently running then cancel it as soon as possible.
+- [`DELETE /runs/{run_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/background-runs/DELETE/runs/{run_id}) - Delete a finished run. A pending run needs to be cancelled first, see previous endpoint.
+- [`GET /runs/{run_id}/wait`](https://langchain-ai.github.io/agent-protocol/api.html#tag/background-runs/GET/runs/{run_id}/wait) - Wait for a run to finish, return the final output. If the run already finished, returns its final output immediately.
+- [`GET /runs/{run_id}/stream`](https://langchain-ai.github.io/agent-protocol/api.html#tag/background-runs/GET/runs/{run_id}/stream) - Join the output stream of an existing run. Only output produced after this endpoint is called will be streamed.
 
 ## Store: Long-term memory
 
