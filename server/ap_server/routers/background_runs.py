@@ -128,6 +128,6 @@ def list_runs_http_threads__thread_id__runs_get(
     thread_id: UUID, limit: Optional[int] = 10, offset: Optional[int] = 0
 ) -> Union[ThreadsThreadIdRunsGetResponse, ErrorResponse]:
     """
-    List Runs
+    Search Thread Runs
     """
     pass

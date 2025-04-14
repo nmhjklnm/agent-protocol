@@ -27,7 +27,7 @@ def search_agents_post_agents_search(
     body: AgentsSearchPostRequest,
 ) -> Union[AgentsSearchPostResponse, ErrorResponse]:
     """
-    List Agents
+    Search Agents
     """
     pass
 

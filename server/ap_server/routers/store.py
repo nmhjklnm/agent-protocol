@@ -33,7 +33,7 @@ router = APIRouter(tags=["Store"])
 )
 def put_item(body: StorePutRequest) -> Optional[ErrorResponse]:
     """
-    Store or update an item.
+    Insert or Update Item
     """
     pass
 
@@ -47,7 +47,7 @@ def put_item(body: StorePutRequest) -> Optional[ErrorResponse]:
 )
 def delete_item(body: StoreDeleteRequest) -> Optional[ErrorResponse]:
     """
-    Delete an item.
+    Delete Store Item
     """
     pass
 
@@ -66,7 +66,7 @@ def get_item(
     key: str, namespace: Annotated[list[str] | None, Query()] = None
 ) -> Union[Item, ErrorResponse]:
     """
-    Retrieve a single item.
+    Get Store Item
     """
     pass
 
@@ -79,7 +79,7 @@ def get_item(
 )
 def search_items(body: StoreSearchRequest) -> Union[SearchItemsResponse, ErrorResponse]:
     """
-    Search for items within a namespace prefix.
+    Search Store Items
     """
     pass
 
@@ -94,6 +94,6 @@ def list_namespaces(
     body: StoreListNamespacesRequest,
 ) -> Union[ListNamespaceResponse, ErrorResponse]:
     """
-    List namespaces with optional match conditions.
+    List namespaces
     """
     pass
