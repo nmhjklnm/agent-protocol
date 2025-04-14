@@ -1484,7 +1484,7 @@
                 "type": "boolean",
                 "title": "Streaming",
                 "description": "Whether the agent supports streaming output."
-              },
+              }
             },
             "additionalProperties": true
           }
