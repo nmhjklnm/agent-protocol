@@ -32,9 +32,9 @@
         "tags": [
           "Agents"
         ],
-        "summary": "List Agents",
+        "summary": "Search Agents",
         "description": "List Agents available in this service.",
-        "operationId": "search_agents_post_agents_search",
+        "operationId": "search_agents",
         "requestBody": {
           "required": true,
           "content": {
@@ -80,7 +80,7 @@
                     "$ref": "#/components/schemas/Agent"
                   },
                   "type": "array",
-                  "title": "Response List Agents"
+                  "title": "Response Search Agents"
                 }
               }
             }
@@ -115,7 +115,7 @@
         ],
         "summary": "Get Agent",
         "description": "Get an agent by ID.",
-        "operationId": "get_agent_agents__agent_id__get",
+        "operationId": "get_agent",
         "parameters": [
           {
             "description": "The ID of the agent.",
@@ -160,7 +160,7 @@
         ],
         "summary": "Get Agent Schemas",
         "description": "Get an agent's schemas by ID.",
-        "operationId": "get_agent_schemas_agents__agent_id__schemas_get",
+        "operationId": "get_agent_schemas",
         "parameters": [
           {
             "description": "The ID of the agent.",
@@ -215,7 +215,7 @@
         ],
         "summary": "Create Thread",
         "description": "Create a thread.",
-        "operationId": "create_thread_threads_post",
+        "operationId": "create_thread",
         "requestBody": {
           "content": {
             "application/json": {
@@ -267,7 +267,7 @@
         ],
         "summary": "Search Threads",
         "description": "Search for threads.\n\nThis endpoint also functions as the endpoint to list all threads.",
-        "operationId": "search_threads_threads_search_post",
+        "operationId": "search_threads",
         "requestBody": {
           "content": {
             "application/json": {
@@ -313,7 +313,7 @@
         ],
         "summary": "Get Thread History",
         "description": "Get all past states for a thread.",
-        "operationId": "get_thread_history_threads__thread_id__history_get",
+        "operationId": "get_thread_history",
         "parameters": [
           {
             "description": "The ID of the thread.",
@@ -391,7 +391,7 @@
         ],
         "summary": "Copy Thread",
         "description": "Create a new thread with a copy of the state and checkpoints from an existing thread.",
-        "operationId": "copy_thread_post_threads__thread_id__copy_post",
+        "operationId": "copy_thread",
         "parameters": [
           {
             "description": "The ID of the thread.",
@@ -447,7 +447,7 @@
         ],
         "summary": "Get Thread",
         "description": "Get a thread by ID.",
-        "operationId": "get_thread_threads__thread_id__get",
+        "operationId": "get_thread",
         "parameters": [
           {
             "description": "The ID of the thread.",
@@ -501,7 +501,7 @@
         ],
         "summary": "Delete Thread",
         "description": "Delete a thread by ID.",
-        "operationId": "delete_thread_threads__thread_id__delete",
+        "operationId": "delete_thread",
         "parameters": [
           {
             "description": "The ID of the thread.",
@@ -548,7 +548,7 @@
         ],
         "summary": "Patch Thread",
         "description": "Update a thread.",
-        "operationId": "patch_thread_threads__thread_id__patch",
+        "operationId": "patch_thread",
         "parameters": [
           {
             "description": "The ID of the thread.",
@@ -612,9 +612,9 @@
         "tags": [
           "Background Runs"
         ],
-        "summary": "List Runs",
+        "summary": "Search Thread Runs",
         "description": "List runs for a thread.",
-        "operationId": "list_runs_http_threads__thread_id__runs_get",
+        "operationId": "search_thread_runs",
         "parameters": [
           {
             "description": "The ID of the thread.",
@@ -693,7 +693,7 @@
         ],
         "summary": "Get Run",
         "description": "Get a run by ID.",
-        "operationId": "get_run_http_threads__thread_id__runs__run_id__get",
+        "operationId": "get_run",
         "parameters": [
           {
             "description": "The ID of the thread.",
@@ -759,7 +759,7 @@
         ],
         "summary": "Delete Run",
         "description": "Delete a run by ID.",
-        "operationId": "delete_run_threads__thread_id__runs__run_id__delete",
+        "operationId": "delete_run",
         "parameters": [
           {
             "description": "The ID of the thread.",
@@ -820,7 +820,7 @@
         ],
         "summary": "Wait for Run output",
         "description": "Wait for a run to finish, return the final output. If the run already finished, returns its final output immediately.",
-        "operationId": "join_run_http_threads__thread_id__runs__run_id__join_get",
+        "operationId": "wait_run",
         "parameters": [
           {
             "description": "The ID of the thread.",
@@ -888,7 +888,7 @@
         ],
         "summary": "Stream output from Run",
         "description": "Join the output stream of an existing run. This endpoint streams output in real-time from a run similar to the /threads/__THREAD_ID__/runs/stream endpoint. Only output produced after this endpoint is called will be streamed.",
-        "operationId": "stream_run_http_threads__thread_id__runs__run_id__join_get",
+        "operationId": "stream_run",
         "parameters": [
           {
             "description": "The ID of the thread.",
@@ -953,7 +953,7 @@
           "Background Runs"
         ],
         "summary": "Cancel Run",
-        "operationId": "cancel_run_http_threads__thread_id__runs__run_id__cancel_post",
+        "operationId": "cancel_run",
         "parameters": [
           {
             "description": "The ID of the thread.",
@@ -1039,7 +1039,7 @@
         ],
         "summary": "Create Background Run",
         "description": "Create a run in a new thread, return the run ID immediately. Don't wait for the final run output.",
-        "operationId": "run_stateless_runs_post",
+        "operationId": "create_run",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1099,7 +1099,7 @@
         ],
         "summary": "Create Run, Stream Output",
         "description": "Create a run in a new thread, stream the output.",
-        "operationId": "stream_run_stateless_runs_stream_post",
+        "operationId": "create_and_stream_run",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1162,7 +1162,7 @@
         ],
         "summary": "Create Run, Wait for Output",
         "description": "Create a run in a new thread. Wait for the final output and then return it.",
-        "operationId": "wait_run_stateless_runs_wait_post",
+        "operationId": "create_and_wait_run",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1222,7 +1222,7 @@
         "tags": [
           "Store"
         ],
-        "summary": "Store or update an item.",
+        "summary": "Insert or Update Item",
         "operationId": "put_item",
         "requestBody": {
           "required": true,
@@ -1254,7 +1254,7 @@
         "tags": [
           "Store"
         ],
-        "summary": "Delete an item.",
+        "summary": "Delete Store Item",
         "operationId": "delete_item",
         "requestBody": {
           "required": true,
@@ -1296,7 +1296,7 @@
         "tags": [
           "Store"
         ],
-        "summary": "Retrieve a single item.",
+        "summary": "Get Store Item",
         "operationId": "get_item",
         "parameters": [
           {
@@ -1368,7 +1368,7 @@
         "tags": [
           "Store"
         ],
-        "summary": "Search for items within a namespace prefix.",
+        "summary": "Search Store Items",
         "operationId": "search_items",
         "requestBody": {
           "required": true,
@@ -1409,7 +1409,7 @@
         "tags": [
           "Store"
         ],
-        "summary": "List namespaces with optional match conditions.",
+        "summary": "List namespaces",
         "operationId": "list_namespaces",
         "requestBody": {
           "required": true,
@@ -2086,7 +2086,7 @@
           }
         },
         "title": "StoreSearchRequest",
-        "description": "Request to search for items within a namespace prefix."
+        "description": "Request to search for items"
       },
       "StoreListNamespacesRequest": {
         "type": "object",

@@ -28,37 +28,8 @@ Let’s dive deeper into each one, starting with the requirements, and then pres
 
 In some cases, you may want to create a thread and run in one request, and have the thread be deleted after the run concludes. This is useful for ephemeral or stateless interactions, where you don’t need to keep track of the thread’s state.
 
-- [`POST /runs`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs) - Create an ephemeral thread and run in one request. The thread will be deleted after the run concludes. This is likely to be useful only when the agent has side effects, as you won’t be able to access the thread’s state after the run finishes.
-- [`POST /runs/wait`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/wait) - Create an ephemeral thread and run, and wait for its final output, which is returned in the response.
-- [`POST /runs/stream`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/stream) - Create an ephemeral thread and run, and stream output as produced.
-
-## Background Runs: Atomic agent executions
-
-What do we need out of an API to execute an agent?
-
-- Support the two paradigms for launching a run
-  - Fire and forget, ie. launch a run in the background, but don’t wait for it to finish
-  - Waiting on a reply (blocking or polling), ie. launch a run and wait/stream its output
-- Support CRUD for agent executions
-  - List and get runs
-  - Cancel and delete runs
-- Flexible ways to consume output
-  - Get the final state
-  - Multiple types of streaming output, eg. token-by-token, intermediate steps, etc.
-  - Able to reconnect to output stream if disconnected
-- Handling edge cases
-  - Failures should be handled gracefully, and retried if desired
-  - Bursty traffic should be queued up
-
-Base Endpoints:
-
-- [`GET /threads/{thread_id}/runs`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/GET/threads/%7Bthread_id%7D/runs) - List runs.
-- [`POST /threads/{thread_id}/runs`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/threads/%7Bthread_id%7D/runs) - Create a run.
-- [`GET /threads/{thread_id}/runs/{run_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/GET/threads/%7Bthread_id%7D/runs/%7Brun_id%7D) - Get a run and its status.
-- [`POST /threads/{thread_id}/runs/{run_id}/cancel`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/threads/%7Bthread_id%7D/runs/%7Brun_id%7D/cancel) - Cancel a run. If the run hasn’t started, cancel it immediately, if it’s currently running then cancel it as soon as possible.
-- [`DELETE /threads/{thread_id}/runs/{run_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/DELETE/threads/%7Bthread_id%7D/runs/%7Brun_id%7D) - Delete a finished run. A pending run needs to be cancelled first, see previous endpoint.
-- [`GET /threads/{thread_id}/runs/{run_id}/wait`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/GET/threads/%7Bthread_id%7D/runs/%7Brun_id%7D/wait) - Wait for a run to finish, return the final output. If the run already finished, returns its final output immediately.
-- [`GET /threads/{thread_id}/runs/{run_id}/stream`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/GET/threads/%7Bthread_id%7D/runs/%7Brun_id%7D/stream) - Join the output stream of an existing run. Only output produced after this endpoint is called will be streamed.
+- [`POST /runs/wait`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/wait) - Create an ephemeral run, and wait for its final output, which is returned in the response.
+- [`POST /runs/stream`](https://langchain-ai.github.io/agent-protocol/api.html#tag/runs/POST/runs/stream) - Create an ephemeral run, and stream output as produced.
 
 ## Threads: multi-turn interactions
 
@@ -86,6 +57,44 @@ Endpoints:
 - [`DELETE /threads/{thread_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/threads/DELETE/threads/%7Bthread_id%7D) - Delete a thread.
 - [`PATCH /threads/{thread_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/threads/PATCH/threads/%7Bthread_id%7D) - Update a thread's values or metadata. Updating values creates a new revision in the thread's history.
 
+## Agents: Introspection
+
+Before you make use of an agent, it's sometimes useful to know what it can do, what inputs it accepts, what it returns, etc. This is where the introspection endpoints come in.
+
+Endpoints:
+
+- [`POST /agents/search`](https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/POST/agents/search) - List all agents, optionally filtered by metadata or name.
+- [`GET /agents/{agent_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/%7Bagent_id%7D) - Get basic information about an agent, including its name, description, metadata.
+- [`GET /agents/{agent_id}/schemas`](https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/%7Bagent_id%7D/schemas) - Get the input, output, state and config schemas for an agent. All schemas are represented in JSON Schema format.
+
+## Background Runs: Atomic agent executions
+
+What do we need out of an API to execute an agent?
+
+- Support the two paradigms for launching a run
+  - Fire and forget, ie. launch a run in the background, but don’t wait for it to finish
+  - Waiting on a reply (blocking or polling), ie. launch a run and wait/stream its output
+- Support CRUD for agent executions
+  - List and get runs
+  - Cancel and delete runs
+- Flexible ways to consume output
+  - Get the final state
+  - Multiple types of streaming output, eg. token-by-token, intermediate steps, etc.
+  - Able to reconnect to output stream if disconnected
+- Handling edge cases
+  - Failures should be handled gracefully, and retried if desired
+  - Bursty traffic should be queued up
+
+Base Endpoints:
+
+- [`GET /threads/{thread_id}/runs`](https://langchain-ai.github.io/agent-protocol/api.html#tag/background-runs/GET/threads/{thread_id}/runs) - List runs for a thread.
+- [`POST /runs`](https://langchain-ai.github.io/agent-protocol/api.html#tag/background-runs/POST/runs) - Create a background run.
+- [`GET /runs/{run_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/background-runs/GET/runs/{run_id}) - Get a run and its status.
+- [`POST /runs/{run_id}/cancel`](https://langchain-ai.github.io/agent-protocol/api.html#tag/background-runs/POST/runs/{run_id}/cancel) - Cancel a run. If the run hasn’t started, cancel it immediately, if it’s currently running then cancel it as soon as possible.
+- [`DELETE /runs/{run_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/background-runs/DELETE/runs/{run_id}) - Delete a finished run. A pending run needs to be cancelled first, see previous endpoint.
+- [`GET /runs/{run_id}/wait`](https://langchain-ai.github.io/agent-protocol/api.html#tag/background-runs/GET/runs/{run_id}/wait) - Wait for a run to finish, return the final output. If the run already finished, returns its final output immediately.
+- [`GET /runs/{run_id}/stream`](https://langchain-ai.github.io/agent-protocol/api.html#tag/background-runs/GET/runs/{run_id}/stream) - Join the output stream of an existing run. Only output produced after this endpoint is called will be streamed.
+
 ## Store: Long-term memory
 
 What do you need out of a memory API for agents?
@@ -107,16 +116,6 @@ Endpoints:
 - [`GET /store/items`](https://langchain-ai.github.io/agent-protocol/api.html#tag/store/GET/store/items) - Get a memory item, at a given namespace and key.
 - [`POST /store/items/search`](https://langchain-ai.github.io/agent-protocol/api.html#tag/store/POST/store/items/search) - Search memory items.
 - [`POST /store/namespaces`](https://langchain-ai.github.io/agent-protocol/api.html#tag/store/POST/store/namespaces) - List namespaces.
-
-## Agents: Introspection
-
-Before you make use of an agent, it's sometimes useful to know what it can do, what inputs it accepts, what it returns, etc. This is where the introspection endpoints come in.
-
-Endpoints:
-
-- [`POST /agents/search`](https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/POST/agents/search) - List all agents, optionally filtered by metadata or name.
-- [`GET /agents/{agent_id}`](https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/%7Bagent_id%7D) - Get basic information about an agent, including its name, description, metadata.
-- [`GET /agents/{agent_id}/schemas`](https://langchain-ai.github.io/agent-protocol/api.html#tag/agents/GET/agents/%7Bagent_id%7D/schemas) - Get the input, output, state and config schemas for an agent. All schemas are represented in JSON Schema format.
 
 ## Messages
 

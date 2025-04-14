@@ -28,6 +28,12 @@ class Capabilities(BaseModel):
         description="Whether the agent supports Messages as input/output/state. If true, the agent uses the `messages` key in threads/runs endpoints.",
         title="Messages",
     )
+    ap_io_streaming: Optional[bool] = Field(
+        None,
+        alias="ap.io.streaming",
+        description="Whether the agent supports streaming output.",
+        title="Streaming",
+    )
 
 
 class Agent(BaseModel):
@@ -339,7 +345,7 @@ class AgentsSearchPostRequest(BaseModel):
 
 
 class AgentsSearchPostResponse(RootModel[List[Agent]]):
-    root: List[Agent] = Field(..., title="Response List Agents")
+    root: List[Agent] = Field(..., title="Response Search Agents")
 
 
 class ThreadsThreadIdRunsGetResponse(RootModel[List[Run]]):
