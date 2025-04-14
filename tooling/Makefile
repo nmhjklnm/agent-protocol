@@ -10,3 +10,13 @@ gen-server:
 	poetry run ruff format ../server/ap_server
 	touch ../server/ap_server/__init__.py
 	touch ../server/ap_server/routers/__init__.py
+
+gen-client-python:
+	docker run --rm -v "${PWD}/..:/local" openapitools/openapi-generator-cli generate \
+    -i /local/openapi.json \
+    -g python \
+    -o /local/client-python \
+    --package-name=ap_client
+	sed -i '' 's|elif klass == object|elif klass is object|g' ../client-python/ap_client/*.py
+	poetry run ruff format ../client-python/ap_client
+	poetry run ruff check --fix --unsafe-fixes ../client-python/ap_client
