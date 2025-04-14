@@ -32,7 +32,7 @@
         "tags": [
           "Agents"
         ],
-        "summary": "List Agents",
+        "summary": "Search Agents",
         "description": "List Agents available in this service.",
         "operationId": "search_agents_post_agents_search",
         "requestBody": {
@@ -80,7 +80,7 @@
                     "$ref": "#/components/schemas/Agent"
                   },
                   "type": "array",
-                  "title": "Response List Agents"
+                  "title": "Response Search Agents"
                 }
               }
             }
@@ -612,7 +612,7 @@
         "tags": [
           "Background Runs"
         ],
-        "summary": "List Runs",
+        "summary": "Search Thread Runs",
         "description": "List runs for a thread.",
         "operationId": "list_runs_http_threads__thread_id__runs_get",
         "parameters": [
@@ -1222,7 +1222,7 @@
         "tags": [
           "Store"
         ],
-        "summary": "Store or update an item.",
+        "summary": "Insert or Update Item",
         "operationId": "put_item",
         "requestBody": {
           "required": true,
@@ -1254,7 +1254,7 @@
         "tags": [
           "Store"
         ],
-        "summary": "Delete an item.",
+        "summary": "Delete Store Item",
         "operationId": "delete_item",
         "requestBody": {
           "required": true,
@@ -1296,7 +1296,7 @@
         "tags": [
           "Store"
         ],
-        "summary": "Retrieve a single item.",
+        "summary": "Get Store Item",
         "operationId": "get_item",
         "parameters": [
           {
@@ -1368,7 +1368,7 @@
         "tags": [
           "Store"
         ],
-        "summary": "Search for items within a namespace prefix.",
+        "summary": "Search Store Items",
         "operationId": "search_items",
         "requestBody": {
           "required": true,
@@ -1409,7 +1409,7 @@
         "tags": [
           "Store"
         ],
-        "summary": "List namespaces with optional match conditions.",
+        "summary": "List namespaces",
         "operationId": "list_namespaces",
         "requestBody": {
           "required": true,
@@ -2086,7 +2086,7 @@
           }
         },
         "title": "StoreSearchRequest",
-        "description": "Request to search for items within a namespace prefix."
+        "description": "Request to search for items"
       },
       "StoreListNamespacesRequest": {
         "type": "object",
