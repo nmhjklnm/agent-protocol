@@ -21,6 +21,7 @@ ap_client/models/agent_schemas.py
 ap_client/models/config.py
 ap_client/models/content.py
 ap_client/models/content_one_of_inner.py
+ap_client/models/error_response.py
 ap_client/models/input.py
 ap_client/models/item.py
 ap_client/models/message.py
@@ -55,6 +56,7 @@ docs/BackgroundRunsApi.md
 docs/Config.md
 docs/Content.md
 docs/ContentOneOfInner.md
+docs/ErrorResponse.md
 docs/Input.md
 docs/Item.md
 docs/Message.md
@@ -89,5 +91,5 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_run_search_request.py
+test/test_error_response.py
 tox.ini

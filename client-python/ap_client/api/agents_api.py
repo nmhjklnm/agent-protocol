@@ -90,7 +90,7 @@ class AgentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Agent",
-            "404": "str",
+            "404": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -155,7 +155,7 @@ class AgentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Agent",
-            "404": "str",
+            "404": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -220,7 +220,7 @@ class AgentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Agent",
-            "404": "str",
+            "404": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -334,8 +334,8 @@ class AgentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "AgentSchemas",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -400,8 +400,8 @@ class AgentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "AgentSchemas",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -466,8 +466,8 @@ class AgentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "AgentSchemas",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -581,8 +581,8 @@ class AgentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "List[Agent]",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -647,8 +647,8 @@ class AgentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "List[Agent]",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -713,8 +713,8 @@ class AgentsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "List[Agent]",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout

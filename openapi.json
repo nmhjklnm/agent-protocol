@@ -2192,9 +2192,22 @@
         }
       },
       "ErrorResponse": {
-        "type": "string",
+        "type": "object",
         "title": "ErrorResponse",
-        "description": "Error message returned from the server"
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "For some errors that could be handled programmatically, a short string indicating the error code reported."
+          },
+          "message": {
+            "type": "string",
+            "description": "A human-readable short description of the error."
+          },
+          "metadata": {
+            "type": "object",
+            "description": "A dictionary of additional information about the error."
+          }
+        }
       }
     },
     "responses": {

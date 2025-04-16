@@ -19,6 +19,7 @@ from ap_client.models.agent_schemas import AgentSchemas
 from ap_client.models.config import Config
 from ap_client.models.content import Content
 from ap_client.models.content_one_of_inner import ContentOneOfInner
+from ap_client.models.error_response import ErrorResponse
 from ap_client.models.input import Input
 from ap_client.models.item import Item
 from ap_client.models.message import Message
