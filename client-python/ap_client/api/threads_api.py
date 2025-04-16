@@ -92,8 +92,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Thread",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -158,8 +158,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Thread",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -224,8 +224,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Thread",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -339,8 +339,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Thread",
-            "409": "str",
-            "422": "str",
+            "409": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -405,8 +405,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Thread",
-            "409": "str",
-            "422": "str",
+            "409": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -471,8 +471,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Thread",
-            "409": "str",
-            "422": "str",
+            "409": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -596,8 +596,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "204": None,
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -662,8 +662,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "204": None,
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -728,8 +728,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "204": None,
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -843,8 +843,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Thread",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -909,8 +909,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Thread",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -975,8 +975,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Thread",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1098,8 +1098,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "List[ThreadState]",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1172,8 +1172,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "List[ThreadState]",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1246,8 +1246,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "List[ThreadState]",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1373,8 +1373,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Thread",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1443,8 +1443,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Thread",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1513,8 +1513,8 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Thread",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1641,7 +1641,7 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "List[Thread]",
-            "422": "str",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1706,7 +1706,7 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "List[Thread]",
-            "422": "str",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1771,7 +1771,7 @@ class ThreadsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "List[Thread]",
-            "422": "str",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout

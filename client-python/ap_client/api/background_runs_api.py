@@ -104,8 +104,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "204": None,
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -182,8 +182,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "204": None,
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -260,8 +260,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "204": None,
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -383,9 +383,9 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Run",
-            "404": "str",
-            "409": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "409": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -450,9 +450,9 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Run",
-            "404": "str",
-            "409": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "409": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -517,9 +517,9 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Run",
-            "404": "str",
-            "409": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "409": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -643,8 +643,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "204": None,
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -709,8 +709,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "204": None,
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -775,8 +775,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "204": None,
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -890,8 +890,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Run",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -956,8 +956,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Run",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1022,8 +1022,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Run",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1137,8 +1137,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "List[Run]",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1203,8 +1203,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "List[Run]",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1269,8 +1269,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "List[Run]",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1394,8 +1394,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "object",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1460,8 +1460,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "object",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1526,8 +1526,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "object",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1641,8 +1641,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "RunWaitResponse",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1707,8 +1707,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "RunWaitResponse",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1773,8 +1773,8 @@ class BackgroundRunsApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "RunWaitResponse",
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout

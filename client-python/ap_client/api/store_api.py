@@ -92,8 +92,8 @@ class StoreApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "204": None,
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -157,8 +157,8 @@ class StoreApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "204": None,
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -222,8 +222,8 @@ class StoreApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "204": None,
-            "404": "str",
-            "422": "str",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -350,9 +350,9 @@ class StoreApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Item",
-            "400": "str",
-            "404": "str",
-            "422": "str",
+            "400": "ErrorResponse",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -420,9 +420,9 @@ class StoreApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Item",
-            "400": "str",
-            "404": "str",
-            "422": "str",
+            "400": "ErrorResponse",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -490,9 +490,9 @@ class StoreApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "Item",
-            "400": "str",
-            "404": "str",
-            "422": "str",
+            "400": "ErrorResponse",
+            "404": "ErrorResponse",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -612,7 +612,7 @@ class StoreApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "List[List[str]]",
-            "422": "str",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -676,7 +676,7 @@ class StoreApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "List[List[str]]",
-            "422": "str",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -740,7 +740,7 @@ class StoreApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "List[List[str]]",
-            "422": "str",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -863,7 +863,7 @@ class StoreApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "204": None,
-            "422": "str",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -927,7 +927,7 @@ class StoreApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "204": None,
-            "422": "str",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -991,7 +991,7 @@ class StoreApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "204": None,
-            "422": "str",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1114,7 +1114,7 @@ class StoreApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "SearchItemsResponse",
-            "422": "str",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1178,7 +1178,7 @@ class StoreApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "SearchItemsResponse",
-            "422": "str",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1242,7 +1242,7 @@ class StoreApi:
 
         _response_types_map: Dict[str, Optional[str]] = {
             "200": "SearchItemsResponse",
-            "422": "str",
+            "422": "ErrorResponse",
         }
         response_data = self.api_client.call_api(
             *_param, _request_timeout=_request_timeout

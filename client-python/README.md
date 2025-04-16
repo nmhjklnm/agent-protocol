@@ -119,6 +119,7 @@ Class | Method | HTTP request | Description
  - [Config](docs/Config.md)
  - [Content](docs/Content.md)
  - [ContentOneOfInner](docs/ContentOneOfInner.md)
+ - [ErrorResponse](docs/ErrorResponse.md)
  - [Input](docs/Input.md)
  - [Item](docs/Item.md)
  - [Message](docs/Message.md)
