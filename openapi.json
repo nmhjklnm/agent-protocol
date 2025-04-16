@@ -1486,63 +1486,6 @@
         "title": "Status",
         "description": "The status of the run. One of 'pending', 'error', 'success', 'timeout', 'interrupted'."
       },
-      "Run": {
-        "properties": {
-          "run_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Run Id",
-            "description": "The ID of the run."
-          },
-          "thread_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Thread Id",
-            "description": "The ID of the thread."
-          },
-          "agent_id": {
-            "type": "string",
-            "title": "Agent Id",
-            "description": "The agent that was used for this run."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Created At",
-            "description": "The time the run was created."
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At",
-            "description": "The last time the run was updated."
-          },
-          "status": {
-            "$ref": "#/components/schemas/RunStatus",
-            "title": "Run Status",
-            "description": "The status of the run."
-          },
-          "metadata": {
-            "type": "object",
-            "title": "Metadata",
-            "description": "The run metadata."
-          },
-          "kwargs": {
-            "type": "object",
-            "title": "Kwargs"
-          }
-        },
-        "type": "object",
-        "required": [
-          "run_id",
-          "created_at",
-          "updated_at",
-          "status",
-          "metadata",
-          "kwargs"
-        ],
-        "title": "Run"
-      },
       "RunWaitResponse": {
         "type": "object",
         "properties": {
@@ -1710,6 +1653,44 @@
         "required": [],
         "title": "RunCreate",
         "description": "Payload for creating a run."
+      },
+      "Run": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RunCreate"
+          },
+          {
+            "properties": {
+              "run_id": {
+                "type": "string",
+                "format": "uuid",
+                "title": "Run Id",
+                "description": "The ID of the run."
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time",
+                "title": "Created At",
+                "description": "The time the run was created."
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time",
+                "title": "Updated At",
+                "description": "The last time the run was updated."
+              }
+            },
+            "type": "object",
+            "required": [
+              "run_id",
+              "created_at",
+              "updated_at",
+              "status",
+              "metadata"
+            ],
+            "title": "Run"
+          }
+        ]
       },
       "ThreadSearchRequest": {
         "properties": {

@@ -20,7 +20,7 @@ router = APIRouter(tags=["Runs"])
     },
     tags=["Runs"],
 )
-def stream_run_stateless_runs_stream_post(body: RunCreate) -> Union[str, ErrorResponse]:
+def create_and_stream_run(body: RunCreate) -> Union[str, ErrorResponse]:
     """
     Create Run, Stream Output
     """
@@ -37,9 +37,7 @@ def stream_run_stateless_runs_stream_post(body: RunCreate) -> Union[str, ErrorRe
     },
     tags=["Runs"],
 )
-def wait_run_stateless_runs_wait_post(
-    body: RunCreate,
-) -> Union[RunWaitResponse, ErrorResponse]:
+def create_and_wait_run(body: RunCreate) -> Union[RunWaitResponse, ErrorResponse]:
     """
     Create Run, Wait for Output
     """

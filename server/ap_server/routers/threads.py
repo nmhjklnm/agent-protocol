@@ -27,7 +27,7 @@ router = APIRouter(tags=["Threads"])
     responses={"409": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Threads"],
 )
-def create_thread_threads_post(body: ThreadCreate) -> Union[Thread, ErrorResponse]:
+def create_thread(body: ThreadCreate) -> Union[Thread, ErrorResponse]:
     """
     Create Thread
     """
@@ -40,7 +40,7 @@ def create_thread_threads_post(body: ThreadCreate) -> Union[Thread, ErrorRespons
     responses={"422": {"model": ErrorResponse}},
     tags=["Threads"],
 )
-def search_threads_threads_search_post(
+def search_threads(
     body: ThreadSearchRequest,
 ) -> Union[ThreadsSearchPostResponse, ErrorResponse]:
     """
@@ -55,7 +55,7 @@ def search_threads_threads_search_post(
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Threads"],
 )
-def get_thread_threads__thread_id__get(thread_id: UUID) -> Union[Thread, ErrorResponse]:
+def get_thread(thread_id: UUID) -> Union[Thread, ErrorResponse]:
     """
     Get Thread
     """
@@ -69,9 +69,7 @@ def get_thread_threads__thread_id__get(thread_id: UUID) -> Union[Thread, ErrorRe
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Threads"],
 )
-def delete_thread_threads__thread_id__delete(
-    thread_id: UUID,
-) -> Optional[ErrorResponse]:
+def delete_thread(thread_id: UUID) -> Optional[ErrorResponse]:
     """
     Delete Thread
     """
@@ -84,7 +82,7 @@ def delete_thread_threads__thread_id__delete(
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Threads"],
 )
-def patch_thread_threads__thread_id__patch(
+def patch_thread(
     thread_id: UUID, body: ThreadPatch = ...
 ) -> Union[Thread, ErrorResponse]:
     """
@@ -99,9 +97,7 @@ def patch_thread_threads__thread_id__patch(
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Threads"],
 )
-def copy_thread_post_threads__thread_id__copy_post(
-    thread_id: UUID,
-) -> Union[Thread, ErrorResponse]:
+def copy_thread(thread_id: UUID) -> Union[Thread, ErrorResponse]:
     """
     Copy Thread
     """
@@ -114,7 +110,7 @@ def copy_thread_post_threads__thread_id__copy_post(
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Threads"],
 )
-def get_thread_history_threads__thread_id__history_get(
+def get_thread_history(
     thread_id: UUID, limit: Optional[int] = 10, before: Optional[str] = None
 ) -> Union[ThreadsThreadIdHistoryGetResponse, ErrorResponse]:
     """

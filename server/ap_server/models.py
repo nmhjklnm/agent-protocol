@@ -84,39 +84,6 @@ class RunStatus(Enum):
     interrupted = "interrupted"
 
 
-class MultitaskStrategy(Enum):
-    reject = "reject"
-    rollback = "rollback"
-    interrupt = "interrupt"
-    enqueue = "enqueue"
-
-
-class Run(BaseModel):
-    run_id: UUID = Field(..., description="The ID of the run.", title="Run Id")
-    thread_id: UUID = Field(..., description="The ID of the thread.", title="Thread Id")
-    agent_id: Optional[str] = Field(
-        None, description="The agent that was used for this run.", title="Agent Id"
-    )
-    created_at: AwareDatetime = Field(
-        ..., description="The time the run was created.", title="Created At"
-    )
-    updated_at: AwareDatetime = Field(
-        ..., description="The last time the run was updated.", title="Updated At"
-    )
-    status: RunStatus = Field(
-        ..., description="The status of the run.", title="Run Status"
-    )
-    metadata: Dict[str, Any] = Field(
-        ..., description="The run metadata.", title="Metadata"
-    )
-    kwargs: Dict[str, Any] = Field(..., title="Kwargs")
-    multitask_strategy: MultitaskStrategy = Field(
-        ...,
-        description="Strategy to handle concurrent runs on the same thread.",
-        title="Multitask Strategy",
-    )
-
-
 class Config(BaseModel):
     tags: Optional[List[str]] = Field(None, title="Tags")
     recursion_limit: Optional[int] = Field(None, title="Recursion Limit")
@@ -125,17 +92,15 @@ class Config(BaseModel):
 
 class StreamModeEnum(Enum):
     values = "values"
-    messages_tuple = "messages-tuple"
+    messages = "messages"
     updates = "updates"
-    debug = "debug"
     custom = "custom"
 
 
 class StreamMode(Enum):
     values = "values"
-    messages_tuple = "messages-tuple"
+    messages = "messages"
     updates = "updates"
-    debug = "debug"
     custom = "custom"
 
 
@@ -348,10 +313,6 @@ class AgentsSearchPostResponse(RootModel[List[Agent]]):
     root: List[Agent] = Field(..., title="Response Search Agents")
 
 
-class ThreadsThreadIdRunsGetResponse(RootModel[List[Run]]):
-    root: List[Run]
-
-
 class Action(Enum):
     interrupt = "interrupt"
     rollback = "rollback"
@@ -361,25 +322,15 @@ class Namespace(RootModel[List[str]]):
     root: List[str]
 
 
-class RunWaitResponse(BaseModel):
-    run: Optional[Run] = Field(None, description="The run information.", title="Run")
-    values: Optional[Dict[str, Any]] = Field(
-        None, description="The values returned by the run.", title="Values"
-    )
-    messages: Optional[List[Message]] = Field(
-        None, description="The messages returned by the run.", title="Messages"
-    )
-
-
 class RunCreate(BaseModel):
     thread_id: Optional[UUID] = Field(
         None,
-        description="The ID of the thread to run. If not provided, will create a stateless run.",
+        description="The ID of the thread to run. If not provided, creates a stateless run. 'thread_id' is ignored unless Threads stage is implemented.",
         title="Thread Id",
     )
     agent_id: Optional[str] = Field(
         None,
-        description="The agent ID to run. If not provided will use the default agent for this service.",
+        description="The agent ID to run. If not provided will use the default agent for this service. 'agent_id' is ignored unless Agents stage is implemented.",
         title="Agent Id",
     )
     input: Optional[Union[Dict[str, Any], List, str, float, bool]] = Field(
@@ -416,6 +367,16 @@ class RunCreate(BaseModel):
         "reject",
         description="How to handle missing thread. Must be either 'reject' (raise error if missing), or 'create' (create new thread).",
         title="If Not Exists",
+    )
+
+
+class Run(RunCreate):
+    run_id: UUID = Field(..., description="The ID of the run.", title="Run Id")
+    created_at: AwareDatetime = Field(
+        ..., description="The time the run was created.", title="Created At"
+    )
+    updated_at: AwareDatetime = Field(
+        ..., description="The last time the run was updated.", title="Updated At"
     )
 
 
@@ -505,3 +466,17 @@ class ThreadsSearchPostResponse(RootModel[List[Thread]]):
 
 class ThreadsThreadIdHistoryGetResponse(RootModel[List[ThreadState]]):
     root: List[ThreadState]
+
+
+class ThreadsThreadIdRunsGetResponse(RootModel[List[Run]]):
+    root: List[Run]
+
+
+class RunWaitResponse(BaseModel):
+    run: Optional[Run] = Field(None, description="The run information.", title="Run")
+    values: Optional[Dict[str, Any]] = Field(
+        None, description="The values returned by the run.", title="Values"
+    )
+    messages: Optional[List[Message]] = Field(
+        None, description="The messages returned by the run.", title="Messages"
+    )

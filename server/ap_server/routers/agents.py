@@ -23,7 +23,7 @@ router = APIRouter(tags=["Agents"])
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Agents"],
 )
-def search_agents_post_agents_search(
+def search_agents(
     body: AgentsSearchPostRequest,
 ) -> Union[AgentsSearchPostResponse, ErrorResponse]:
     """
@@ -38,7 +38,7 @@ def search_agents_post_agents_search(
     responses={"404": {"model": ErrorResponse}},
     tags=["Agents"],
 )
-def get_agent_agents__agent_id__get(agent_id: str) -> Union[Agent, ErrorResponse]:
+def get_agent(agent_id: str) -> Union[Agent, ErrorResponse]:
     """
     Get Agent
     """
@@ -51,9 +51,7 @@ def get_agent_agents__agent_id__get(agent_id: str) -> Union[Agent, ErrorResponse
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Agents"],
 )
-def get_agent_schemas_agents__agent_id__schemas_get(
-    agent_id: str,
-) -> Union[AgentSchemas, ErrorResponse]:
+def get_agent_schemas(agent_id: str) -> Union[AgentSchemas, ErrorResponse]:
     """
     Get Agent Schemas
     """
