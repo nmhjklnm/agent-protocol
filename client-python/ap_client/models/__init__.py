@@ -26,6 +26,7 @@ from ap_client.models.message_any_block import MessageAnyBlock
 from ap_client.models.message_text_block import MessageTextBlock
 from ap_client.models.run import Run
 from ap_client.models.run_create import RunCreate
+from ap_client.models.run_search_request import RunSearchRequest
 from ap_client.models.run_status import RunStatus
 from ap_client.models.run_wait_response import RunWaitResponse
 from ap_client.models.search_agents_request import SearchAgentsRequest
