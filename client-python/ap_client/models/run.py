@@ -23,6 +23,7 @@ from typing_extensions import Annotated
 from ap_client.models.config import Config
 from ap_client.models.input import Input
 from ap_client.models.message import Message
+from ap_client.models.run_status import RunStatus
 from ap_client.models.stream_mode import StreamMode
 from typing import Set
 from typing_extensions import Self
@@ -68,6 +69,7 @@ class Run(BaseModel):
     run_id: StrictStr = Field(description="The ID of the run.")
     created_at: datetime = Field(description="The time the run was created.")
     updated_at: datetime = Field(description="The last time the run was updated.")
+    status: RunStatus
     __properties: ClassVar[List[str]] = [
         "thread_id",
         "agent_id",
@@ -83,6 +85,7 @@ class Run(BaseModel):
         "run_id",
         "created_at",
         "updated_at",
+        "status",
     ]
 
     @field_validator("on_completion")
@@ -212,6 +215,7 @@ class Run(BaseModel):
                 "run_id": obj.get("run_id"),
                 "created_at": obj.get("created_at"),
                 "updated_at": obj.get("updated_at"),
+                "status": obj.get("status"),
             }
         )
         return _obj

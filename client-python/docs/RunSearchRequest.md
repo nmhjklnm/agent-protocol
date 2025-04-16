@@ -6,7 +6,7 @@ Payload for listing runs.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**metadata** | **object** | Thread metadata to filter on. | [optional] 
+**metadata** | **object** | Run metadata to filter on. | [optional] 
 **status** | [**RunStatus**](RunStatus.md) | Run status to filter on. | [optional] 
 **thread_id** | **str** | The ID of the thread to filter on. | [optional] 
 **agent_id** | **str** | The ID of the agent to filter on. | [optional] 
