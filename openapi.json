@@ -607,48 +607,24 @@
         }
       }
     },
-    "/threads/{thread_id}/runs": {
-      "get": {
+    "/runs/search": {
+      "post": {
         "tags": [
           "Background Runs"
         ],
-        "summary": "Search Thread Runs",
-        "description": "List runs for a thread.",
-        "operationId": "search_thread_runs",
-        "parameters": [
-          {
-            "description": "The ID of the thread.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "title": "Thread Id",
-              "description": "The ID of the thread."
-            },
-            "name": "thread_id",
-            "in": "path"
+        "summary": "Search Runs",
+        "description": "List runs for a thread, agent or status",
+        "operationId": "search_runs",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunSearchRequest"
+              }
+            }
           },
-          {
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "title": "Limit",
-              "default": 10
-            },
-            "name": "limit",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "title": "Offset",
-              "default": 0
-            },
-            "name": "offset",
-            "in": "query"
-          }
-        ],
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "Success",
@@ -1693,6 +1669,49 @@
             "title": "Run"
           }
         ]
+      },
+      "RunSearchRequest": {
+        "properties": {
+          "metadata": {
+            "type": "object",
+            "title": "Metadata",
+            "description": "Thread metadata to filter on."
+          },
+          "status": {
+            "$ref": "#/components/schemas/RunStatus",
+            "title": "Run Status",
+            "description": "Run status to filter on."
+          },
+          "thread_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Thread Id",
+            "description": "The ID of the thread to filter on."
+          },
+          "agent_id": {
+            "type": "string",
+            "title": "Agent Id",
+            "description": "The ID of the agent to filter on."
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit",
+            "description": "Maximum number to return.",
+            "default": 10,
+            "minimum": 1,
+            "maximum": 1000
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset",
+            "description": "Offset to start from.",
+            "default": 0,
+            "minimum": 0
+          }
+        },
+        "type": "object",
+        "title": "RunSearchRequest",
+        "description": "Payload for listing runs."
       },
       "ThreadSearchRequest": {
         "properties": {

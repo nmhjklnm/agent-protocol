@@ -12,8 +12,9 @@ from ..models import (
     Optional,
     Run,
     RunCreate,
+    RunSearchRequest,
     RunWaitResponse,
-    ThreadsThreadIdRunsGetResponse,
+    RunsSearchPostResponse,
     UUID,
     Union,
 )
@@ -34,6 +35,19 @@ router = APIRouter(tags=["Background Runs"])
 def create_run(body: RunCreate) -> Union[Run, ErrorResponse]:
     """
     Create Background Run
+    """
+    pass
+
+
+@router.post(
+    "/runs/search",
+    response_model=RunsSearchPostResponse,
+    responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
+    tags=["Background Runs"],
+)
+def search_runs(body: RunSearchRequest) -> Union[RunsSearchPostResponse, ErrorResponse]:
+    """
+    Search Runs
     """
     pass
 
@@ -103,20 +117,5 @@ def stream_run(run_id: UUID) -> Union[Any, ErrorResponse]:
 def wait_run(run_id: UUID) -> Union[RunWaitResponse, ErrorResponse]:
     """
     Wait for Run output
-    """
-    pass
-
-
-@router.get(
-    "/threads/{thread_id}/runs",
-    response_model=ThreadsThreadIdRunsGetResponse,
-    responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
-    tags=["Background Runs"],
-)
-def search_thread_runs(
-    thread_id: UUID, limit: Optional[int] = 10, offset: Optional[int] = 0
-) -> Union[ThreadsThreadIdRunsGetResponse, ErrorResponse]:
-    """
-    Search Thread Runs
     """
     pass

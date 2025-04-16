@@ -18,6 +18,7 @@ from typing_extensions import Annotated
 from pydantic import StrictBool
 from ap_client.models.run import Run
 from ap_client.models.run_create import RunCreate
+from ap_client.models.run_search_request import RunSearchRequest
 from ap_client.models.run_wait_response import RunWaitResponse
 
 from ap_client.api_client import ApiClient, RequestSerialized
@@ -1083,11 +1084,9 @@ class BackgroundRunsApi:
         )
 
     @validate_call
-    def search_thread_runs(
+    def search_runs(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
-        limit: Optional[StrictInt] = None,
-        offset: Optional[StrictInt] = None,
+        run_search_request: RunSearchRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1100,16 +1099,12 @@ class BackgroundRunsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> List[Run]:
-        """Search Thread Runs
+        """Search Runs
 
-        List runs for a thread.
+        List runs for a thread, agent or status
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
-        :param limit:
-        :type limit: int
-        :param offset:
-        :type offset: int
+        :param run_search_request: (required)
+        :type run_search_request: RunSearchRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1132,10 +1127,8 @@ class BackgroundRunsApi:
         :return: Returns the result object.
         """  # noqa: E501
 
-        _param = self._search_thread_runs_serialize(
-            thread_id=thread_id,
-            limit=limit,
-            offset=offset,
+        _param = self._search_runs_serialize(
+            run_search_request=run_search_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1157,11 +1150,9 @@ class BackgroundRunsApi:
         ).data
 
     @validate_call
-    def search_thread_runs_with_http_info(
+    def search_runs_with_http_info(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
-        limit: Optional[StrictInt] = None,
-        offset: Optional[StrictInt] = None,
+        run_search_request: RunSearchRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1174,16 +1165,12 @@ class BackgroundRunsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> ApiResponse[List[Run]]:
-        """Search Thread Runs
+        """Search Runs
 
-        List runs for a thread.
+        List runs for a thread, agent or status
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
-        :param limit:
-        :type limit: int
-        :param offset:
-        :type offset: int
+        :param run_search_request: (required)
+        :type run_search_request: RunSearchRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1206,10 +1193,8 @@ class BackgroundRunsApi:
         :return: Returns the result object.
         """  # noqa: E501
 
-        _param = self._search_thread_runs_serialize(
-            thread_id=thread_id,
-            limit=limit,
-            offset=offset,
+        _param = self._search_runs_serialize(
+            run_search_request=run_search_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1231,11 +1216,9 @@ class BackgroundRunsApi:
         )
 
     @validate_call
-    def search_thread_runs_without_preload_content(
+    def search_runs_without_preload_content(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
-        limit: Optional[StrictInt] = None,
-        offset: Optional[StrictInt] = None,
+        run_search_request: RunSearchRequest,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -1248,16 +1231,12 @@ class BackgroundRunsApi:
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
     ) -> RESTResponseType:
-        """Search Thread Runs
+        """Search Runs
 
-        List runs for a thread.
+        List runs for a thread, agent or status
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
-        :param limit:
-        :type limit: int
-        :param offset:
-        :type offset: int
+        :param run_search_request: (required)
+        :type run_search_request: RunSearchRequest
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1280,10 +1259,8 @@ class BackgroundRunsApi:
         :return: Returns the result object.
         """  # noqa: E501
 
-        _param = self._search_thread_runs_serialize(
-            thread_id=thread_id,
-            limit=limit,
-            offset=offset,
+        _param = self._search_runs_serialize(
+            run_search_request=run_search_request,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -1300,11 +1277,9 @@ class BackgroundRunsApi:
         )
         return response_data.response
 
-    def _search_thread_runs_serialize(
+    def _search_runs_serialize(
         self,
-        thread_id,
-        limit,
-        offset,
+        run_search_request,
         _request_auth,
         _content_type,
         _headers,
@@ -1324,18 +1299,12 @@ class BackgroundRunsApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if thread_id is not None:
-            _path_params["thread_id"] = thread_id
         # process the query parameters
-        if limit is not None:
-            _query_params.append(("limit", limit))
-
-        if offset is not None:
-            _query_params.append(("offset", offset))
-
         # process the header parameters
         # process the form parameters
         # process the body parameter
+        if run_search_request is not None:
+            _body_params = run_search_request
 
         # set the HTTP header `Accept`
         if "Accept" not in _header_params:
@@ -1343,12 +1312,22 @@ class BackgroundRunsApi:
                 ["application/json"]
             )
 
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params["Content-Type"] = _content_type
+        else:
+            _default_content_type = self.api_client.select_header_content_type(
+                ["application/json"]
+            )
+            if _default_content_type is not None:
+                _header_params["Content-Type"] = _default_content_type
+
         # authentication setting
         _auth_settings: List[str] = []
 
         return self.api_client.param_serialize(
-            method="GET",
-            resource_path="/threads/{thread_id}/runs",
+            method="POST",
+            resource_path="/runs/search",
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

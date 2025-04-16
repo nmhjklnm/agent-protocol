@@ -119,6 +119,27 @@ class IfNotExists(Enum):
     reject = "reject"
 
 
+class RunSearchRequest(BaseModel):
+    metadata: Optional[Dict[str, Any]] = Field(
+        None, description="Thread metadata to filter on.", title="Metadata"
+    )
+    status: Optional[RunStatus] = Field(
+        None, description="Run status to filter on.", title="Run Status"
+    )
+    thread_id: Optional[UUID] = Field(
+        None, description="The ID of the thread to filter on.", title="Thread Id"
+    )
+    agent_id: Optional[str] = Field(
+        None, description="The ID of the agent to filter on.", title="Agent Id"
+    )
+    limit: Optional[conint(ge=1, le=1000)] = Field(
+        10, description="Maximum number to return.", title="Limit"
+    )
+    offset: Optional[conint(ge=0)] = Field(
+        0, description="Offset to start from.", title="Offset"
+    )
+
+
 class ThreadCheckpoint(BaseModel):
     model_config = ConfigDict(
         extra="allow",
@@ -468,7 +489,7 @@ class ThreadsThreadIdHistoryGetResponse(RootModel[List[ThreadState]]):
     root: List[ThreadState]
 
 
-class ThreadsThreadIdRunsGetResponse(RootModel[List[Run]]):
+class RunsSearchPostResponse(RootModel[List[Run]]):
     root: List[Run]
 
 

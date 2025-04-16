@@ -28,6 +28,7 @@ ap_client/models/message_any_block.py
 ap_client/models/message_text_block.py
 ap_client/models/run.py
 ap_client/models/run_create.py
+ap_client/models/run_search_request.py
 ap_client/models/run_status.py
 ap_client/models/run_wait_response.py
 ap_client/models/search_agents_request.py
@@ -61,6 +62,7 @@ docs/MessageAnyBlock.md
 docs/MessageTextBlock.md
 docs/Run.md
 docs/RunCreate.md
+docs/RunSearchRequest.md
 docs/RunStatus.md
 docs/RunWaitResponse.md
 docs/RunsApi.md
@@ -87,4 +89,5 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_run_search_request.py
 tox.ini

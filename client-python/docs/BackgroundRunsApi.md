@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**create_run**](BackgroundRunsApi.md#create_run) | **POST** /runs | Create Background Run
 [**delete_run**](BackgroundRunsApi.md#delete_run) | **DELETE** /runs/{run_id} | Delete Run
 [**get_run**](BackgroundRunsApi.md#get_run) | **GET** /runs/{run_id} | Get Run
-[**search_thread_runs**](BackgroundRunsApi.md#search_thread_runs) | **GET** /threads/{thread_id}/runs | Search Thread Runs
+[**search_runs**](BackgroundRunsApi.md#search_runs) | **POST** /runs/search | Search Runs
 [**stream_run**](BackgroundRunsApi.md#stream_run) | **GET** /runs/{run_id}/stream | Stream output from Run
 [**wait_run**](BackgroundRunsApi.md#wait_run) | **GET** /runs/{run_id}/wait | Wait for Run output
 
@@ -291,12 +291,12 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **search_thread_runs**
-> List[Run] search_thread_runs(thread_id, limit=limit, offset=offset)
+# **search_runs**
+> List[Run] search_runs(run_search_request)
 
-Search Thread Runs
+Search Runs
 
-List runs for a thread.
+List runs for a thread, agent or status
 
 ### Example
 
@@ -304,6 +304,7 @@ List runs for a thread.
 ```python
 import ap_client
 from ap_client.models.run import Run
+from ap_client.models.run_search_request import RunSearchRequest
 from ap_client.rest import ApiException
 from pprint import pprint
 
@@ -318,17 +319,15 @@ configuration = ap_client.Configuration(
 with ap_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = ap_client.BackgroundRunsApi(api_client)
-    thread_id = 'thread_id_example' # str | The ID of the thread.
-    limit = 10 # int |  (optional) (default to 10)
-    offset = 0 # int |  (optional) (default to 0)
+    run_search_request = ap_client.RunSearchRequest() # RunSearchRequest | 
 
     try:
-        # Search Thread Runs
-        api_response = api_instance.search_thread_runs(thread_id, limit=limit, offset=offset)
-        print("The response of BackgroundRunsApi->search_thread_runs:\n")
+        # Search Runs
+        api_response = api_instance.search_runs(run_search_request)
+        print("The response of BackgroundRunsApi->search_runs:\n")
         pprint(api_response)
     except Exception as e:
-        print("Exception when calling BackgroundRunsApi->search_thread_runs: %s\n" % e)
+        print("Exception when calling BackgroundRunsApi->search_runs: %s\n" % e)
 ```
 
 
@@ -338,9 +337,7 @@ with ap_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **thread_id** | **str**| The ID of the thread. | 
- **limit** | **int**|  | [optional] [default to 10]
- **offset** | **int**|  | [optional] [default to 0]
+ **run_search_request** | [**RunSearchRequest**](RunSearchRequest.md)|  | 
 
 ### Return type
 
@@ -352,7 +349,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details

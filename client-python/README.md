@@ -92,7 +92,7 @@ Class | Method | HTTP request | Description
 *BackgroundRunsApi* | [**create_run**](docs/BackgroundRunsApi.md#create_run) | **POST** /runs | Create Background Run
 *BackgroundRunsApi* | [**delete_run**](docs/BackgroundRunsApi.md#delete_run) | **DELETE** /runs/{run_id} | Delete Run
 *BackgroundRunsApi* | [**get_run**](docs/BackgroundRunsApi.md#get_run) | **GET** /runs/{run_id} | Get Run
-*BackgroundRunsApi* | [**search_thread_runs**](docs/BackgroundRunsApi.md#search_thread_runs) | **GET** /threads/{thread_id}/runs | Search Thread Runs
+*BackgroundRunsApi* | [**search_runs**](docs/BackgroundRunsApi.md#search_runs) | **POST** /runs/search | Search Runs
 *BackgroundRunsApi* | [**stream_run**](docs/BackgroundRunsApi.md#stream_run) | **GET** /runs/{run_id}/stream | Stream output from Run
 *BackgroundRunsApi* | [**wait_run**](docs/BackgroundRunsApi.md#wait_run) | **GET** /runs/{run_id}/wait | Wait for Run output
 *RunsApi* | [**create_and_stream_run**](docs/RunsApi.md#create_and_stream_run) | **POST** /runs/stream | Create Run, Stream Output
@@ -126,6 +126,7 @@ Class | Method | HTTP request | Description
  - [MessageTextBlock](docs/MessageTextBlock.md)
  - [Run](docs/Run.md)
  - [RunCreate](docs/RunCreate.md)
+ - [RunSearchRequest](docs/RunSearchRequest.md)
  - [RunStatus](docs/RunStatus.md)
  - [RunWaitResponse](docs/RunWaitResponse.md)
  - [SearchAgentsRequest](docs/SearchAgentsRequest.md)
