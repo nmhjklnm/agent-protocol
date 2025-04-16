@@ -343,7 +343,7 @@ class BackgroundRunsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> object:
+    ) -> Run:
         """Create Background Run
 
         Create a run in a new thread, return the run ID immediately. Don't wait for the final run output.
@@ -381,7 +381,7 @@ class BackgroundRunsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "object",
+            "200": "Run",
             "404": "str",
             "409": "str",
             "422": "str",
@@ -410,7 +410,7 @@ class BackgroundRunsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[object]:
+    ) -> ApiResponse[Run]:
         """Create Background Run
 
         Create a run in a new thread, return the run ID immediately. Don't wait for the final run output.
@@ -448,7 +448,7 @@ class BackgroundRunsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "object",
+            "200": "Run",
             "404": "str",
             "409": "str",
             "422": "str",
@@ -515,7 +515,7 @@ class BackgroundRunsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "object",
+            "200": "Run",
             "404": "str",
             "409": "str",
             "422": "str",

@@ -23,7 +23,7 @@ router = APIRouter(tags=["Background Runs"])
 
 @router.post(
     "/runs",
-    response_model=Any,
+    response_model=Run,
     responses={
         "404": {"model": ErrorResponse},
         "409": {"model": ErrorResponse},
@@ -31,7 +31,7 @@ router = APIRouter(tags=["Background Runs"])
     },
     tags=["Background Runs"],
 )
-def create_run(body: RunCreate) -> Union[Any, ErrorResponse]:
+def create_run(body: RunCreate) -> Union[Run, ErrorResponse]:
     """
     Create Background Run
     """

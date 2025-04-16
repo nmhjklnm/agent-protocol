@@ -83,7 +83,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_run**
-> object create_run(run_create)
+> Run create_run(run_create)
 
 Create Background Run
 
@@ -94,6 +94,7 @@ Create a run in a new thread, return the run ID immediately. Don't wait for the 
 
 ```python
 import ap_client
+from ap_client.models.run import Run
 from ap_client.models.run_create import RunCreate
 from ap_client.rest import ApiException
 from pprint import pprint
@@ -131,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**Run**](Run.md)
 
 ### Authorization
 
