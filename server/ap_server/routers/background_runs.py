@@ -23,7 +23,7 @@ router = APIRouter(tags=["Background Runs"])
 
 @router.post(
     "/runs",
-    response_model=Any,
+    response_model=Run,
     responses={
         "404": {"model": ErrorResponse},
         "409": {"model": ErrorResponse},
@@ -31,7 +31,7 @@ router = APIRouter(tags=["Background Runs"])
     },
     tags=["Background Runs"],
 )
-def run_stateless_runs_post(body: RunCreate) -> Union[Any, ErrorResponse]:
+def create_run(body: RunCreate) -> Union[Run, ErrorResponse]:
     """
     Create Background Run
     """
@@ -44,9 +44,7 @@ def run_stateless_runs_post(body: RunCreate) -> Union[Any, ErrorResponse]:
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Background Runs"],
 )
-def get_run_http_threads__thread_id__runs__run_id__get(
-    thread_id: UUID, run_id: UUID = ...
-) -> Union[Run, ErrorResponse]:
+def get_run(run_id: UUID) -> Union[Run, ErrorResponse]:
     """
     Get Run
     """
@@ -60,9 +58,7 @@ def get_run_http_threads__thread_id__runs__run_id__get(
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Background Runs"],
 )
-def delete_run_threads__thread_id__runs__run_id__delete(
-    thread_id: UUID, run_id: UUID = ...
-) -> Optional[ErrorResponse]:
+def delete_run(run_id: UUID) -> Optional[ErrorResponse]:
     """
     Delete Run
     """
@@ -76,11 +72,8 @@ def delete_run_threads__thread_id__runs__run_id__delete(
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Background Runs"],
 )
-def cancel_run_http_threads__thread_id__runs__run_id__cancel_post(
-    thread_id: UUID,
-    run_id: UUID = ...,
-    wait: Optional[bool] = False,
-    action: Optional[Action] = "interrupt",
+def cancel_run(
+    run_id: UUID, wait: Optional[bool] = False, action: Optional[Action] = "interrupt"
 ) -> Optional[ErrorResponse]:
     """
     Cancel Run
@@ -94,9 +87,7 @@ def cancel_run_http_threads__thread_id__runs__run_id__cancel_post(
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Background Runs"],
 )
-def stream_run_http_threads__thread_id__runs__run_id__join_get(
-    thread_id: UUID, run_id: UUID = ...
-) -> Union[Any, ErrorResponse]:
+def stream_run(run_id: UUID) -> Union[Any, ErrorResponse]:
     """
     Stream output from Run
     """
@@ -109,9 +100,7 @@ def stream_run_http_threads__thread_id__runs__run_id__join_get(
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Background Runs"],
 )
-def join_run_http_threads__thread_id__runs__run_id__join_get(
-    thread_id: UUID, run_id: UUID = ...
-) -> Union[RunWaitResponse, ErrorResponse]:
+def wait_run(run_id: UUID) -> Union[RunWaitResponse, ErrorResponse]:
     """
     Wait for Run output
     """
@@ -124,7 +113,7 @@ def join_run_http_threads__thread_id__runs__run_id__join_get(
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Background Runs"],
 )
-def list_runs_http_threads__thread_id__runs_get(
+def search_thread_runs(
     thread_id: UUID, limit: Optional[int] = 10, offset: Optional[int] = 0
 ) -> Union[ThreadsThreadIdRunsGetResponse, ErrorResponse]:
     """
