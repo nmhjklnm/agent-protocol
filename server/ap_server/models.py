@@ -121,7 +121,7 @@ class IfNotExists(Enum):
 
 class RunSearchRequest(BaseModel):
     metadata: Optional[Dict[str, Any]] = Field(
-        None, description="Thread metadata to filter on.", title="Metadata"
+        None, description="Run metadata to filter on.", title="Metadata"
     )
     status: Optional[RunStatus] = Field(
         None, description="Run status to filter on.", title="Run Status"
@@ -406,6 +406,7 @@ class Run(RunCreate):
     updated_at: AwareDatetime = Field(
         ..., description="The last time the run was updated.", title="Updated At"
     )
+    status: RunStatus
 
 
 class ThreadSearchRequest(BaseModel):

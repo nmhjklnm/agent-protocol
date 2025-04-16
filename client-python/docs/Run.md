@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **run_id** | **str** | The ID of the run. | 
 **created_at** | **datetime** | The time the run was created. | 
 **updated_at** | **datetime** | The last time the run was updated. | 
+**status** | [**RunStatus**](RunStatus.md) |  | 
 
 ## Example
 

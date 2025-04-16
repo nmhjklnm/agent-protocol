@@ -30,7 +30,7 @@ class RunSearchRequest(BaseModel):
     """  # noqa: E501
 
     metadata: Optional[Dict[str, Any]] = Field(
-        default=None, description="Thread metadata to filter on."
+        default=None, description="Run metadata to filter on."
     )
     status: Optional[RunStatus] = Field(
         default=None, description="Run status to filter on."
