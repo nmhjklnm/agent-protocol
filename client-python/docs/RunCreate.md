@@ -6,8 +6,8 @@ Payload for creating a run.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**thread_id** | **str** | The ID of the thread to run. If not provided, will create a stateless run. | [optional] 
-**agent_id** | **str** | The agent ID to run. If not provided will use the default agent for this service. | [optional] 
+**thread_id** | **str** | The ID of the thread to run. If not provided, creates a stateless run. &#39;thread_id&#39; is ignored unless Threads stage is implemented. | [optional] 
+**agent_id** | **str** | The agent ID to run. If not provided will use the default agent for this service. &#39;agent_id&#39; is ignored unless Agents stage is implemented. | [optional] 
 **input** | [**Input**](Input.md) |  | [optional] 
 **messages** | [**List[Message]**](Message.md) | The messages to pass an input to the agent. | [optional] 
 **metadata** | **object** | Metadata to assign to the run. | [optional] 

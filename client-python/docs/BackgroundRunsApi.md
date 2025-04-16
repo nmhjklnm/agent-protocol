@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **cancel_run**
-> cancel_run(thread_id, run_id, wait=wait, action=action)
+> cancel_run(run_id, wait=wait, action=action)
 
 Cancel Run
 
@@ -37,14 +37,13 @@ configuration = ap_client.Configuration(
 with ap_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = ap_client.BackgroundRunsApi(api_client)
-    thread_id = 'thread_id_example' # str | The ID of the thread.
     run_id = 'run_id_example' # str | The ID of the run.
     wait = False # bool |  (optional) (default to False)
     action = interrupt # str | Action to take when cancelling the run. Possible values are `interrupt` or `rollback`. `interrupt` will simply cancel the run. `rollback` will cancel the run and delete the run and associated checkpoints afterwards. (optional) (default to interrupt)
 
     try:
         # Cancel Run
-        api_instance.cancel_run(thread_id, run_id, wait=wait, action=action)
+        api_instance.cancel_run(run_id, wait=wait, action=action)
     except Exception as e:
         print("Exception when calling BackgroundRunsApi->cancel_run: %s\n" % e)
 ```
@@ -56,7 +55,6 @@ with ap_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **thread_id** | **str**| The ID of the thread. | 
  **run_id** | **str**| The ID of the run. | 
  **wait** | **bool**|  | [optional] [default to False]
  **action** | **str**| Action to take when cancelling the run. Possible values are &#x60;interrupt&#x60; or &#x60;rollback&#x60;. &#x60;interrupt&#x60; will simply cancel the run. &#x60;rollback&#x60; will cancel the run and delete the run and associated checkpoints afterwards. | [optional] [default to interrupt]
@@ -156,7 +154,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_run**
-> delete_run(thread_id, run_id)
+> delete_run(run_id)
 
 Delete Run
 
@@ -181,12 +179,11 @@ configuration = ap_client.Configuration(
 with ap_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = ap_client.BackgroundRunsApi(api_client)
-    thread_id = 'thread_id_example' # str | The ID of the thread.
     run_id = 'run_id_example' # str | The ID of the run.
 
     try:
         # Delete Run
-        api_instance.delete_run(thread_id, run_id)
+        api_instance.delete_run(run_id)
     except Exception as e:
         print("Exception when calling BackgroundRunsApi->delete_run: %s\n" % e)
 ```
@@ -198,7 +195,6 @@ with ap_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **thread_id** | **str**| The ID of the thread. | 
  **run_id** | **str**| The ID of the run. | 
 
 ### Return type
@@ -225,7 +221,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_run**
-> Run get_run(thread_id, run_id)
+> Run get_run(run_id)
 
 Get Run
 
@@ -251,12 +247,11 @@ configuration = ap_client.Configuration(
 with ap_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = ap_client.BackgroundRunsApi(api_client)
-    thread_id = 'thread_id_example' # str | The ID of the thread.
     run_id = 'run_id_example' # str | The ID of the run.
 
     try:
         # Get Run
-        api_response = api_instance.get_run(thread_id, run_id)
+        api_response = api_instance.get_run(run_id)
         print("The response of BackgroundRunsApi->get_run:\n")
         pprint(api_response)
     except Exception as e:
@@ -270,7 +265,6 @@ with ap_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **thread_id** | **str**| The ID of the thread. | 
  **run_id** | **str**| The ID of the run. | 
 
 ### Return type
@@ -371,7 +365,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **stream_run**
-> object stream_run(thread_id, run_id)
+> object stream_run(run_id)
 
 Stream output from Run
 
@@ -396,12 +390,11 @@ configuration = ap_client.Configuration(
 with ap_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = ap_client.BackgroundRunsApi(api_client)
-    thread_id = 'thread_id_example' # str | The ID of the thread.
     run_id = 'run_id_example' # str | The ID of the run.
 
     try:
         # Stream output from Run
-        api_response = api_instance.stream_run(thread_id, run_id)
+        api_response = api_instance.stream_run(run_id)
         print("The response of BackgroundRunsApi->stream_run:\n")
         pprint(api_response)
     except Exception as e:
@@ -415,7 +408,6 @@ with ap_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **thread_id** | **str**| The ID of the thread. | 
  **run_id** | **str**| The ID of the run. | 
 
 ### Return type
@@ -442,7 +434,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **wait_run**
-> RunWaitResponse wait_run(thread_id, run_id)
+> RunWaitResponse wait_run(run_id)
 
 Wait for Run output
 
@@ -468,12 +460,11 @@ configuration = ap_client.Configuration(
 with ap_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = ap_client.BackgroundRunsApi(api_client)
-    thread_id = 'thread_id_example' # str | The ID of the thread.
     run_id = 'run_id_example' # str | The ID of the run.
 
     try:
         # Wait for Run output
-        api_response = api_instance.wait_run(thread_id, run_id)
+        api_response = api_instance.wait_run(run_id)
         print("The response of BackgroundRunsApi->wait_run:\n")
         pprint(api_response)
     except Exception as e:
@@ -487,7 +478,6 @@ with ap_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **thread_id** | **str**| The ID of the thread. | 
  **run_id** | **str**| The ID of the run. | 
 
 ### Return type

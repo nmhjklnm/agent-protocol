@@ -34,11 +34,11 @@ class RunCreate(BaseModel):
 
     thread_id: Optional[StrictStr] = Field(
         default=None,
-        description="The ID of the thread to run. If not provided, will create a stateless run.",
+        description="The ID of the thread to run. If not provided, creates a stateless run. 'thread_id' is ignored unless Threads stage is implemented.",
     )
     agent_id: Optional[StrictStr] = Field(
         default=None,
-        description="The agent ID to run. If not provided will use the default agent for this service.",
+        description="The agent ID to run. If not provided will use the default agent for this service. 'agent_id' is ignored unless Agents stage is implemented.",
     )
     input: Optional[Input] = None
     messages: Optional[List[Message]] = Field(

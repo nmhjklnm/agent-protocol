@@ -40,7 +40,6 @@ class BackgroundRunsApi:
     @validate_call
     def cancel_run(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
         run_id: Annotated[StrictStr, Field(description="The ID of the run.")],
         wait: Optional[StrictBool] = None,
         action: Annotated[
@@ -64,8 +63,6 @@ class BackgroundRunsApi:
         """Cancel Run
 
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
         :param run_id: The ID of the run. (required)
         :type run_id: str
         :param wait:
@@ -95,7 +92,6 @@ class BackgroundRunsApi:
         """  # noqa: E501
 
         _param = self._cancel_run_serialize(
-            thread_id=thread_id,
             run_id=run_id,
             wait=wait,
             action=action,
@@ -122,7 +118,6 @@ class BackgroundRunsApi:
     @validate_call
     def cancel_run_with_http_info(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
         run_id: Annotated[StrictStr, Field(description="The ID of the run.")],
         wait: Optional[StrictBool] = None,
         action: Annotated[
@@ -146,8 +141,6 @@ class BackgroundRunsApi:
         """Cancel Run
 
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
         :param run_id: The ID of the run. (required)
         :type run_id: str
         :param wait:
@@ -177,7 +170,6 @@ class BackgroundRunsApi:
         """  # noqa: E501
 
         _param = self._cancel_run_serialize(
-            thread_id=thread_id,
             run_id=run_id,
             wait=wait,
             action=action,
@@ -204,7 +196,6 @@ class BackgroundRunsApi:
     @validate_call
     def cancel_run_without_preload_content(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
         run_id: Annotated[StrictStr, Field(description="The ID of the run.")],
         wait: Optional[StrictBool] = None,
         action: Annotated[
@@ -228,8 +219,6 @@ class BackgroundRunsApi:
         """Cancel Run
 
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
         :param run_id: The ID of the run. (required)
         :type run_id: str
         :param wait:
@@ -259,7 +248,6 @@ class BackgroundRunsApi:
         """  # noqa: E501
 
         _param = self._cancel_run_serialize(
-            thread_id=thread_id,
             run_id=run_id,
             wait=wait,
             action=action,
@@ -281,7 +269,6 @@ class BackgroundRunsApi:
 
     def _cancel_run_serialize(
         self,
-        thread_id,
         run_id,
         wait,
         action,
@@ -304,8 +291,6 @@ class BackgroundRunsApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if thread_id is not None:
-            _path_params["thread_id"] = thread_id
         if run_id is not None:
             _path_params["run_id"] = run_id
         # process the query parameters
@@ -606,7 +591,6 @@ class BackgroundRunsApi:
     @validate_call
     def delete_run(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
         run_id: Annotated[StrictStr, Field(description="The ID of the run.")],
         _request_timeout: Union[
             None,
@@ -624,8 +608,6 @@ class BackgroundRunsApi:
 
         Delete a run by ID.
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
         :param run_id: The ID of the run. (required)
         :type run_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -651,7 +633,6 @@ class BackgroundRunsApi:
         """  # noqa: E501
 
         _param = self._delete_run_serialize(
-            thread_id=thread_id,
             run_id=run_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -676,7 +657,6 @@ class BackgroundRunsApi:
     @validate_call
     def delete_run_with_http_info(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
         run_id: Annotated[StrictStr, Field(description="The ID of the run.")],
         _request_timeout: Union[
             None,
@@ -694,8 +674,6 @@ class BackgroundRunsApi:
 
         Delete a run by ID.
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
         :param run_id: The ID of the run. (required)
         :type run_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -721,7 +699,6 @@ class BackgroundRunsApi:
         """  # noqa: E501
 
         _param = self._delete_run_serialize(
-            thread_id=thread_id,
             run_id=run_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -746,7 +723,6 @@ class BackgroundRunsApi:
     @validate_call
     def delete_run_without_preload_content(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
         run_id: Annotated[StrictStr, Field(description="The ID of the run.")],
         _request_timeout: Union[
             None,
@@ -764,8 +740,6 @@ class BackgroundRunsApi:
 
         Delete a run by ID.
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
         :param run_id: The ID of the run. (required)
         :type run_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -791,7 +765,6 @@ class BackgroundRunsApi:
         """  # noqa: E501
 
         _param = self._delete_run_serialize(
-            thread_id=thread_id,
             run_id=run_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -811,7 +784,6 @@ class BackgroundRunsApi:
 
     def _delete_run_serialize(
         self,
-        thread_id,
         run_id,
         _request_auth,
         _content_type,
@@ -832,8 +804,6 @@ class BackgroundRunsApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if thread_id is not None:
-            _path_params["thread_id"] = thread_id
         if run_id is not None:
             _path_params["run_id"] = run_id
         # process the query parameters
@@ -868,7 +838,6 @@ class BackgroundRunsApi:
     @validate_call
     def get_run(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
         run_id: Annotated[StrictStr, Field(description="The ID of the run.")],
         _request_timeout: Union[
             None,
@@ -886,8 +855,6 @@ class BackgroundRunsApi:
 
         Get a run by ID.
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
         :param run_id: The ID of the run. (required)
         :type run_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -913,7 +880,6 @@ class BackgroundRunsApi:
         """  # noqa: E501
 
         _param = self._get_run_serialize(
-            thread_id=thread_id,
             run_id=run_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -938,7 +904,6 @@ class BackgroundRunsApi:
     @validate_call
     def get_run_with_http_info(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
         run_id: Annotated[StrictStr, Field(description="The ID of the run.")],
         _request_timeout: Union[
             None,
@@ -956,8 +921,6 @@ class BackgroundRunsApi:
 
         Get a run by ID.
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
         :param run_id: The ID of the run. (required)
         :type run_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -983,7 +946,6 @@ class BackgroundRunsApi:
         """  # noqa: E501
 
         _param = self._get_run_serialize(
-            thread_id=thread_id,
             run_id=run_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1008,7 +970,6 @@ class BackgroundRunsApi:
     @validate_call
     def get_run_without_preload_content(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
         run_id: Annotated[StrictStr, Field(description="The ID of the run.")],
         _request_timeout: Union[
             None,
@@ -1026,8 +987,6 @@ class BackgroundRunsApi:
 
         Get a run by ID.
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
         :param run_id: The ID of the run. (required)
         :type run_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1053,7 +1012,6 @@ class BackgroundRunsApi:
         """  # noqa: E501
 
         _param = self._get_run_serialize(
-            thread_id=thread_id,
             run_id=run_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1073,7 +1031,6 @@ class BackgroundRunsApi:
 
     def _get_run_serialize(
         self,
-        thread_id,
         run_id,
         _request_auth,
         _content_type,
@@ -1094,8 +1051,6 @@ class BackgroundRunsApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if thread_id is not None:
-            _path_params["thread_id"] = thread_id
         if run_id is not None:
             _path_params["run_id"] = run_id
         # process the query parameters
@@ -1409,7 +1364,6 @@ class BackgroundRunsApi:
     @validate_call
     def stream_run(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
         run_id: Annotated[StrictStr, Field(description="The ID of the run.")],
         _request_timeout: Union[
             None,
@@ -1427,8 +1381,6 @@ class BackgroundRunsApi:
 
         Join the output stream of an existing run. This endpoint streams output in real-time from a run similar to the /threads/__THREAD_ID__/runs/stream endpoint. Only output produced after this endpoint is called will be streamed.
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
         :param run_id: The ID of the run. (required)
         :type run_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1454,7 +1406,6 @@ class BackgroundRunsApi:
         """  # noqa: E501
 
         _param = self._stream_run_serialize(
-            thread_id=thread_id,
             run_id=run_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1479,7 +1430,6 @@ class BackgroundRunsApi:
     @validate_call
     def stream_run_with_http_info(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
         run_id: Annotated[StrictStr, Field(description="The ID of the run.")],
         _request_timeout: Union[
             None,
@@ -1497,8 +1447,6 @@ class BackgroundRunsApi:
 
         Join the output stream of an existing run. This endpoint streams output in real-time from a run similar to the /threads/__THREAD_ID__/runs/stream endpoint. Only output produced after this endpoint is called will be streamed.
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
         :param run_id: The ID of the run. (required)
         :type run_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1524,7 +1472,6 @@ class BackgroundRunsApi:
         """  # noqa: E501
 
         _param = self._stream_run_serialize(
-            thread_id=thread_id,
             run_id=run_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1549,7 +1496,6 @@ class BackgroundRunsApi:
     @validate_call
     def stream_run_without_preload_content(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
         run_id: Annotated[StrictStr, Field(description="The ID of the run.")],
         _request_timeout: Union[
             None,
@@ -1567,8 +1513,6 @@ class BackgroundRunsApi:
 
         Join the output stream of an existing run. This endpoint streams output in real-time from a run similar to the /threads/__THREAD_ID__/runs/stream endpoint. Only output produced after this endpoint is called will be streamed.
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
         :param run_id: The ID of the run. (required)
         :type run_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1594,7 +1538,6 @@ class BackgroundRunsApi:
         """  # noqa: E501
 
         _param = self._stream_run_serialize(
-            thread_id=thread_id,
             run_id=run_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1614,7 +1557,6 @@ class BackgroundRunsApi:
 
     def _stream_run_serialize(
         self,
-        thread_id,
         run_id,
         _request_auth,
         _content_type,
@@ -1635,8 +1577,6 @@ class BackgroundRunsApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if thread_id is not None:
-            _path_params["thread_id"] = thread_id
         if run_id is not None:
             _path_params["run_id"] = run_id
         # process the query parameters
@@ -1671,7 +1611,6 @@ class BackgroundRunsApi:
     @validate_call
     def wait_run(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
         run_id: Annotated[StrictStr, Field(description="The ID of the run.")],
         _request_timeout: Union[
             None,
@@ -1689,8 +1628,6 @@ class BackgroundRunsApi:
 
         Wait for a run to finish, return the final output. If the run already finished, returns its final output immediately.
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
         :param run_id: The ID of the run. (required)
         :type run_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1716,7 +1653,6 @@ class BackgroundRunsApi:
         """  # noqa: E501
 
         _param = self._wait_run_serialize(
-            thread_id=thread_id,
             run_id=run_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1741,7 +1677,6 @@ class BackgroundRunsApi:
     @validate_call
     def wait_run_with_http_info(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
         run_id: Annotated[StrictStr, Field(description="The ID of the run.")],
         _request_timeout: Union[
             None,
@@ -1759,8 +1694,6 @@ class BackgroundRunsApi:
 
         Wait for a run to finish, return the final output. If the run already finished, returns its final output immediately.
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
         :param run_id: The ID of the run. (required)
         :type run_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1786,7 +1719,6 @@ class BackgroundRunsApi:
         """  # noqa: E501
 
         _param = self._wait_run_serialize(
-            thread_id=thread_id,
             run_id=run_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1811,7 +1743,6 @@ class BackgroundRunsApi:
     @validate_call
     def wait_run_without_preload_content(
         self,
-        thread_id: Annotated[StrictStr, Field(description="The ID of the thread.")],
         run_id: Annotated[StrictStr, Field(description="The ID of the run.")],
         _request_timeout: Union[
             None,
@@ -1829,8 +1760,6 @@ class BackgroundRunsApi:
 
         Wait for a run to finish, return the final output. If the run already finished, returns its final output immediately.
 
-        :param thread_id: The ID of the thread. (required)
-        :type thread_id: str
         :param run_id: The ID of the run. (required)
         :type run_id: str
         :param _request_timeout: timeout setting for this request. If one
@@ -1856,7 +1785,6 @@ class BackgroundRunsApi:
         """  # noqa: E501
 
         _param = self._wait_run_serialize(
-            thread_id=thread_id,
             run_id=run_id,
             _request_auth=_request_auth,
             _content_type=_content_type,
@@ -1876,7 +1804,6 @@ class BackgroundRunsApi:
 
     def _wait_run_serialize(
         self,
-        thread_id,
         run_id,
         _request_auth,
         _content_type,
@@ -1897,8 +1824,6 @@ class BackgroundRunsApi:
         _body_params: Optional[bytes] = None
 
         # process the path parameters
-        if thread_id is not None:
-            _path_params["thread_id"] = thread_id
         if run_id is not None:
             _path_params["run_id"] = run_id
         # process the query parameters
