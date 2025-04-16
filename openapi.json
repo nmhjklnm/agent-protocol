@@ -1675,7 +1675,7 @@
           "metadata": {
             "type": "object",
             "title": "Metadata",
-            "description": "Thread metadata to filter on."
+            "description": "Run metadata to filter on."
           },
           "status": {
             "$ref": "#/components/schemas/RunStatus",
