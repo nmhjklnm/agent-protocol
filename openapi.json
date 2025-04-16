@@ -960,7 +960,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RunCreate"
+                "$ref": "#/components/schemas/RunStream"
               }
             }
           },
@@ -1022,7 +1022,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/RunCreate"
+                "$ref": "#/components/schemas/RunStream"
               }
             }
           },
@@ -1464,6 +1464,15 @@
         "title": "Status",
         "description": "The status of the run. One of 'pending', 'error', 'success', 'timeout', 'interrupted'."
       },
+      "StreamMode": {
+        "type": "string",
+        "enum": [
+          "values",
+          "messages",
+          "updates",
+          "custom"
+        ]
+      },
       "RunWaitResponse": {
         "type": "object",
         "properties": {
@@ -1567,36 +1576,6 @@
             "title": "Webhook",
             "description": "Webhook to call after run finishes."
           },
-          "stream_mode": {
-            "anyOf": [
-              {
-                "items": {
-                  "type": "string",
-                  "enum": [
-                    "values",
-                    "messages",
-                    "updates",
-                    "custom"
-                  ]
-                },
-                "type": "array"
-              },
-              {
-                "type": "string",
-                "enum": [
-                  "values",
-                  "messages",
-                  "updates",
-                  "custom"
-                ]
-              }
-            ],
-            "title": "Stream Mode",
-            "description": "The stream mode(s) to use.",
-            "default": [
-              "values"
-            ]
-          },
           "on_completion": {
             "type": "string",
             "enum": [
@@ -1632,10 +1611,46 @@
         "title": "RunCreate",
         "description": "Payload for creating a run."
       },
-      "Run": {
+      "RunStream": {
         "allOf": [
           {
             "$ref": "#/components/schemas/RunCreate"
+          },
+          {
+            "properties": {
+              "stream_mode": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/StreamMode"
+                  },
+                  {
+                    "items": {
+                      "$ref": "#/components/schemas/StreamMode"
+                    },
+                    "type": "array"
+                  }
+                ],
+                "title": "Stream Mode",
+                "description": "The stream mode(s) to use.",
+                "default": "values"
+              }
+            },
+            "type": "object",
+            "required": [
+              "run_id",
+              "created_at",
+              "updated_at",
+              "status",
+              "metadata"
+            ],
+            "title": "Run"
+          }
+        ]
+      },
+      "Run": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/RunStream"
           },
           {
             "properties": {
