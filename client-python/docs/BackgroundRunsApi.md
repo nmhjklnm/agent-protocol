@@ -83,7 +83,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_run**
-> Run create_run(run_create)
+> Run create_run(run_stream)
 
 Create Background Run
 
@@ -95,7 +95,7 @@ Create a run in a new thread, return the run ID immediately. Don't wait for the 
 ```python
 import ap_client
 from ap_client.models.run import Run
-from ap_client.models.run_create import RunCreate
+from ap_client.models.run_stream import RunStream
 from ap_client.rest import ApiException
 from pprint import pprint
 
@@ -110,11 +110,11 @@ configuration = ap_client.Configuration(
 with ap_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = ap_client.BackgroundRunsApi(api_client)
-    run_create = ap_client.RunCreate() # RunCreate | 
+    run_stream = ap_client.RunStream() # RunStream | 
 
     try:
         # Create Background Run
-        api_response = api_instance.create_run(run_create)
+        api_response = api_instance.create_run(run_stream)
         print("The response of BackgroundRunsApi->create_run:\n")
         pprint(api_response)
     except Exception as e:
@@ -128,7 +128,7 @@ with ap_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **run_create** | [**RunCreate**](RunCreate.md)|  | 
+ **run_stream** | [**RunStream**](RunStream.md)|  | 
 
 ### Return type
 

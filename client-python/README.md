@@ -115,7 +115,7 @@ Class | Method | HTTP request | Description
 
  - [Agent](docs/Agent.md)
  - [AgentCapabilities](docs/AgentCapabilities.md)
- - [AgentSchemas](docs/AgentSchemas.md)
+ - [AgentSchema](docs/AgentSchema.md)
  - [Config](docs/Config.md)
  - [Content](docs/Content.md)
  - [ContentOneOfInner](docs/ContentOneOfInner.md)
@@ -129,6 +129,7 @@ Class | Method | HTTP request | Description
  - [RunCreate](docs/RunCreate.md)
  - [RunSearchRequest](docs/RunSearchRequest.md)
  - [RunStatus](docs/RunStatus.md)
+ - [RunStream](docs/RunStream.md)
  - [RunWaitResponse](docs/RunWaitResponse.md)
  - [SearchAgentsRequest](docs/SearchAgentsRequest.md)
  - [SearchItemsResponse](docs/SearchItemsResponse.md)

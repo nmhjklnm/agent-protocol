@@ -35,7 +35,7 @@ class ThreadState(BaseModel):
     values: Dict[str, Any] = Field(description="The current state of the thread.")
     messages: Optional[List[Message]] = Field(
         default=None,
-        description="The current messages of the thread. If messages are contained in Thread.values, implementations should remove them from values when returning messages. When this key isn't present it means the thread/agent doesn't support messages.",
+        description="The current messages of the thread. This key isn't present for agents that don't support messages.",
     )
     metadata: Optional[Dict[str, Any]] = Field(
         default=None, description="The checkpoint metadata."

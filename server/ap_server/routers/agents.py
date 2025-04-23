@@ -7,7 +7,7 @@ from fastapi import APIRouter
 
 from ..models import (
     Agent,
-    AgentSchemas,
+    AgentSchema,
     AgentsSearchPostRequest,
     AgentsSearchPostResponse,
     ErrorResponse,
@@ -47,11 +47,11 @@ def get_agent(agent_id: str) -> Union[Agent, ErrorResponse]:
 
 @router.get(
     "/agents/{agent_id}/schemas",
-    response_model=AgentSchemas,
+    response_model=AgentSchema,
     responses={"404": {"model": ErrorResponse}, "422": {"model": ErrorResponse}},
     tags=["Agents"],
 )
-def get_agent_schemas(agent_id: str) -> Union[AgentSchemas, ErrorResponse]:
+def get_agent_schemas(agent_id: str) -> Union[AgentSchema, ErrorResponse]:
     """
     Get Agent Schemas
     """

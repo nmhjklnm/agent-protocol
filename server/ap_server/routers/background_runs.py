@@ -11,8 +11,8 @@ from ..models import (
     ErrorResponse,
     Optional,
     Run,
-    RunCreate,
     RunSearchRequest,
+    RunStream,
     RunWaitResponse,
     RunsSearchPostResponse,
     UUID,
@@ -32,7 +32,7 @@ router = APIRouter(tags=["Background Runs"])
     },
     tags=["Background Runs"],
 )
-def create_run(body: RunCreate) -> Union[Run, ErrorResponse]:
+def create_run(body: RunStream) -> Union[Run, ErrorResponse]:
     """
     Create Background Run
     """

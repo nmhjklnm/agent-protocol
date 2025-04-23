@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from fastapi import APIRouter
 
-from ..models import ErrorResponse, RunCreate, RunWaitResponse, Union
+from ..models import ErrorResponse, RunCreate, RunStream, RunWaitResponse, Union
 
 router = APIRouter(tags=["Runs"])
 
@@ -20,7 +20,7 @@ router = APIRouter(tags=["Runs"])
     },
     tags=["Runs"],
 )
-def create_and_stream_run(body: RunCreate) -> Union[str, ErrorResponse]:
+def create_and_stream_run(body: RunStream) -> Union[str, ErrorResponse]:
     """
     Create Run, Stream Output
     """

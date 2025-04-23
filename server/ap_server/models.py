@@ -52,7 +52,7 @@ class Agent(BaseModel):
     )
 
 
-class AgentSchemas(BaseModel):
+class AgentSchema(BaseModel):
     agent_id: str = Field(..., description="The ID of the agent.", title="Agent Id")
     input_schema: Dict[str, Any] = Field(
         ...,
@@ -84,24 +84,17 @@ class RunStatus(Enum):
     interrupted = "interrupted"
 
 
-class Config(BaseModel):
-    tags: Optional[List[str]] = Field(None, title="Tags")
-    recursion_limit: Optional[int] = Field(None, title="Recursion Limit")
-    configurable: Optional[Dict[str, Any]] = Field(None, title="Configurable")
-
-
-class StreamModeEnum(Enum):
-    values = "values"
-    messages = "messages"
-    updates = "updates"
-    custom = "custom"
-
-
 class StreamMode(Enum):
     values = "values"
     messages = "messages"
     updates = "updates"
     custom = "custom"
+
+
+class Config(BaseModel):
+    tags: Optional[List[str]] = Field(None, title="Tags")
+    recursion_limit: Optional[int] = Field(None, title="Recursion Limit")
+    configurable: Optional[Dict[str, Any]] = Field(None, title="Configurable")
 
 
 class OnCompletion(Enum):
@@ -378,9 +371,6 @@ class RunCreate(BaseModel):
     webhook: Optional[AnyUrl] = Field(
         None, description="Webhook to call after run finishes.", title="Webhook"
     )
-    stream_mode: Optional[Union[List[StreamModeEnum], StreamMode]] = Field(
-        ["values"], description="The stream mode(s) to use.", title="Stream Mode"
-    )
     on_completion: Optional[OnCompletion] = Field(
         None,
         description="Whether to delete or keep the thread when run completes. Must be one of 'delete' or 'keep'. Defaults to 'delete' when thread_id not provided, otherwise 'keep'.",
@@ -398,7 +388,13 @@ class RunCreate(BaseModel):
     )
 
 
-class Run(RunCreate):
+class RunStream(RunCreate):
+    stream_mode: Optional[Union[StreamMode, List[StreamMode]]] = Field(
+        "values", description="The stream mode(s) to use.", title="Stream Mode"
+    )
+
+
+class Run(RunStream):
     run_id: UUID = Field(..., description="The ID of the run.", title="Run Id")
     created_at: AwareDatetime = Field(
         ..., description="The time the run was created.", title="Created At"
@@ -460,7 +456,7 @@ class ThreadState(BaseModel):
     )
     messages: Optional[List[Message]] = Field(
         None,
-        description="The current messages of the thread. If messages are contained in Thread.values, implementations should remove them from values when returning messages. When this key isn't present it means the thread/agent doesn't support messages.",
+        description="The current messages of the thread. This key isn't present for agents that don't support messages.",
         title="Messages",
     )
     metadata: Optional[Dict[str, Any]] = Field(
@@ -484,7 +480,7 @@ class ThreadPatch(BaseModel):
     )
     messages: Optional[List[Message]] = Field(
         None,
-        description="The current Messages of the thread. If messages are contained in Thread.values, implementations should remove them from values when returning messages. When this key isn't present it means the thread/agent doesn't support messages.",
+        description="Messages to combine with current thread messages.",
         title="Messages",
     )
 

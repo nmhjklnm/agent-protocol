@@ -17,7 +17,7 @@ ap_client/exceptions.py
 ap_client/models/__init__.py
 ap_client/models/agent.py
 ap_client/models/agent_capabilities.py
-ap_client/models/agent_schemas.py
+ap_client/models/agent_schema.py
 ap_client/models/config.py
 ap_client/models/content.py
 ap_client/models/content_one_of_inner.py
@@ -31,6 +31,7 @@ ap_client/models/run.py
 ap_client/models/run_create.py
 ap_client/models/run_search_request.py
 ap_client/models/run_status.py
+ap_client/models/run_stream.py
 ap_client/models/run_wait_response.py
 ap_client/models/search_agents_request.py
 ap_client/models/search_items_response.py
@@ -50,7 +51,7 @@ ap_client/py.typed
 ap_client/rest.py
 docs/Agent.md
 docs/AgentCapabilities.md
-docs/AgentSchemas.md
+docs/AgentSchema.md
 docs/AgentsApi.md
 docs/BackgroundRunsApi.md
 docs/Config.md
@@ -66,6 +67,7 @@ docs/Run.md
 docs/RunCreate.md
 docs/RunSearchRequest.md
 docs/RunStatus.md
+docs/RunStream.md
 docs/RunWaitResponse.md
 docs/RunsApi.md
 docs/SearchAgentsRequest.md
@@ -91,4 +93,6 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_agent_schema.py
+test/test_run_stream.py
 tox.ini

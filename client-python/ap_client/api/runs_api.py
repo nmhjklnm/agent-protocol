@@ -16,6 +16,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from ap_client.models.run_create import RunCreate
+from ap_client.models.run_stream import RunStream
 from ap_client.models.run_wait_response import RunWaitResponse
 
 from ap_client.api_client import ApiClient, RequestSerialized
@@ -38,7 +39,7 @@ class RunsApi:
     @validate_call
     def create_and_stream_run(
         self,
-        run_create: RunCreate,
+        run_stream: RunStream,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -55,8 +56,8 @@ class RunsApi:
 
         Create a run in a new thread, stream the output.
 
-        :param run_create: (required)
-        :type run_create: RunCreate
+        :param run_stream: (required)
+        :type run_stream: RunStream
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -80,7 +81,7 @@ class RunsApi:
         """  # noqa: E501
 
         _param = self._create_and_stream_run_serialize(
-            run_create=run_create,
+            run_stream=run_stream,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -105,7 +106,7 @@ class RunsApi:
     @validate_call
     def create_and_stream_run_with_http_info(
         self,
-        run_create: RunCreate,
+        run_stream: RunStream,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -122,8 +123,8 @@ class RunsApi:
 
         Create a run in a new thread, stream the output.
 
-        :param run_create: (required)
-        :type run_create: RunCreate
+        :param run_stream: (required)
+        :type run_stream: RunStream
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -147,7 +148,7 @@ class RunsApi:
         """  # noqa: E501
 
         _param = self._create_and_stream_run_serialize(
-            run_create=run_create,
+            run_stream=run_stream,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -172,7 +173,7 @@ class RunsApi:
     @validate_call
     def create_and_stream_run_without_preload_content(
         self,
-        run_create: RunCreate,
+        run_stream: RunStream,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -189,8 +190,8 @@ class RunsApi:
 
         Create a run in a new thread, stream the output.
 
-        :param run_create: (required)
-        :type run_create: RunCreate
+        :param run_stream: (required)
+        :type run_stream: RunStream
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -214,7 +215,7 @@ class RunsApi:
         """  # noqa: E501
 
         _param = self._create_and_stream_run_serialize(
-            run_create=run_create,
+            run_stream=run_stream,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -234,7 +235,7 @@ class RunsApi:
 
     def _create_and_stream_run_serialize(
         self,
-        run_create,
+        run_stream,
         _request_auth,
         _content_type,
         _headers,
@@ -258,8 +259,8 @@ class RunsApi:
         # process the header parameters
         # process the form parameters
         # process the body parameter
-        if run_create is not None:
-            _body_params = run_create
+        if run_stream is not None:
+            _body_params = run_stream
 
         # set the HTTP header `Accept`
         if "Accept" not in _header_params:
