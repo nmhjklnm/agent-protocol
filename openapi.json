@@ -1857,7 +1857,7 @@
               "$ref": "#/components/schemas/Message"
             },
             "title": "Messages",
-            "description": "The current messages of the thread. If messages are contained in Thread.values, implementations should remove them from values when returning messages. When this key isn't present it means the thread/agent doesn't support messages."
+            "description": "The current messages of the thread. This key isn't present for agents that don't support messages."
           },
           "metadata": {
             "type": "object",
@@ -1934,7 +1934,7 @@
               "$ref": "#/components/schemas/Message"
             },
             "title": "Messages",
-            "description": "The current Messages of the thread. If messages are contained in Thread.values, implementations should remove them from values when returning messages. When this key isn't present it means the thread/agent doesn't support messages."
+            "description": "Messages to combine with current thread messages."
           }
         },
         "type": "object",
