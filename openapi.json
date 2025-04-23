@@ -180,7 +180,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AgentSchemas"
+                  "$ref": "#/components/schemas/AgentSchema"
                 }
               }
             }
@@ -1415,7 +1415,7 @@
         ],
         "title": "Agent"
       },
-      "AgentSchemas": {
+      "AgentSchema": {
         "properties": {
           "agent_id": {
             "type": "string",
@@ -1449,7 +1449,7 @@
           "input_schema",
           "output_schema"
         ],
-        "title": "AgentSchemas",
+        "title": "AgentSchema",
         "description": "Defines the structure and properties of an agent."
       },
       "RunStatus": {
