@@ -16,33 +16,39 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from ap_client.models.message import Message
-from ap_client.models.thread_checkpoint import ThreadCheckpoint
 from typing import Set
 from typing_extensions import Self
 
 
-class ThreadPatch(BaseModel):
+class AgentSchema(BaseModel):
     """
-    Payload for updating a thread.
+    Defines the structure and properties of an agent.
     """  # noqa: E501
 
-    checkpoint: Optional[ThreadCheckpoint] = Field(
+    agent_id: StrictStr = Field(description="The ID of the agent.")
+    input_schema: Dict[str, Any] = Field(
+        description="The schema for the agent input. In JSON Schema format."
+    )
+    output_schema: Dict[str, Any] = Field(
+        description="The schema for the agent output. In JSON Schema format."
+    )
+    state_schema: Optional[Dict[str, Any]] = Field(
         default=None,
-        description="The identifier of the checkpoint to branch from. Ignored for metadata-only patches. If not provided, defaults to the latest checkpoint.",
+        description="The schema for the agent's internal state. In JSON Schema format.",
     )
-    metadata: Optional[Dict[str, Any]] = Field(
-        default=None, description="Metadata to merge with existing thread metadata."
+    config_schema: Optional[Dict[str, Any]] = Field(
+        default=None,
+        description="The schema for the agent config. In JSON Schema format.",
     )
-    values: Optional[Dict[str, Any]] = Field(
-        default=None, description="Values to merge with existing thread values."
-    )
-    messages: Optional[List[Message]] = Field(
-        default=None, description="Messages to combine with current thread messages."
-    )
-    __properties: ClassVar[List[str]] = ["checkpoint", "metadata", "values", "messages"]
+    __properties: ClassVar[List[str]] = [
+        "agent_id",
+        "input_schema",
+        "output_schema",
+        "state_schema",
+        "config_schema",
+    ]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -61,7 +67,7 @@ class ThreadPatch(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of ThreadPatch from a JSON string"""
+        """Create an instance of AgentSchema from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -81,21 +87,11 @@ class ThreadPatch(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of checkpoint
-        if self.checkpoint:
-            _dict["checkpoint"] = self.checkpoint.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in messages (list)
-        _items = []
-        if self.messages:
-            for _item_messages in self.messages:
-                if _item_messages:
-                    _items.append(_item_messages.to_dict())
-            _dict["messages"] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ThreadPatch from a dict"""
+        """Create an instance of AgentSchema from a dict"""
         if obj is None:
             return None
 
@@ -104,14 +100,11 @@ class ThreadPatch(BaseModel):
 
         _obj = cls.model_validate(
             {
-                "checkpoint": ThreadCheckpoint.from_dict(obj["checkpoint"])
-                if obj.get("checkpoint") is not None
-                else None,
-                "metadata": obj.get("metadata"),
-                "values": obj.get("values"),
-                "messages": [Message.from_dict(_item) for _item in obj["messages"]]
-                if obj.get("messages") is not None
-                else None,
+                "agent_id": obj.get("agent_id"),
+                "input_schema": obj.get("input_schema"),
+                "output_schema": obj.get("output_schema"),
+                "state_schema": obj.get("state_schema"),
+                "config_schema": obj.get("config_schema"),
             }
         )
         return _obj

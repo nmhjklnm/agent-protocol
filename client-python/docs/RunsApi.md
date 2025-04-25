@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **create_and_stream_run**
-> str create_and_stream_run(run_create)
+> str create_and_stream_run(run_stream)
 
 Create Run, Stream Output
 
@@ -20,7 +20,7 @@ Create a run in a new thread, stream the output.
 
 ```python
 import ap_client
-from ap_client.models.run_create import RunCreate
+from ap_client.models.run_stream import RunStream
 from ap_client.rest import ApiException
 from pprint import pprint
 
@@ -35,11 +35,11 @@ configuration = ap_client.Configuration(
 with ap_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = ap_client.RunsApi(api_client)
-    run_create = ap_client.RunCreate() # RunCreate | 
+    run_stream = ap_client.RunStream() # RunStream | 
 
     try:
         # Create Run, Stream Output
-        api_response = api_instance.create_and_stream_run(run_create)
+        api_response = api_instance.create_and_stream_run(run_stream)
         print("The response of RunsApi->create_and_stream_run:\n")
         pprint(api_response)
     except Exception as e:
@@ -53,7 +53,7 @@ with ap_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **run_create** | [**RunCreate**](RunCreate.md)|  | 
+ **run_stream** | [**RunStream**](RunStream.md)|  | 
 
 ### Return type
 

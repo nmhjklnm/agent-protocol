@@ -16,22 +16,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from ap_client.models.config import Config
 from ap_client.models.input import Input
 from ap_client.models.message import Message
-from ap_client.models.run_status import RunStatus
 from ap_client.models.stream_mode import StreamMode
 from typing import Set
 from typing_extensions import Self
 
 
-class Run(BaseModel):
+class RunStream(BaseModel):
     """
-    Run
+    RunStream
     """  # noqa: E501
 
     thread_id: Optional[StrictStr] = Field(
@@ -66,10 +64,6 @@ class Run(BaseModel):
         description="How to handle missing thread. Must be either 'reject' (raise error if missing), or 'create' (create new thread).",
     )
     stream_mode: Optional[StreamMode] = None
-    run_id: StrictStr = Field(description="The ID of the run.")
-    created_at: datetime = Field(description="The time the run was created.")
-    updated_at: datetime = Field(description="The last time the run was updated.")
-    status: RunStatus
     __properties: ClassVar[List[str]] = [
         "thread_id",
         "agent_id",
@@ -82,10 +76,6 @@ class Run(BaseModel):
         "on_disconnect",
         "if_not_exists",
         "stream_mode",
-        "run_id",
-        "created_at",
-        "updated_at",
-        "status",
     ]
 
     @field_validator("on_completion")
@@ -135,7 +125,7 @@ class Run(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of Run from a JSON string"""
+        """Create an instance of RunStream from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -180,7 +170,7 @@ class Run(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of Run from a dict"""
+        """Create an instance of RunStream from a dict"""
         if obj is None:
             return None
 
@@ -212,10 +202,6 @@ class Run(BaseModel):
                 "stream_mode": StreamMode.from_dict(obj["stream_mode"])
                 if obj.get("stream_mode") is not None
                 else None,
-                "run_id": obj.get("run_id"),
-                "created_at": obj.get("created_at"),
-                "updated_at": obj.get("updated_at"),
-                "status": obj.get("status"),
             }
         )
         return _obj

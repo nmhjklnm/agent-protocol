@@ -79,7 +79,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_agent_schemas**
-> AgentSchemas get_agent_schemas(agent_id)
+> AgentSchema get_agent_schemas(agent_id)
 
 Get Agent Schemas
 
@@ -90,7 +90,7 @@ Get an agent's schemas by ID.
 
 ```python
 import ap_client
-from ap_client.models.agent_schemas import AgentSchemas
+from ap_client.models.agent_schema import AgentSchema
 from ap_client.rest import ApiException
 from pprint import pprint
 
@@ -127,7 +127,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AgentSchemas**](AgentSchemas.md)
+[**AgentSchema**](AgentSchema.md)
 
 ### Authorization
 

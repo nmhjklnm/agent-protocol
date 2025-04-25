@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **checkpoint** | [**ThreadCheckpoint**](ThreadCheckpoint.md) | The identifier for this checkpoint. | 
 **values** | **object** | The current state of the thread. | 
-**messages** | [**List[Message]**](Message.md) | The current messages of the thread. If messages are contained in Thread.values, implementations should remove them from values when returning messages. When this key isn&#39;t present it means the thread/agent doesn&#39;t support messages. | [optional] 
+**messages** | [**List[Message]**](Message.md) | The current messages of the thread. This key isn&#39;t present for agents that don&#39;t support messages. | [optional] 
 **metadata** | **object** | The checkpoint metadata. | [optional] 
 
 ## Example

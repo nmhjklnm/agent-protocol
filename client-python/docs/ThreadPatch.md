@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **checkpoint** | [**ThreadCheckpoint**](ThreadCheckpoint.md) | The identifier of the checkpoint to branch from. Ignored for metadata-only patches. If not provided, defaults to the latest checkpoint. | [optional] 
 **metadata** | **object** | Metadata to merge with existing thread metadata. | [optional] 
 **values** | **object** | Values to merge with existing thread values. | [optional] 
-**messages** | [**List[Message]**](Message.md) | The current Messages of the thread. If messages are contained in Thread.values, implementations should remove them from values when returning messages. When this key isn&#39;t present it means the thread/agent doesn&#39;t support messages. | [optional] 
+**messages** | [**List[Message]**](Message.md) | Messages to combine with current thread messages. | [optional] 
 
 ## Example
 

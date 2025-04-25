@@ -16,7 +16,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from ap_client.models.agent import Agent
-from ap_client.models.agent_schemas import AgentSchemas
+from ap_client.models.agent_schema import AgentSchema
 from ap_client.models.search_agents_request import SearchAgentsRequest
 
 from ap_client.api_client import ApiClient, RequestSerialized
@@ -295,7 +295,7 @@ class AgentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> AgentSchemas:
+    ) -> AgentSchema:
         """Get Agent Schemas
 
         Get an agent's schemas by ID.
@@ -333,7 +333,7 @@ class AgentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "AgentSchemas",
+            "200": "AgentSchema",
             "404": "ErrorResponse",
             "422": "ErrorResponse",
         }
@@ -361,7 +361,7 @@ class AgentsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[AgentSchemas]:
+    ) -> ApiResponse[AgentSchema]:
         """Get Agent Schemas
 
         Get an agent's schemas by ID.
@@ -399,7 +399,7 @@ class AgentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "AgentSchemas",
+            "200": "AgentSchema",
             "404": "ErrorResponse",
             "422": "ErrorResponse",
         }
@@ -465,7 +465,7 @@ class AgentsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "AgentSchemas",
+            "200": "AgentSchema",
             "404": "ErrorResponse",
             "422": "ErrorResponse",
         }

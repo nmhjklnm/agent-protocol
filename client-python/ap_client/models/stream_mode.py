@@ -17,7 +17,6 @@ import pprint
 import re  # noqa: F401
 from pydantic import (
     BaseModel,
-    StrictStr,
     ValidationError,
     field_validator,
 )
@@ -25,7 +24,7 @@ from typing import List, Optional
 from typing import Union, Any, Set, TYPE_CHECKING, Dict
 from typing_extensions import Self
 
-STREAMMODE_ANY_OF_SCHEMAS = ["List[str]", "str"]
+STREAMMODE_ANY_OF_SCHEMAS = ["List[StreamMode]", "StreamMode"]
 
 
 class StreamMode(BaseModel):
@@ -33,15 +32,15 @@ class StreamMode(BaseModel):
     The stream mode(s) to use.
     """
 
-    # data type: List[str]
-    anyof_schema_1_validator: Optional[List[StrictStr]] = None
-    # data type: str
-    anyof_schema_2_validator: Optional[StrictStr] = None
+    # data type: StreamMode
+    anyof_schema_1_validator: Optional[StreamMode] = None
+    # data type: List[StreamMode]
+    anyof_schema_2_validator: Optional[List[StreamMode]] = None
     if TYPE_CHECKING:
-        actual_instance: Optional[Union[List[str], str]] = None
+        actual_instance: Optional[Union[List[StreamMode], StreamMode]] = None
     else:
         actual_instance: Any = None
-    any_of_schemas: Set[str] = {"List[str]", "str"}
+    any_of_schemas: Set[str] = {"List[StreamMode]", "StreamMode"}
 
     model_config = {
         "validate_assignment": True,
@@ -66,13 +65,13 @@ class StreamMode(BaseModel):
     def actual_instance_must_validate_anyof(cls, v):
         instance = StreamMode.model_construct()
         error_messages = []
-        # validate data type: List[str]
-        try:
-            instance.anyof_schema_1_validator = v
+        # validate data type: StreamMode
+        if not isinstance(v, StreamMode):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `StreamMode`")
+        else:
             return v
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # validate data type: str
+
+        # validate data type: List[StreamMode]
         try:
             instance.anyof_schema_2_validator = v
             return v
@@ -81,7 +80,7 @@ class StreamMode(BaseModel):
         if error_messages:
             # no match
             raise ValueError(
-                "No match found when setting the actual_instance in StreamMode with anyOf schemas: List[str], str. Details: "
+                "No match found when setting the actual_instance in StreamMode with anyOf schemas: List[StreamMode], StreamMode. Details: "
                 + ", ".join(error_messages)
             )
         else:
@@ -96,16 +95,13 @@ class StreamMode(BaseModel):
         """Returns the object represented by the json string"""
         instance = cls.model_construct()
         error_messages = []
-        # deserialize data into List[str]
+        # anyof_schema_1_validator: Optional[StreamMode] = None
         try:
-            # validation
-            instance.anyof_schema_1_validator = json.loads(json_str)
-            # assign value to actual_instance
-            instance.actual_instance = instance.anyof_schema_1_validator
+            instance.actual_instance = StreamMode.from_json(json_str)
             return instance
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into str
+        # deserialize data into List[StreamMode]
         try:
             # validation
             instance.anyof_schema_2_validator = json.loads(json_str)
@@ -118,7 +114,7 @@ class StreamMode(BaseModel):
         if error_messages:
             # no match
             raise ValueError(
-                "No match found when deserializing the JSON string into StreamMode with anyOf schemas: List[str], str. Details: "
+                "No match found when deserializing the JSON string into StreamMode with anyOf schemas: List[StreamMode], StreamMode. Details: "
                 + ", ".join(error_messages)
             )
         else:
@@ -136,7 +132,7 @@ class StreamMode(BaseModel):
         else:
             return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], List[str], str]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], List[StreamMode], StreamMode]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None
@@ -151,3 +147,7 @@ class StreamMode(BaseModel):
     def to_str(self) -> str:
         """Returns the string representation of the actual instance"""
         return pprint.pformat(self.model_dump())
+
+
+# TODO: Rewrite to not use raise_errors
+StreamMode.model_rebuild(raise_errors=False)

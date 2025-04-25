@@ -15,7 +15,7 @@ Do not edit the class manually.
 # import models into model package
 from ap_client.models.agent import Agent
 from ap_client.models.agent_capabilities import AgentCapabilities
-from ap_client.models.agent_schemas import AgentSchemas
+from ap_client.models.agent_schema import AgentSchema
 from ap_client.models.config import Config
 from ap_client.models.content import Content
 from ap_client.models.content_one_of_inner import ContentOneOfInner
@@ -29,6 +29,7 @@ from ap_client.models.run import Run
 from ap_client.models.run_create import RunCreate
 from ap_client.models.run_search_request import RunSearchRequest
 from ap_client.models.run_status import RunStatus
+from ap_client.models.run_stream import RunStream
 from ap_client.models.run_wait_response import RunWaitResponse
 from ap_client.models.search_agents_request import SearchAgentsRequest
 from ap_client.models.search_items_response import SearchItemsResponse
